@@ -8,11 +8,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class testBase implements BaseInterface{
+public class BaseDaoImplentation implements BaseDao {
 
     private JdbcTemplate jdbcTemplate;
 
-    public testBase(DataSource dataSource) {
+    public BaseDaoImplentation(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 

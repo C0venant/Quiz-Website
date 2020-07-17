@@ -1,6 +1,6 @@
 package com.quiz.config;
 
-import com.quiz.database.testBase;
+import com.quiz.database.BaseDaoImplentation;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -13,7 +13,7 @@ import javax.sql.DataSource;
 @ComponentScan({"com.quiz"})
 @EnableWebMvc
 public class AppConfig {
-    /** replace with your*/
+    /** replace with yours*/
     private static final String DATABASE_NAME = "homework_db";
     private static final String USER = "root";
     private static final String PASSWORD = "1234";
@@ -40,7 +40,7 @@ public class AppConfig {
     }
 
     @Bean
-    public testBase getTestBase(){
-        return new testBase(getDataSource());
+    public BaseDaoImplentation getTestBase(){
+        return new BaseDaoImplentation(getDataSource());
     }
 }

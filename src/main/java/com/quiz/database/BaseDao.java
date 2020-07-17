@@ -2,6 +2,6 @@ package com.quiz.database;
 
 import java.util.List;
 
-public interface BaseInterface {
+public interface BaseDao {
     public List<String> getAllInfo();
 }
