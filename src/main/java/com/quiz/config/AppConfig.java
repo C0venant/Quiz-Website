@@ -33,7 +33,7 @@ public class AppConfig {
     public DataSource getDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost/" + DATABASE_NAME);
+        dataSource.setUrl("jdbc:mysql://localhost/" + DATABASE_NAME + "?useSSL=false");
         dataSource.setUsername(USER);
         dataSource.setPassword(PASSWORD);
         return dataSource;
