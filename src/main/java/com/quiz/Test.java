@@ -16,7 +16,7 @@ public class Test {
 
     @RequestMapping("/test")
     public ModelAndView testControl(@RequestParam("username") String user,
-                                    @RequestParam("password")String password){
+                                    @RequestParam("password")String password) {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("test");
         mv.addObject("user", user);
@@ -24,10 +24,11 @@ public class Test {
 
         //baseInterface.getAllInfo().stream().forEach(a -> System.out.println(a));
         List<String> getAll = baseDao.getAllInfo();
-        for(int i=0; i<getAll.size(); i++){
-            System.out.println(getAll.get(i));
+        for (String s : getAll) {
+            System.out.println(s);
         }
 
         return mv;
     }
+
 }
