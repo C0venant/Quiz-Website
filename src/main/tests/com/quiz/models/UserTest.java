@@ -3,6 +3,8 @@ package com.quiz.models;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.security.NoSuchAlgorithmException;
+
 import static org.junit.Assert.*;
 
 public class UserTest {
@@ -24,7 +26,12 @@ public class UserTest {
     }
 
     @Test
-    public void testGetHashedPassword(){
+    public void testGetHashedPassword() throws NoSuchAlgorithmException {
+        assertEquals("d3e01b4928209153ce8716b5677a57004764561d", user.hashAndGetPassword());
+    }
+
+    @Test
+    public void testGetPassword(){
         assertEquals("brat", user.getHashedPassword());
     }
 

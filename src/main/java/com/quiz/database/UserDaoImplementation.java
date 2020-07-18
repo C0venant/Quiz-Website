@@ -1,12 +1,12 @@
 package com.quiz.database;
 
 import com.quiz.models.User;
+import com.quiz.utilities.HashUtils;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
 import javax.sql.DataSource;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,29 +18,17 @@ public class UserDaoImplementation implements UserDao {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    /*
-     * Given a byte[] array, produces a hex String, such as "234a6f". with 2 chars
-     * for each byte in the array. (provided code)
-     */
-    public static String hexToString(byte[] bytes) {
-        StringBuilder buff = new StringBuilder();
-        for (int aByte : bytes) {
-            int val = aByte;
-            val = val & 0xff; // remove higher bits, sign
-            if (val < 16)
-                buff.append('0'); // leading 0
-            buff.append(Integer.toString(val, 16));
-        }
-        return buff.toString();
-    }
 
     @Override
-    public boolean registerUser(String loginName, String password, String firstName, String lastName) throws NoSuchAlgorithmException {
+    public boolean registerUser(User user) throws NoSuchAlgorithmException {
+        String loginName = user.getLoginName();
+        String hashedPassword = user.hashAndGetPassword();
+        String firstName = user.getFirstName();
+        String lastName = user.getLastName();
+
         if(getUser(loginName) != null){
             return false;
         } else {
-            byte[] hex = generateHash(password);
-            String hashedPassword = hexToString(hex);
             String regStr = "INSERT INTO users (loginName, hashedPassword, firstName, lastName)"
                     + " VALUES (?, ?, ?, ?)";
             jdbcTemplate.update(regStr, loginName, hashedPassword, firstName, lastName);
@@ -73,15 +61,22 @@ public class UserDaoImplementation implements UserDao {
             return false;
         } else {
             String realHashedPassword = currUser.getHashedPassword();
-            byte[] hex = generateHash(password);
-            String tryingHashedPassword = hexToString(hex);
+            System.out.println(realHashedPassword);
+            byte[] hex = HashUtils.generateHash(password);
+            String tryingHashedPassword = HashUtils.hexToString(hex);
+            System.out.println(tryingHashedPassword);
             return tryingHashedPassword.equals(realHashedPassword);
         }
     }
 
-    protected byte[] generateHash(String password) throws NoSuchAlgorithmException {
-        MessageDigest md = MessageDigest.getInstance("SHA-1");
-        md.update(password.getBytes());
-        return md.digest();
+    public boolean deleteUser(String loginName){
+        User delUser = getUser(loginName);
+        if(delUser == null){
+            return false;
+        } else {
+            String delete = "DELETE FROM users WHERE loginName =?";
+            jdbcTemplate.update(delete, loginName);
+            return  true;
+        }
     }
 }
