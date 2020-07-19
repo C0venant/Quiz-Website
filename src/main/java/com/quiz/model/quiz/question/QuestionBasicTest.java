@@ -1,18 +1,18 @@
 package com.quiz.model.quiz.question;
 
-import com.quiz.model.quiz.question.BasicQuestion;
+import com.quiz.model.quiz.question.utils.QuestionType;
 
 import java.util.List;
 
-public class QuestionTest extends BasicQuestion {
+public class QuestionBasicTest extends QuestionBasic {
     private final List<String> answers;
     private String correctAnswer;
 
-    public QuestionTest(String body, List<String> answers, String correctAnswer){
+    public QuestionBasicTest(String body, List<String> answers, String correctAnswer){
         super(body);
         this.answers = answers;
         this.correctAnswer = correctAnswer;
-        super.setType("test");
+        super.setType(QuestionType.TEST);
     }
 
     public String getCorrectAnswer() {
@@ -28,7 +28,7 @@ public class QuestionTest extends BasicQuestion {
     }
 
     @Override
-    public String getType(){
+    public QuestionType getType(){
         return super.getType();
     }
 

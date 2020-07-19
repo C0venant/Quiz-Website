@@ -1,16 +1,13 @@
 package com.quiz.model.quiz;
 
-import com.quiz.model.quiz.question.BasicQuestion;
-import com.quiz.model.quiz.question.QuestionFillBlank;
-import com.quiz.model.quiz.question.QuestionTest;
+import com.quiz.model.quiz.question.QuestionBasic;
+import com.quiz.model.quiz.question.QuestionBasicFillBlank;
+import com.quiz.model.quiz.question.QuestionBasicTest;
+import com.quiz.model.quiz.question.utils.QuestionType;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.expression.spel.ast.QualifiedIdentifier;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -20,9 +17,9 @@ public class QuizTest {
 
     @Before
     public void setup(){
-        BasicQuestion q1 = new BasicQuestion("question1");
-        QuestionTest q2 = new QuestionTest("question2", Arrays.asList("a","b","c"), "b");
-        QuestionFillBlank q3 = new QuestionFillBlank("question3 # is this", "answer");
+        QuestionBasic q1 = new QuestionBasic("question1");
+        QuestionBasicTest q2 = new QuestionBasicTest("question2", Arrays.asList("a","b","c"), "b");
+        QuestionBasicFillBlank q3 = new QuestionBasicFillBlank("question3 # is this", "answer");
         q1.setMaxGrade(10);
         q2.setMaxGrade(20);
         q3.setMaxGrade(30);
@@ -32,14 +29,14 @@ public class QuizTest {
     @Test
     public void test(){
         assertEquals(3, quiz.getQuestions().size());
-        for(BasicQuestion q : quiz.getQuestions()){
-            if(q.getType().equals("test")){
-                QuestionTest qt = (QuestionTest)q;
+        for(QuestionBasic q : quiz.getQuestions()){
+            if(q.getType() == QuestionType.TEST){
+                QuestionBasicTest qt = (QuestionBasicTest)q;
                 assertEquals(20, qt.getMaxGrade());
-            }else if(q.getType().equals("blank")){
-                QuestionFillBlank qb = (QuestionFillBlank)q;
+            }else if(q.getType() == QuestionType.BLANK){
+                QuestionBasicFillBlank qb = (QuestionBasicFillBlank)q;
                 assertEquals(2, qb.splitOnDelimiter().size());
-            }else if(q.getType().equals("basic")){
+            }else if(q.getType() == QuestionType.BASIC){
                 assertEquals("question1", q.getBody());
             }
         }

@@ -1,29 +1,29 @@
 package com.quiz.model.quiz.question;
 
-import com.quiz.model.quiz.question.BasicQuestion;
+import com.quiz.model.quiz.question.utils.QuestionType;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-public class QuestionFillBlank extends BasicQuestion {
+public class QuestionBasicFillBlank extends QuestionBasic {
 
     private String blankDelimiter;
     private String correctAnswer;
 
 
-    public QuestionFillBlank(String body, String correctAnswer){
+    public QuestionBasicFillBlank(String body, String correctAnswer){
         super(body);
         this.correctAnswer=correctAnswer;
-        super.setType("blank");
+        super.setType(QuestionType.BLANK);
         blankDelimiter = "#";
     }
 
-    public QuestionFillBlank(String body, String correctAnswer, String blankDelimiter){
+    public QuestionBasicFillBlank(String body, String correctAnswer, String blankDelimiter){
         super(body);
         this.blankDelimiter = blankDelimiter;
         this.correctAnswer= correctAnswer;
-        super.setType("blank");
+        super.setType(QuestionType.BLANK);
     }
 
     public String getBlankDelimiter() {
@@ -56,7 +56,7 @@ public class QuestionFillBlank extends BasicQuestion {
     }
 
     @Override
-    public String getType(){
+    public QuestionType getType(){
         return super.getType();
     }
 

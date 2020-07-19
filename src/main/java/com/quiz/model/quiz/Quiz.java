@@ -1,15 +1,14 @@
 package com.quiz.model.quiz;
 
-import com.quiz.model.quiz.question.BasicQuestion;
-import org.apache.taglibs.standard.lang.jstl.test.beans.PublicBean1;
+import com.quiz.model.quiz.question.QuestionBasic;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Quiz {
-    List<BasicQuestion> questions;
+    List<QuestionBasic> questions;
 
-    public Quiz(List<BasicQuestion> questions){
+    public Quiz(List<QuestionBasic> questions){
         this.questions = questions;
     }
 
@@ -19,17 +18,17 @@ public class Quiz {
 
     public int getOverallGrade(){
         int sum = 0;
-        for(BasicQuestion q : questions){
+        for(QuestionBasic q : questions){
             sum+=q.getMaxGrade();
         }
         return sum;
     }
 
-    public void addQuestion(BasicQuestion question){
+    public void addQuestion(QuestionBasic question){
         questions.add(question);
     }
 
-    public List<BasicQuestion> getQuestions(){
+    public List<QuestionBasic> getQuestions(){
         return questions;
     }
 

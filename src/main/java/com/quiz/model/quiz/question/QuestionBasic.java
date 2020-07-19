@@ -1,16 +1,25 @@
 package com.quiz.model.quiz.question;
 
-public class BasicQuestion {
+import com.quiz.database.interfaces.QuestionDao;
+import com.quiz.model.quiz.question.utils.QuestionType;
+
+public class QuestionBasic {
     private String body;
     private int maxGrade;
     private String imageFile;
+    private QuestionType type = QuestionType.BASIC;
 
-    private String type = "basic";
+    private int id;
 
-    public BasicQuestion(String body){
+    public QuestionBasic(String body){
         this.body = body;
         maxGrade = 0;
+        id = -1;
     }
+
+    public int getId() {return id;}
+
+    public void setId(int id) { this.id = id;}
 
     public String getImageFile() {
         return imageFile;
@@ -36,9 +45,9 @@ public class BasicQuestion {
         this.maxGrade = maxGrade;
     }
 
-    public void setType(String type) { this.type = type; }
+    public void setType(QuestionType type) { this.type = type; }
 
-    public String getType(){
+    public QuestionType getType(){
         return type;
     }
 
