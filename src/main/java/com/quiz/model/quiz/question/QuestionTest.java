@@ -12,6 +12,7 @@ public class QuestionTest extends BasicQuestion {
         super(body);
         this.answers = answers;
         this.correctAnswer = correctAnswer;
+        super.setType("test");
     }
 
     public String getCorrectAnswer() {
@@ -28,7 +29,7 @@ public class QuestionTest extends BasicQuestion {
 
     @Override
     public String getType(){
-        return "test";
+        return super.getType();
     }
 
     @Override

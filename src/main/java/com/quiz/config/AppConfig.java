@@ -10,7 +10,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import javax.sql.DataSource;
 
 @Configuration
-@ComponentScan({"com.quiz"})
+@ComponentScan({"com.quiz.controller"})
 @EnableWebMvc
 public class AppConfig {
     /** replace with yours*/

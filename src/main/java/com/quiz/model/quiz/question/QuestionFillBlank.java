@@ -15,6 +15,7 @@ public class QuestionFillBlank extends BasicQuestion {
     public QuestionFillBlank(String body, String correctAnswer){
         super(body);
         this.correctAnswer=correctAnswer;
+        super.setType("blank");
         blankDelimiter = "#";
     }
 
@@ -22,6 +23,7 @@ public class QuestionFillBlank extends BasicQuestion {
         super(body);
         this.blankDelimiter = blankDelimiter;
         this.correctAnswer= correctAnswer;
+        super.setType("blank");
     }
 
     public String getBlankDelimiter() {
@@ -55,7 +57,7 @@ public class QuestionFillBlank extends BasicQuestion {
 
     @Override
     public String getType(){
-        return "blank";
+        return super.getType();
     }
 
     @Override

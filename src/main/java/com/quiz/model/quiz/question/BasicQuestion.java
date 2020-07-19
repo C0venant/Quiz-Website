@@ -5,6 +5,8 @@ public class BasicQuestion {
     private int maxGrade;
     private String imageFile;
 
+    private String type = "basic";
+
     public BasicQuestion(String body){
         this.body = body;
         maxGrade = 0;
@@ -34,7 +36,14 @@ public class BasicQuestion {
         this.maxGrade = maxGrade;
     }
 
+    public void setType(String type) { this.type = type; }
+
     public String getType(){
-        return "basic";
+        return type;
+    }
+
+    @Override
+    public String toString(){
+        return body;
     }
 }
