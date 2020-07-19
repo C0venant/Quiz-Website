@@ -29,12 +29,12 @@ public class User {
         return loginName;
     }
 
-    public String hashAndGetPassword() throws NoSuchAlgorithmException {
+    public String hashPasswordAndGet() throws NoSuchAlgorithmException {
         byte[] hex = HashUtils.generateHash(password);
         return HashUtils.hexToString(hex);
     }
 
-    public String getHashedPassword(){
+    public String getPassword(){
         return password;
     }
 }

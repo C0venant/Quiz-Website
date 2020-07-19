@@ -22,7 +22,7 @@ public class UserDaoImplementation implements UserDao {
     @Override
     public boolean registerUser(User user) throws NoSuchAlgorithmException {
         String loginName = user.getLoginName();
-        String hashedPassword = user.hashAndGetPassword();
+        String hashedPassword = user.hashPasswordAndGet();
         String firstName = user.getFirstName();
         String lastName = user.getLastName();
 
@@ -60,11 +60,9 @@ public class UserDaoImplementation implements UserDao {
         if(currUser == null){
             return false;
         } else {
-            String realHashedPassword = currUser.getHashedPassword();
-            System.out.println(realHashedPassword);
+            String realHashedPassword = currUser.getPassword();
             byte[] hex = HashUtils.generateHash(password);
             String tryingHashedPassword = HashUtils.hexToString(hex);
-            System.out.println(tryingHashedPassword);
             return tryingHashedPassword.equals(realHashedPassword);
         }
     }

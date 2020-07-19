@@ -27,12 +27,12 @@ public class UserTest {
 
     @Test
     public void testGetHashedPassword() throws NoSuchAlgorithmException {
-        assertEquals("d3e01b4928209153ce8716b5677a57004764561d", user.hashAndGetPassword());
+        assertEquals("d3e01b4928209153ce8716b5677a57004764561d", user.hashPasswordAndGet());
     }
 
     @Test
     public void testGetPassword(){
-        assertEquals("brat", user.getHashedPassword());
+        assertEquals("brat", user.getPassword());
     }
 
     @Test
