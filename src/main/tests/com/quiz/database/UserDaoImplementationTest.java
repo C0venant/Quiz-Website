@@ -66,6 +66,7 @@ public class UserDaoImplementationTest {
         assertTrue(userDao.registerUser(user));
         assertTrue(userDao.loginUser("giogela", "rss"));
         assertFalse(userDao.loginUser("giogelao", "rss"));
+        assertFalse(userDao.loginUser("giogela", "rsss"));
         userDao.deleteUser("giogela");
     }
 }
