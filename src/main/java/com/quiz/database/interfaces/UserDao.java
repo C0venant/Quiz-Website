@@ -1,6 +1,6 @@
-package com.quiz.database;
+package com.quiz.database.interfaces;
 
-import com.quiz.models.User;
+import com.quiz.model.user.User;
 
 import java.security.NoSuchAlgorithmException;
 

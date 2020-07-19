@@ -1,4 +1,4 @@
-package com.quiz.models;
+package com.quiz.model.user;
 
 import com.quiz.utilities.HashUtils;
 

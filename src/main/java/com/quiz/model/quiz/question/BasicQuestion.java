@@ -1,4 +1,4 @@
-package com.quiz.question;
+package com.quiz.model.quiz.question;
 
 public class BasicQuestion {
     private String body;

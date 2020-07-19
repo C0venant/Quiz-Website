@@ -1,8 +1,10 @@
-package com.quiz.question;
+package com.quiz.model.quiz.question;
+
+import com.quiz.model.quiz.question.BasicQuestion;
 
 import java.util.List;
 
-public class QuestionTest extends BasicQuestion{
+public class QuestionTest extends BasicQuestion {
     private final List<String> answers;
     private String correctAnswer;
 

@@ -1,5 +1,8 @@
-package com.quiz.question;
+package com.quiz.model.quiz;
 
+import com.quiz.model.quiz.question.BasicQuestion;
+import com.quiz.model.quiz.question.QuestionFillBlank;
+import com.quiz.model.quiz.question.QuestionTest;
 import org.junit.Test;
 
 import java.util.ArrayList;

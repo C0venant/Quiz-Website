@@ -1,4 +1,6 @@
-package com.quiz.question;
+package com.quiz.model.quiz.question;
+
+import com.quiz.model.quiz.question.BasicQuestion;
 
 import java.util.ArrayList;
 import java.util.List;

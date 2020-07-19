@@ -1,6 +1,7 @@
 package com.quiz.database;
 
-import com.quiz.models.User;
+import com.quiz.database.interfaces.UserDao;
+import com.quiz.model.user.User;
 import com.quiz.utilities.HashUtils;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;

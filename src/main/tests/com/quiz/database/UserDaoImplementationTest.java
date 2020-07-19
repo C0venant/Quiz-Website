@@ -1,6 +1,6 @@
 package com.quiz.database;
 
-import com.quiz.models.User;
+import com.quiz.model.user.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
