@@ -1,8 +1,8 @@
 package com.quiz.model.quiz;
 
 import com.quiz.model.quiz.question.QuestionBasic;
-import com.quiz.model.quiz.question.QuestionBasicFillBlank;
-import com.quiz.model.quiz.question.QuestionBasicTest;
+import com.quiz.model.quiz.question.QuestionFillBlank;
+import com.quiz.model.quiz.question.QuestionTest;
 import com.quiz.model.quiz.question.utils.QuestionType;
 import org.junit.Test;
 
@@ -28,7 +28,7 @@ public class AllQuestionTest {
 
     @Test
     public void testBlank(){
-        QuestionBasicFillBlank q = new QuestionBasicFillBlank("capital city of georgia is #, the end","tbilisi");
+        QuestionFillBlank q = new QuestionFillBlank("capital city of georgia is #, the end","tbilisi");
         assertTrue(q.checkAnswer("TbiLisi"));
         assertEquals(2, q.splitOnDelimiter().size());
         assertEquals(QuestionType.BLANK, q.getType());
@@ -41,7 +41,7 @@ public class AllQuestionTest {
         list.add("option1");
         list.add("option2");
         list.add("option3");
-        QuestionBasicTest q = new QuestionBasicTest("choose from this answers: ", list, "option1");
+        QuestionTest q = new QuestionTest("choose from this answers: ", list, "option1");
         assertEquals(QuestionType.TEST, q.getType());
         System.out.println(q.toString());
     }

@@ -6,20 +6,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-public class QuestionBasicFillBlank extends QuestionBasic {
+public class QuestionFillBlank extends QuestionBasic {
 
     private String blankDelimiter;
     private String correctAnswer;
 
 
-    public QuestionBasicFillBlank(String body, String correctAnswer){
+    public QuestionFillBlank(String body, String correctAnswer){
         super(body);
         this.correctAnswer=correctAnswer;
         super.setType(QuestionType.BLANK);
         blankDelimiter = "#";
     }
 
-    public QuestionBasicFillBlank(String body, String correctAnswer, String blankDelimiter){
+    public QuestionFillBlank(String body, String correctAnswer, String blankDelimiter){
         super(body);
         this.blankDelimiter = blankDelimiter;
         this.correctAnswer= correctAnswer;
@@ -53,11 +53,6 @@ public class QuestionBasicFillBlank extends QuestionBasic {
 
     public boolean checkAnswer(String userAnswer){
         return userAnswer.toLowerCase().equals(correctAnswer);
-    }
-
-    @Override
-    public QuestionType getType(){
-        return super.getType();
     }
 
     @Override

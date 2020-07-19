@@ -1,7 +1,7 @@
 package com.quiz.model.quiz.question.utils;
 
-public enum QuestionType {
-    BLANK,
-    TEST,
-    BASIC;
+public class QuestionType {
+   public static String BLANK = "blank";
+   public static String TEST = "test";
+   public static String BASIC = "basic";
 }

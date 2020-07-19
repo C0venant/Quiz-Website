@@ -4,11 +4,11 @@ import com.quiz.model.quiz.question.utils.QuestionType;
 
 import java.util.List;
 
-public class QuestionBasicTest extends QuestionBasic {
+public class QuestionTest extends QuestionBasic {
     private final List<String> answers;
     private String correctAnswer;
 
-    public QuestionBasicTest(String body, List<String> answers, String correctAnswer){
+    public QuestionTest(String body, List<String> answers, String correctAnswer){
         super(body);
         this.answers = answers;
         this.correctAnswer = correctAnswer;
@@ -27,10 +27,8 @@ public class QuestionBasicTest extends QuestionBasic {
         return userAnswer.equals(correctAnswer);
     }
 
-    @Override
-    public QuestionType getType(){
-        return super.getType();
-    }
+    public List<String> getAnswers() { return answers;}
+
 
     @Override
     public String toString(){

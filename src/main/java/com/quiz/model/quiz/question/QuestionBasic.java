@@ -7,7 +7,7 @@ public class QuestionBasic {
     private String body;
     private int maxGrade;
     private String imageFile;
-    private QuestionType type = QuestionType.BASIC;
+    private String type = QuestionType.BASIC;
 
     private int id;
 
@@ -45,9 +45,9 @@ public class QuestionBasic {
         this.maxGrade = maxGrade;
     }
 
-    public void setType(QuestionType type) { this.type = type; }
+    public void setType(String type) { this.type = type; }
 
-    public QuestionType getType(){
+    public String getType(){
         return type;
     }
 
