@@ -7,6 +7,13 @@ import java.util.List;
 public class QuestionTest extends QuestionBasic {
     private final List<String> answers;
 
+
+    public QuestionTest(String body, int maxGrade, String imageFile, String correctAnswer, int id, List<String> answers){
+        super(body, maxGrade, imageFile, correctAnswer, id);
+        this.answers = answers;
+        super.setType(QuestionType.TEST);
+    }
+
     public QuestionTest(String body, List<String> answers, String correctAnswer){
         super(body);
         this.answers = answers;
