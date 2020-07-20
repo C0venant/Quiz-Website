@@ -22,7 +22,7 @@ public class QuestionDaoImplementationTest {
     private User user;
 
     /** replace with yours*/
-    private static final String DATABASE_NAME = "hw";
+    private static final String DATABASE_NAME = "quiz_db";
     private static final String USER = "root";
     private static final String PASSWORD = "1234";
 
