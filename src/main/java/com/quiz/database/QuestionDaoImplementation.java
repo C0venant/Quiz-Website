@@ -6,20 +6,22 @@ import com.quiz.model.quiz.question.QuestionFillBlank;
 import com.quiz.model.quiz.question.QuestionTest;
 
 import com.quiz.model.quiz.question.utils.QuestionType;
+import com.quiz.model.user.User;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 
+import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
 public class QuestionDaoImplementation implements QuestionDao {
 
-    JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
-    public QuestionDaoImplementation(JdbcTemplate jdbcTemplate){this.jdbcTemplate = jdbcTemplate;}
+    public QuestionDaoImplementation(DataSource dataSource){jdbcTemplate = new JdbcTemplate(dataSource);}
 
     private int generateId(){
         String getStr = "SELECT count(*) FROM questions" ;
@@ -41,10 +43,27 @@ public class QuestionDaoImplementation implements QuestionDao {
     private void addProbableAnswers(QuestionTest question){
         int questionId = question.getId();
         for(String probAnswer : question.getAnswers()){
-            String regStr = "INSERT INTO questions (questionId, probAnswer)"
+            String regStr = "INSERT INTO probableAnswers (questionId, probAnswer)"
                     + " VALUES (?, ?)";
             jdbcTemplate.update(regStr, questionId, probAnswer);
         }
+    }
+
+    private void removeProbableAnswers(QuestionTest question){
+        int questionId = question.getId();
+        String delete = "DELETE FROM probableAnswers WHERE questionId =?";
+        jdbcTemplate.update(delete, questionId);
+    }
+
+    private List<String> getProbableAnswers(int questionId){
+        String getStr = "SELECT * FROM probableAnswers WHERE questionId = " + questionId;
+        List<String> list = jdbcTemplate.query(getStr, new RowMapper<String>() {
+            @Override
+            public String mapRow(ResultSet resultSet, int rowNum) throws SQLException {
+                return  resultSet.getString(2);
+            }
+        });
+        return list;
     }
 
     @Override
@@ -54,18 +73,33 @@ public class QuestionDaoImplementation implements QuestionDao {
         String body = question.getBody();
         int maxGrade = question.getMaxGrade();
         String imageFile = question.getImageFile();
-
+        String correctAnswer = question.getCorrectAnswer();
         if(getQuestion(questionId) != null){
             return false;
         } else {
             String regStr = "INSERT INTO questions (questionId, questionType, body, maxGrade, imageFile, correctAnswer, author)"
                     + " VALUES (?, ?, ?, ?, ?, ?, ?)";
-            jdbcTemplate.update(regStr, questionId, questionType, body, maxGrade, imageFile, null, author);
+            jdbcTemplate.update(regStr, questionId, questionType, body, maxGrade, imageFile, correctAnswer, author);
             if(question.getType().equals(QuestionType.TEST)){
                 question.setId(questionId);
                 addProbableAnswers((QuestionTest)question);
             }
             return true;
+        }
+    }
+
+    @Override
+    public boolean deleteQuestion(int questionId) {
+        QuestionBasic question = getQuestion(questionId);
+        if(question == null){
+            return false;
+        } else {
+            if(question.getType().equals(QuestionType.TEST)){
+                removeProbableAnswers((QuestionTest) question);
+            }
+            String delete = "DELETE FROM questions WHERE questionId =?";
+            jdbcTemplate.update(delete, questionId);
+            return  true;
         }
     }
 
@@ -76,6 +110,7 @@ public class QuestionDaoImplementation implements QuestionDao {
             @Override
             public QuestionBasic extractData(ResultSet resultSet) throws SQLException, DataAccessException {
                 if(resultSet.next()){
+                    QuestionBasic question = new QuestionBasic("");
                     //Todo: typeCheck
                     int questionId = resultSet.getInt(1);
                     String questionType = resultSet.getString(2);
@@ -83,6 +118,18 @@ public class QuestionDaoImplementation implements QuestionDao {
                     int maxGrade = resultSet.getInt(4);
                     String imageFile = resultSet.getString(5);
                     String correctAnswer = resultSet.getString(6);
+
+                    if(questionType.equals(QuestionType.BASIC)){
+                        question = new QuestionBasic(body);
+                    }else if(questionType.equals(QuestionType.BLANK)){
+                        question = new QuestionFillBlank(body,correctAnswer);
+                    }else if(questionType.equals(QuestionType.TEST)){
+                        question = new QuestionTest(body,getProbableAnswers(questionId), correctAnswer);
+                    }
+                    question.setMaxGrade(maxGrade);
+                    question.setImageFile(imageFile);
+                    question.setId(questionId);
+                    return question;
                 }
                 return null;
             }

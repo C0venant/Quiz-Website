@@ -13,15 +13,15 @@ public class UserDaoImplementationTest {
     private UserDaoImplementation userDao;
 
     /** replace with yours*/
-    private static final String DATABASE_NAME = "homework_db";
+    private static final String DATABASE_NAME = "hw";
     private static final String USER = "root";
     private static final String PASSWORD = "1234";
 
     @Before
     public void setUp() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost/" + DATABASE_NAME + "?useSSL=false");
+        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/" + DATABASE_NAME + "?useSSL=false");
         dataSource.setUsername(USER);
         dataSource.setPassword(PASSWORD);
         userDao = new UserDaoImplementation(dataSource);

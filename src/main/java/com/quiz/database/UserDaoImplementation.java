@@ -68,6 +68,7 @@ public class UserDaoImplementation implements UserDao {
         }
     }
 
+    @Override
     public boolean deleteUser(String loginName){
         User delUser = getUser(loginName);
         if(delUser == null){

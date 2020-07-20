@@ -8,6 +8,7 @@ public class QuestionBasic {
     private int maxGrade;
     private String imageFile;
     private String type = QuestionType.BASIC;
+    private String correctAnswer;
 
     private int id;
 
@@ -16,6 +17,10 @@ public class QuestionBasic {
         maxGrade = 0;
         id = -1;
     }
+
+    public String getCorrectAnswer() {return correctAnswer;}
+
+    public void setCorrectAnswer(String correctAnswer) {this.correctAnswer = correctAnswer;}
 
     public int getId() {return id;}
 

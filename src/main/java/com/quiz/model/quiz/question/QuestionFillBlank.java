@@ -9,12 +9,10 @@ import java.util.StringTokenizer;
 public class QuestionFillBlank extends QuestionBasic {
 
     private String blankDelimiter;
-    private String correctAnswer;
-
 
     public QuestionFillBlank(String body, String correctAnswer){
         super(body);
-        this.correctAnswer=correctAnswer;
+        setCorrectAnswer(correctAnswer);
         super.setType(QuestionType.BLANK);
         blankDelimiter = "#";
     }
@@ -22,7 +20,7 @@ public class QuestionFillBlank extends QuestionBasic {
     public QuestionFillBlank(String body, String correctAnswer, String blankDelimiter){
         super(body);
         this.blankDelimiter = blankDelimiter;
-        this.correctAnswer= correctAnswer;
+        setCorrectAnswer(correctAnswer);
         super.setType(QuestionType.BLANK);
     }
 
@@ -32,14 +30,6 @@ public class QuestionFillBlank extends QuestionBasic {
 
     public void setBlankDelimiter(String blankDelimiter) {
         this.blankDelimiter = blankDelimiter;
-    }
-
-    public String getCorrectAnswer() {
-        return correctAnswer;
-    }
-
-    public void setCorrectAnswer(String correctAnswer) {
-        this.correctAnswer =  correctAnswer.toLowerCase();
     }
 
     public List<String> splitOnDelimiter(){
@@ -52,7 +42,7 @@ public class QuestionFillBlank extends QuestionBasic {
     }
 
     public boolean checkAnswer(String userAnswer){
-        return userAnswer.toLowerCase().equals(correctAnswer);
+        return userAnswer.toLowerCase().equals(getCorrectAnswer());
     }
 
     @Override
