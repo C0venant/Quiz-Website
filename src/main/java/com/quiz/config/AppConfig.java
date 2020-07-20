@@ -14,7 +14,7 @@ import javax.sql.DataSource;
 @EnableWebMvc
 public class AppConfig {
     /** replace with yours*/
-    private static final String DATABASE_NAME = "homework_db";
+    private static final String DATABASE_NAME = "quiz_db";
     private static final String USER = "root";
     private static final String PASSWORD = "1234";
 
