@@ -17,7 +17,8 @@ CREATE TABLE users (
 
 create table quiz(
 	quizName char(200) primary key,
-    author char(50) not null
+    author char(50) not null,
+	foreign key(author) references users(loginName)
 );
 
 CREATE TABLE questions (
