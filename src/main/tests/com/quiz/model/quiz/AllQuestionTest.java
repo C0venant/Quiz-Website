@@ -1,8 +1,9 @@
 package com.quiz.model.quiz;
 
-import com.quiz.model.quiz.question.BasicQuestion;
+import com.quiz.model.quiz.question.QuestionBasic;
 import com.quiz.model.quiz.question.QuestionFillBlank;
 import com.quiz.model.quiz.question.QuestionTest;
+import com.quiz.model.quiz.question.utils.QuestionType;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -14,9 +15,9 @@ public class AllQuestionTest {
 
     @Test
     public void testBasic(){
-        BasicQuestion q = new BasicQuestion("what?");
+        QuestionBasic q = new QuestionBasic("what?");
         assertEquals("what?", q.getBody());
-        assertEquals("basic", q.getType());
+        assertEquals(QuestionType.BASIC, q.getType());
         assertEquals(0, q.getMaxGrade());
         assertNull(q.getImageFile());
         q.setMaxGrade(10);
@@ -30,7 +31,7 @@ public class AllQuestionTest {
         QuestionFillBlank q = new QuestionFillBlank("capital city of georgia is #, the end","tbilisi");
         assertTrue(q.checkAnswer("TbiLisi"));
         assertEquals(2, q.splitOnDelimiter().size());
-        assertEquals("blank", q.getType());
+        assertEquals(QuestionType.BLANK, q.getType());
         System.out.println(q.toString());
     }
 
@@ -41,7 +42,7 @@ public class AllQuestionTest {
         list.add("option2");
         list.add("option3");
         QuestionTest q = new QuestionTest("choose from this answers: ", list, "option1");
-        assertEquals("test", q.getType());
+        assertEquals(QuestionType.TEST, q.getType());
         System.out.println(q.toString());
     }
 }

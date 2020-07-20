@@ -10,11 +10,11 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import javax.sql.DataSource;
 
 @Configuration
-@ComponentScan({"com.quiz"})
+@ComponentScan({"com.quiz.controller"})
 @EnableWebMvc
 public class AppConfig {
     /** replace with yours*/
-    private static final String DATABASE_NAME = "homework_db";
+    private static final String DATABASE_NAME = "quiz_db";
     private static final String USER = "root";
     private static final String PASSWORD = "1234";
 
@@ -32,8 +32,8 @@ public class AppConfig {
     @Bean
     public DataSource getDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost/" + DATABASE_NAME + "?useSSL=false");
+        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/" + DATABASE_NAME + "?useSSL=false");
         dataSource.setUsername(USER);
         dataSource.setPassword(PASSWORD);
         return dataSource;

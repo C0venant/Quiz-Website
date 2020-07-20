@@ -1,27 +1,24 @@
 package com.quiz.model.quiz.question;
 
-import com.quiz.model.quiz.question.BasicQuestion;
+import com.quiz.model.quiz.question.utils.QuestionType;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-public class QuestionFillBlank extends BasicQuestion {
+public class QuestionFillBlank extends QuestionBasic {
 
-    private String blankDelimiter;
-    private String correctAnswer;
+    private String blankDelimiter = "#";
 
+    public QuestionFillBlank(String body, int maxGrade, String imageFile, String correctAnswer, int id){
+        super(body, maxGrade, imageFile, correctAnswer, id);
+        super.setType(QuestionType.BLANK);
+    }
 
     public QuestionFillBlank(String body, String correctAnswer){
         super(body);
-        this.correctAnswer=correctAnswer;
-        blankDelimiter = "#";
-    }
-
-    public QuestionFillBlank(String body, String correctAnswer, String blankDelimiter){
-        super(body);
-        this.blankDelimiter = blankDelimiter;
-        this.correctAnswer= correctAnswer;
+        setCorrectAnswer(correctAnswer);
+        super.setType(QuestionType.BLANK);
     }
 
     public String getBlankDelimiter() {
@@ -30,14 +27,6 @@ public class QuestionFillBlank extends BasicQuestion {
 
     public void setBlankDelimiter(String blankDelimiter) {
         this.blankDelimiter = blankDelimiter;
-    }
-
-    public String getCorrectAnswer() {
-        return correctAnswer;
-    }
-
-    public void setCorrectAnswer(String correctAnswer) {
-        this.correctAnswer =  correctAnswer.toLowerCase();
     }
 
     public List<String> splitOnDelimiter(){
@@ -50,12 +39,7 @@ public class QuestionFillBlank extends BasicQuestion {
     }
 
     public boolean checkAnswer(String userAnswer){
-        return userAnswer.toLowerCase().equals(correctAnswer);
-    }
-
-    @Override
-    public String getType(){
-        return "blank";
+        return userAnswer.toLowerCase().equals(getCorrectAnswer());
     }
 
     @Override
