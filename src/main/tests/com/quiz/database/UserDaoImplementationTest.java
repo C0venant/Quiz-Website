@@ -13,7 +13,7 @@ public class UserDaoImplementationTest {
     private UserDaoImplementation userDao;
 
     /** replace with yours*/
-    private static final String DATABASE_NAME = "quiz_db";
+    private static final String DATABASE_NAME = "hw";
     private static final String USER = "root";
     private static final String PASSWORD = "1234";
 
@@ -69,4 +69,15 @@ public class UserDaoImplementationTest {
         assertFalse(userDao.loginUser("giogela", "rsss"));
         userDao.deleteUser("giogela");
     }
+
+    @Test
+    public void testFriend() throws NoSuchAlgorithmException {
+        userDao.registerUser(new User("baro", "brat", "ras", "shvebi"));
+        userDao.registerUser(new User("bar", "brat", "ras", "shvebi"));
+        assertTrue(userDao.addFriend(new User("baro", "brat", "ras", "shvebi"),
+                new User("bar", "brat", "ras", "shvebi")));
+        assertTrue(userDao.removeFriend(new User("baro", "brat", "ras", "shvebi"),
+                new User("bar", "brat", "ras", "shvebi")));
+    }
+
 }

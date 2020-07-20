@@ -1,4 +1,5 @@
 package com.quiz.model.user;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -43,4 +44,5 @@ public class UserTest {
     public void testGetLastName(){
         assertEquals("shvebi", user.getLastName());
     }
+
 }
