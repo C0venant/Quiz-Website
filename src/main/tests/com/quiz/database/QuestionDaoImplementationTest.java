@@ -1,6 +1,5 @@
 package com.quiz.database;
 
-import com.quiz.database.interfaces.UserDao;
 import com.quiz.model.quiz.question.QuestionBasic;
 import com.quiz.model.quiz.question.QuestionFillBlank;
 import com.quiz.model.quiz.question.QuestionTest;
@@ -23,7 +22,7 @@ public class QuestionDaoImplementationTest {
     private User user;
 
     /** replace with yours*/
-    private static final String DATABASE_NAME = "hw";
+    private static final String DATABASE_NAME = "quiz_db";
     private static final String USER = "root";
     private static final String PASSWORD = "1234";
 

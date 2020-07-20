@@ -6,14 +6,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Quiz {
-    List<QuestionBasic> questions;
+    private String quizName;
+    private String quizAuthor;
+    private List<QuestionBasic> questions;
 
-    public Quiz(List<QuestionBasic> questions){
+    public Quiz(String quizName, String quizAuthor, List<QuestionBasic> questions){
+        this.quizName = quizName;
+        this.quizAuthor = quizAuthor;
         this.questions = questions;
     }
 
-    public Quiz(){
+    public Quiz(String quizName, String quizAuthor){
+        this.quizName = quizName;
+        this.quizAuthor = quizAuthor;
         questions = new ArrayList<>();
+    }
+
+    public String getQuizName() {
+        return quizName;
+    }
+
+    public String getQuizAuthor() {
+        return quizAuthor;
+    }
+
+    public List<QuestionBasic> getQuestions(){
+        return questions;
+    }
+
+    public void addQuestion(QuestionBasic question){
+        questions.add(question);
     }
 
     public int getOverallGrade(){
@@ -23,13 +45,4 @@ public class Quiz {
         }
         return sum;
     }
-
-    public void addQuestion(QuestionBasic question){
-        questions.add(question);
-    }
-
-    public List<QuestionBasic> getQuestions(){
-        return questions;
-    }
-
 }

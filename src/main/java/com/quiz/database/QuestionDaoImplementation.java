@@ -4,9 +4,7 @@ import com.quiz.database.interfaces.QuestionDao;
 import com.quiz.model.quiz.question.QuestionBasic;
 import com.quiz.model.quiz.question.QuestionFillBlank;
 import com.quiz.model.quiz.question.QuestionTest;
-
 import com.quiz.model.quiz.question.utils.QuestionType;
-import com.quiz.model.user.User;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
@@ -57,13 +55,12 @@ public class QuestionDaoImplementation implements QuestionDao {
 
     private List<String> getProbableAnswers(int questionId){
         String getStr = "SELECT * FROM probableAnswers WHERE questionId = " + questionId;
-        List<String> list = jdbcTemplate.query(getStr, new RowMapper<String>() {
+        return jdbcTemplate.query(getStr, new RowMapper<String>() {
             @Override
             public String mapRow(ResultSet resultSet, int rowNum) throws SQLException {
                 return  resultSet.getString(2);
             }
         });
-        return list;
     }
 
     @Override
@@ -139,12 +136,11 @@ public class QuestionDaoImplementation implements QuestionDao {
     @Override
     public List<QuestionBasic> getAuthorQuestions(String author) {
         String getStr = "SELECT * FROM questions WHERE author = " + "'" + author + "'";
-        List<QuestionBasic> list = jdbcTemplate.query(getStr, new RowMapper<QuestionBasic>() {
+        return jdbcTemplate.query(getStr, new RowMapper<QuestionBasic>() {
             @Override
             public QuestionBasic mapRow(ResultSet resultSet, int rowNum) throws SQLException {
                 return  getQuestion(resultSet.getInt(1));
             }
         });
-        return list;
     }
 }

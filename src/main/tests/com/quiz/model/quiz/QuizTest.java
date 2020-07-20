@@ -13,7 +13,8 @@ import static org.junit.Assert.*;
 
 public class QuizTest {
 
-    Quiz quiz;
+    Quiz quizOne;
+    Quiz quizTwo;
 
     @Before
     public void setup(){
@@ -23,20 +24,21 @@ public class QuizTest {
         q1.setMaxGrade(10);
         q2.setMaxGrade(20);
         q3.setMaxGrade(30);
-        quiz = new Quiz(Arrays.asList(q1,q2,q3));
+        quizOne = new Quiz("exampleQuizOne", "exampleAuthorOne", Arrays.asList(q1,q2,q3));
+        quizTwo = new Quiz("exampleQuizTwo", "exampleAuthorTwo");
     }
 
     @Test
     public void test(){
-        assertEquals(3, quiz.getQuestions().size());
-        for(QuestionBasic q : quiz.getQuestions()){
-            if(q.getType() == QuestionType.TEST){
+        assertEquals(3, quizOne.getQuestions().size());
+        for(QuestionBasic q : quizOne.getQuestions()){
+            if(q.getType().equals(QuestionType.TEST)){
                 QuestionTest qt = (QuestionTest)q;
                 assertEquals(20, qt.getMaxGrade());
-            }else if(q.getType() == QuestionType.BLANK){
+            }else if(q.getType().equals(QuestionType.BLANK)){
                 QuestionFillBlank qb = (QuestionFillBlank)q;
                 assertEquals(2, qb.splitOnDelimiter().size());
-            }else if(q.getType() == QuestionType.BASIC){
+            }else if(q.getType().equals(QuestionType.BASIC)){
                 assertEquals("question1", q.getBody());
             }
         }
