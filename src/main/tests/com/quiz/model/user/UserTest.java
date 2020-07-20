@@ -1,5 +1,6 @@
 package com.quiz.model.user;
 
+import com.quiz.database.UserDaoImplementation;
 import com.quiz.model.user.User;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,4 +46,5 @@ public class UserTest {
     public void testGetLastName(){
         assertEquals("shvebi", user.getLastName());
     }
+
 }

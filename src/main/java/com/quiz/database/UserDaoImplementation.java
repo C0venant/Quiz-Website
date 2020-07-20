@@ -79,4 +79,38 @@ public class UserDaoImplementation implements UserDao {
             return  true;
         }
     }
+
+    @Override
+    public boolean addFriend(User user, User friend) {
+        if(user == null || friend == null){
+            return false;
+        } else {
+            String username = user.getLoginName();
+            String addFriend = friend.getLoginName();
+            String regStr1 = "INSERT INTO friends (user1, user2)"
+                    + " VALUES (?, ?)";
+            jdbcTemplate.update(regStr1,username, addFriend);
+            String regStr2 = "INSERT INTO friends (user1, user2)"
+                    + " VALUES (?, ?)";
+            jdbcTemplate.update(regStr2, addFriend,username);
+            return true;
+        }
+    }
+
+    @Override
+    public boolean removeFriend(User user, User friend) {
+        if(user == null || friend == null){
+            return false;
+        } else {
+            String username = user.getLoginName();
+            String addFriend = friend.getLoginName();
+            String regStr1 = "DELETE FROM friends WHERE user1 =? and user2 =?";
+            jdbcTemplate.update(regStr1,username, addFriend);
+            String regStr2 = "DELETE FROM friends WHERE user1 =? and user2 =?";
+            jdbcTemplate.update(regStr2, addFriend,username);
+            return true;
+        }
+    }
+
+
 }
