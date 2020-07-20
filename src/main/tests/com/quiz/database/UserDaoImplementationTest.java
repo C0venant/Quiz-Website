@@ -13,9 +13,9 @@ public class UserDaoImplementationTest {
     private UserDaoImplementation userDao;
 
     /** replace with yours*/
-    private static final String DATABASE_NAME = "quiz_db";
+    private static final String DATABASE_NAME = "hw";
     private static final String USER = "root";
-    private static final String PASSWORD = "hOLDEM1!";
+    private static final String PASSWORD = "1234";
 
     @Before
     public void setUp() {

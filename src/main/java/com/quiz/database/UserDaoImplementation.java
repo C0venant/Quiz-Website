@@ -82,7 +82,7 @@ public class UserDaoImplementation implements UserDao {
 
     @Override
     public boolean addFriend(User user, User friend) {
-        if(user == null || friend == null){
+        if(getUser(user.getLoginName())==null || getUser(friend.getLoginName()) == null){
             return false;
         } else {
             String username = user.getLoginName();
@@ -99,7 +99,7 @@ public class UserDaoImplementation implements UserDao {
 
     @Override
     public boolean removeFriend(User user, User friend) {
-        if(user == null || friend == null){
+        if(getUser(user.getLoginName())==null || getUser(friend.getLoginName()) == null){
             return false;
         } else {
             String username = user.getLoginName();
