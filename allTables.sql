@@ -16,9 +16,8 @@ CREATE TABLE users (
 );
 
 create table quiz(
-	quizId int auto_increment primary key,
-    author char(50) not null,
-    foreign key(author) references users(loginName)
+	quizName char(200) primary key,
+    author char(50) not null
 );
 
 CREATE TABLE questions (
@@ -33,10 +32,10 @@ CREATE TABLE questions (
 );
 
 CREATE TABLE quizQuestions(
-	quizId INT NOT NULL,
+	quizName char(200) NOT NULL,
     questionId INT NOT NULL,
-    UNIQUE(quizId, questionId),
-    foreign key(quizId) references quiz(quizId),
+    UNIQUE(quizName, questionId),
+    foreign key(quizName) references quiz(quizName),
     foreign key(questionId) references questions(questionId)
 );
 
