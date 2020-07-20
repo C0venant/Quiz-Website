@@ -1,6 +1,6 @@
-create database if not exists homework_db;
+create database if not exists quiz_db;
 
-USE homework_db;
+USE quiz_db;
 
 DROP TABLE IF EXISTS quizQuestions;
 DROP TABLE IF EXISTS probableAnswers;
