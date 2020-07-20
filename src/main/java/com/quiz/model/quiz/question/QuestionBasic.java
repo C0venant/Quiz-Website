@@ -12,6 +12,15 @@ public class QuestionBasic {
 
     private int id;
 
+    public QuestionBasic(String body, int maxGrade, String imageFile, String correctAnswer, int id) {
+        this.body = body;
+        this.maxGrade = maxGrade;
+        this.imageFile = imageFile;
+        this.correctAnswer = correctAnswer;
+        this.id = id;
+        type = QuestionType.BASIC;
+    }
+
     public QuestionBasic(String body){
         this.body = body;
         maxGrade = 0;

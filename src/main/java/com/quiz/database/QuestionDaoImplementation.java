@@ -117,16 +117,12 @@ public class QuestionDaoImplementation implements QuestionDao {
                     String correctAnswer = resultSet.getString(6);
 
                     if(questionType.equals(QuestionType.BASIC)){
-                        question = new QuestionBasic(body);
+                        return new QuestionBasic(body, maxGrade, imageFile, correctAnswer, questionId);
                     }else if(questionType.equals(QuestionType.BLANK)){
-                        question = new QuestionFillBlank(body,correctAnswer);
+                        return new QuestionFillBlank(body, maxGrade, imageFile, correctAnswer, questionId);
                     }else if(questionType.equals(QuestionType.TEST)){
-                        question = new QuestionTest(body,getProbableAnswers(questionId), correctAnswer);
+                        return new QuestionTest(body, maxGrade, imageFile, correctAnswer, questionId, getProbableAnswers(questionId));
                     }
-                    question.setMaxGrade(maxGrade);
-                    question.setImageFile(imageFile);
-                    question.setId(questionId);
-                    return question;
                 }
                 return null;
             }

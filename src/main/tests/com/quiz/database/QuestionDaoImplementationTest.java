@@ -22,7 +22,7 @@ public class QuestionDaoImplementationTest {
     private User user;
 
     /** replace with yours*/
-    private static final String DATABASE_NAME = "quiz_db";
+    private static final String DATABASE_NAME = "hw";
     private static final String USER = "root";
     private static final String PASSWORD = "1234";
 
@@ -79,6 +79,45 @@ public class QuestionDaoImplementationTest {
         for(QuestionBasic q : list){
             assertTrue(questionDao.deleteQuestion(q.getId()));
         }
+    }
+
+    @Test
+    public void testGetQuestionBasic(){
+        QuestionBasic original = new QuestionBasic("body", 5, "image", "answer", -1);
+        questionDao.addQuestion(user.getLoginName(), original);
+        QuestionBasic returned = questionDao.getAuthorQuestions(user.getLoginName()).get(0);
+        assertEquals(original.getBody(), returned.getBody());
+        assertEquals(original.getMaxGrade(), returned.getMaxGrade());
+        assertEquals(original.getImageFile(), returned.getImageFile());
+        assertEquals(original.getCorrectAnswer(), returned.getCorrectAnswer());
+        assertEquals(original.getType(), returned.getType());
+        questionDao.deleteQuestion(returned.getId());
+    }
+
+    @Test
+    public void testGetQuestionFillBlank(){
+        QuestionFillBlank original = new QuestionFillBlank("body # blank", 5, "image", "is", -1);
+        questionDao.addQuestion(user.getLoginName(), original);
+        QuestionFillBlank returned = (QuestionFillBlank)questionDao.getAuthorQuestions(user.getLoginName()).get(0);
+        assertEquals(original.getBody(), returned.getBody());
+        assertEquals(original.getMaxGrade(), returned.getMaxGrade());
+        assertEquals(original.getImageFile(), returned.getImageFile());
+        assertEquals(original.getCorrectAnswer(), returned.getCorrectAnswer());
+        questionDao.deleteQuestion(returned.getId());
+    }
+
+    @Test
+    public void testGetQuestionTest(){
+        QuestionTest original = new QuestionTest("body # blank", 5, "image", "option2", -1,
+                Arrays.asList("option1","option2","option3"));
+        questionDao.addQuestion(user.getLoginName(), original);
+        QuestionTest returned = (QuestionTest) questionDao.getAuthorQuestions(user.getLoginName()).get(0);
+        assertEquals(original.getBody(), returned.getBody());
+        assertEquals(original.getMaxGrade(), returned.getMaxGrade());
+        assertEquals(original.getImageFile(), returned.getImageFile());
+        assertEquals(original.getCorrectAnswer(), returned.getCorrectAnswer());
+        assertEquals(original.getAnswers(), returned.getAnswers());
+        questionDao.deleteQuestion(returned.getId());
     }
 
     @After

@@ -8,18 +8,15 @@ import java.util.StringTokenizer;
 
 public class QuestionFillBlank extends QuestionBasic {
 
-    private String blankDelimiter;
+    private String blankDelimiter = "#";
+
+    public QuestionFillBlank(String body, int maxGrade, String imageFile, String correctAnswer, int id){
+        super(body, maxGrade, imageFile, correctAnswer, id);
+        super.setType(QuestionType.BLANK);
+    }
 
     public QuestionFillBlank(String body, String correctAnswer){
         super(body);
-        setCorrectAnswer(correctAnswer);
-        super.setType(QuestionType.BLANK);
-        blankDelimiter = "#";
-    }
-
-    public QuestionFillBlank(String body, String correctAnswer, String blankDelimiter){
-        super(body);
-        this.blankDelimiter = blankDelimiter;
         setCorrectAnswer(correctAnswer);
         super.setType(QuestionType.BLANK);
     }
