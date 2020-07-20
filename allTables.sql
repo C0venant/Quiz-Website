@@ -2,6 +2,7 @@ create database if not exists quiz_db;
 
 USE quiz_db;
 
+DROP TABLE IF EXISTS friends;
 DROP TABLE IF EXISTS quizQuestions;
 DROP TABLE IF EXISTS probableAnswers;
 DROP TABLE IF EXISTS questions;
@@ -45,4 +46,11 @@ CREATE TABLE probableAnswers (
     probAnswer VARCHAR(500) NOT NULL,
     UNIQUE(questionId, probAnswer),
     foreign key(questionId) references questions(questionId)
+);
+
+CREATE TABLE friends (
+	user1 CHAR(50),
+    user2 CHAR(50),
+    foreign key(user1) references users(loginName),
+    foreign key(user2) references users(loginName)
 );
