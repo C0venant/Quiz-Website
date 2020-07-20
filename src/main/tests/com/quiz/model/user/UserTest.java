@@ -1,6 +1,4 @@
 package com.quiz.model.user;
-
-import com.quiz.model.user.User;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Quiz {
-    private String quizName;
-    private String quizAuthor;
-    private List<QuestionBasic> questions;
+    private final String quizName;
+    private final String quizAuthor;
+    private final List<QuestionBasic> questions;
 
     public Quiz(String quizName, String quizAuthor, List<QuestionBasic> questions){
         this.quizName = quizName;
@@ -44,5 +44,12 @@ public class Quiz {
             sum+=q.getMaxGrade();
         }
         return sum;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj.getClass() != getClass()) return false;
+        Quiz other = (Quiz)obj;
+        return other.quizName.equals(getQuizName());
     }
 }

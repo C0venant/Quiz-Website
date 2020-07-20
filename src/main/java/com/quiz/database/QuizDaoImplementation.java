@@ -21,61 +21,28 @@ public class QuizDaoImplementation implements QuizDao {
 
     @Override
     public boolean addQuiz(Quiz quiz) {
-        return false;
-    }
-
-    @Override
-    public Quiz getQuizByName(String quizName) {
-        return null;
-    }
-
-    @Override
-    public List<Quiz> getQuizzesByAuthor(String author) {
-        return null;
-    }
-
-
-    /*private int generateId(){
-        String getStr = "SELECT count(*) FROM quiz";
-        Integer id = jdbcTemplate.query(getStr, new ResultSetExtractor<Integer>() {
-            @Override
-            public Integer extractData(ResultSet resultSet) throws SQLException, DataAccessException {
-                if(resultSet.next()){
-                    return resultSet.getInt(1);
-                }
-                return 1;
-            }
-        });
-        if(id == null){
-            return 1;
-        }
-        return id +1;
-    }
-
-    @Override
-    public boolean addQuiz(Quiz quiz) {
-        int quizId = generateId();
+        String quizName = quiz.getQuizName();
         String author = quiz.getQuizAuthor();
-        if(getQuizById(quizId) != null) {
+        if(getQuizByName(quizName) != null){
             return false;
         } else {
-            String addStr = "INSERT INTO quiz (quizId, author)"
+            String addStr = "INSERT INTO quiz (quizName, author)"
                     + " VALUES(?, ?)";
-            jdbcTemplate.update(addStr, quizId, author);
+            jdbcTemplate.update(addStr, quizName, author);
             return true;
         }
     }
 
     @Override
-    public Quiz getQuizById(final int quizId){
-        String getStr = "SELECT * FROM quiz WHERE quizId = " + "'" + quizId + "'";
+    public Quiz getQuizByName(final String quizName) {
+        String getStr = "SELECT * FROM quiz WHERE quizName = " + "'" + quizName + "'";
         return jdbcTemplate.query(getStr, new ResultSetExtractor<Quiz>() {
 
             @Override
             public Quiz extractData(ResultSet resultSet) throws SQLException, DataAccessException {
                 if(resultSet.next()){
                     String author = resultSet.getString(2);
-                    return new Quiz(quizId, author);
+                    return new Quiz(quizName, author);
                 }
                 return null;
             }
@@ -83,16 +50,64 @@ public class QuizDaoImplementation implements QuizDao {
     }
 
     @Override
-    public List<Quiz> getQuizzesByAuthor(final String author){
+    public List<Quiz> getQuizzesByAuthor(final String author) {
         String getStr = "SELECT * FROM quiz WHERE author = " + "'" + author + "'";
         return jdbcTemplate.query(getStr, new RowMapper<Quiz>(){
 
             @Override
             public Quiz mapRow(ResultSet rs, int rowNum) throws SQLException {
-                int quizId = rs.getInt("quizId");
-                return new Quiz(quizId, author);
+                String quizName = rs.getString("quizName");
+                return new Quiz(quizName, author);
             }
         });
-    }*/
+    }
 
+    @Override
+    public boolean addQuestionToQuiz(String quizName, int questionId) {
+        if(getQuizByName(quizName) == null){
+            return false;
+        } else {
+            String addStr = "INSERT INTO quizQuestions VALUES(?, ?)";
+            jdbcTemplate.update(addStr, quizName, questionId);
+            return true;
+        }
+    }
+
+    @Override
+    public boolean deleteQuestionFromQuiz(String quizName, int questionId) {
+        if(getQuizByName(quizName) == null){
+            return false;
+        } else {
+            String delStr = "DELETE FROM quizQuestions WHERE quizName =? AND questionId =?";
+            jdbcTemplate.update(delStr, quizName, questionId);
+            return true;
+        }
+    }
+
+    @Override
+    public boolean deleteQuiz(String quizName) {
+        if(getQuizByName(quizName) == null){
+            return false;
+        } else {
+            String delStr = "DELETE FROM quiz WHERE quizName =?";
+            jdbcTemplate.update(delStr, quizName);
+            return true;
+        }
+    }
+
+    @Override
+    public List<Integer> getAllQuestionIdsFromQuiz(String quizName) {
+        if(getQuizByName(quizName) == null){
+            return null;
+        } else {
+            String getStr = "SELECT * FROM quizQuestions WHERE quizName = " + "'" + quizName + "'";
+            return jdbcTemplate.query(getStr, new RowMapper<Integer>(){
+
+                @Override
+                public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    return rs.getInt("questionId");
+                }
+            });
+        }
+    }
 }
