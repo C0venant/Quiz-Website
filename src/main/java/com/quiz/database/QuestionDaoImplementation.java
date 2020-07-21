@@ -102,8 +102,6 @@ public class QuestionDaoImplementation implements QuestionDao {
             @Override
             public QuestionBasic extractData(ResultSet resultSet) throws SQLException, DataAccessException {
                 if(resultSet.next()){
-                    QuestionBasic question = new QuestionBasic("");
-                    //Todo: typeCheck
                     int questionId = resultSet.getInt(1);
                     String questionType = resultSet.getString(2);
                     String body = resultSet.getString(3);

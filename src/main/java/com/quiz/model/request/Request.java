@@ -12,6 +12,7 @@ public class Request {
         this.toUser = toUser;
         this.type = type;
         this.body = body;
+        id = -1;
     }
 
     public Request(String fromUser, String toUser, String type, String body, int id) {
@@ -38,4 +39,12 @@ public class Request {
     public int getId() {return id;}
 
     public void setId(int id) {this.id = id;}
+
+    @Override
+    public String toString() {
+        String s = "";
+        s+="fromUser: "+fromUser+"\n"+"toUser: "
+                +toUser+"\n"+ "type: " + type + "\n"+"body: "+body+"\n"+"id: "+id;
+        return s;
+    }
 }
