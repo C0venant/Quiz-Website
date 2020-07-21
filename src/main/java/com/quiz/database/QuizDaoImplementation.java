@@ -110,4 +110,57 @@ public class QuizDaoImplementation implements QuizDao {
             });
         }
     }
+
+    @Override
+    public boolean answerQuestion(String quizName, String userName, int questionId, String answer) {
+        if(getQuestionAnswer(quizName, userName, questionId) != null){
+            return false;
+        } else {
+            String ansStr = "INSERT INTO quizAnswers(quizName, userName, questionId, answer)"
+                    + " VALUES(?, ?, ?, ?)";
+            jdbcTemplate.update(ansStr, quizName, userName, questionId, answer);
+            return true;
+        }
+    }
+
+    @Override
+    public boolean unAnswerQuestion(String quizName, String userName, int questionId){
+        if(getQuestionAnswer(quizName, userName, questionId) == null){
+            return false;
+        } else {
+            String unAnsStr = "DELETE FROM quizAnswers WHERE quizName =? AND userName =? AND questionId =?";
+            jdbcTemplate.update(unAnsStr, quizName, userName, questionId);
+            return true;
+        }
+    }
+
+    @Override
+    public boolean gradeAnsweredQuestion(String quizName, String userName, int questionId, int grade){
+        if(getQuestionAnswer(quizName, userName, questionId) == null){
+            return false;
+        } else {
+            String grdStr = "UPDATE quizAnswers SET grade =?"
+                    + " WHERE quizName =? AND userName =? AND questionId =?";
+            jdbcTemplate.update(grdStr, grade, quizName, userName, questionId);
+            return true;
+        }
+    }
+
+    @Override
+    public String getQuestionAnswer(String quizName, String userName, int questionId) {
+        String getStr = "SELECT answer FROM quizAnswers WHERE"
+                + " quizName =" + "'" + quizName + "'"
+                + " AND userName =" + "'" + userName + "'"
+                + " AND questionId =" + questionId;
+        return jdbcTemplate.query(getStr, new ResultSetExtractor<String>() {
+
+            @Override
+            public String extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+                if(resultSet.next()){
+                    return resultSet.getString("answer");
+                }
+                return null;
+            }
+        });
+    }
 }

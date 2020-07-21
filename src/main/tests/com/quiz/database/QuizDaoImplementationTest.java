@@ -98,6 +98,30 @@ public class QuizDaoImplementationTest {
         quizDao.deleteQuestionFromQuiz(quizOne.getQuizName(), 1);
     }
 
+    @Test
+    public void testQuizAnswers(){
+        testAnswerQuestionAndGetQuestionAnswer();
+        testGradeAnsweredQuestion();
+        testUnAnswerQuestion();
+    }
+
+    private void testAnswerQuestionAndGetQuestionAnswer() {
+        assertNull(quizDao.getQuestionAnswer(quizOne.getQuizName(), userOne.getLoginName(), 1));
+        assertTrue(quizDao.answerQuestion(quizOne.getQuizName(), userOne.getLoginName(), 1, "answer1"));
+        assertNotNull(quizDao.getQuestionAnswer(quizOne.getQuizName(), userOne.getLoginName(), 1));
+        assertFalse(quizDao.answerQuestion(quizOne.getQuizName(), userOne.getLoginName(), 1, "answer2"));
+    }
+
+    private void testGradeAnsweredQuestion() {
+        assertFalse(quizDao.gradeAnsweredQuestion(quizTwo.getQuizName(), userTwo.getLoginName(), 1, 10));
+        assertTrue(quizDao.gradeAnsweredQuestion(quizOne.getQuizName(), userOne.getLoginName(), 1, 10));
+    }
+
+    private void testUnAnswerQuestion() {
+        assertTrue(quizDao.unAnswerQuestion(quizOne.getQuizName(), userOne.getLoginName(), 1));
+        assertFalse(quizDao.unAnswerQuestion(quizOne.getQuizName(), userOne.getLoginName(), 1));
+    }
+
     @After
     public void finish(){
         quizDao.deleteQuiz(quizOne.getQuizName());
