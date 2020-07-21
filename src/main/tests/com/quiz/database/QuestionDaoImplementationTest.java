@@ -82,6 +82,27 @@ public class QuestionDaoImplementationTest {
     }
 
     @Test
+    public void testInsertQuestion4(){
+        QuestionBasic q1 = new QuestionBasic ("");
+        assertFalse(questionDao.addQuestion(user.getLoginName(), q1));
+    }
+
+    @Test
+    public void testInsertQuestion5(){
+        QuestionBasic q1 = new QuestionBasic ("");
+        q1.setImageFile("image");
+        assertTrue(questionDao.addQuestion(user.getLoginName(), q1));
+        questionDao.deleteQuestion(questionDao.getAuthorQuestions(user.getLoginName()).get(0).getId());
+    }
+
+    @Test
+    public void testBadCase(){
+        assertFalse(questionDao.deleteQuestion(-1));
+        assertNull(questionDao.getQuestion(-1));
+
+    }
+
+    @Test
     public void testGetQuestionBasic(){
         QuestionBasic original = new QuestionBasic("body", 5, "image", "answer", -1);
         questionDao.addQuestion(user.getLoginName(), original);

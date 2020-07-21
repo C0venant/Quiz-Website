@@ -22,19 +22,14 @@ public class QuestionDaoImplementation implements QuestionDao {
     public QuestionDaoImplementation(DataSource dataSource){jdbcTemplate = new JdbcTemplate(dataSource);}
 
     private int generateId(){
-        String getStr = "SELECT count(*) FROM questions" ;
+        String getStr = "SELECT max(questionId) FROM questions" ;
         Integer id = jdbcTemplate.query(getStr, new ResultSetExtractor<Integer>() {
             @Override
             public Integer extractData(ResultSet resultSet) throws SQLException, DataAccessException {
-                if(resultSet.next()){
-                    return resultSet.getInt(1);
-                }
-                return 1;
+                resultSet.next();
+                return resultSet.getInt(1);
             }
         });
-        if(id == null){
-            return 1;
-        }
         return id +1;
     }
 
@@ -71,7 +66,7 @@ public class QuestionDaoImplementation implements QuestionDao {
         int maxGrade = question.getMaxGrade();
         String imageFile = question.getImageFile();
         String correctAnswer = question.getCorrectAnswer();
-        if(getQuestion(questionId) != null){
+        if(body.equals("")&&imageFile == null){
             return false;
         } else {
             String regStr = "INSERT INTO questions (questionId, questionType, body, maxGrade, imageFile, correctAnswer, author)"
@@ -116,12 +111,12 @@ public class QuestionDaoImplementation implements QuestionDao {
                     String imageFile = resultSet.getString(5);
                     String correctAnswer = resultSet.getString(6);
 
-                    if(questionType.equals(QuestionType.BASIC)){
-                        return new QuestionBasic(body, maxGrade, imageFile, correctAnswer, questionId);
+                    if(questionType.equals(QuestionType.TEST)){
+                        return new QuestionTest(body, maxGrade, imageFile, correctAnswer, questionId, getProbableAnswers(questionId));
                     }else if(questionType.equals(QuestionType.BLANK)){
                         return new QuestionFillBlank(body, maxGrade, imageFile, correctAnswer, questionId);
-                    }else if(questionType.equals(QuestionType.TEST)){
-                        return new QuestionTest(body, maxGrade, imageFile, correctAnswer, questionId, getProbableAnswers(questionId));
+                    }else{
+                        return new QuestionBasic(body, maxGrade, imageFile, correctAnswer, questionId);
                     }
                 }
                 return null;
