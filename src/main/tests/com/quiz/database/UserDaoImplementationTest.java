@@ -71,13 +71,19 @@ public class UserDaoImplementationTest {
     }
 
     @Test
-    public void testFriend() throws NoSuchAlgorithmException {
-        userDao.registerUser(new User("baro", "brat", "ras", "shvebi"));
-        userDao.registerUser(new User("bar", "brat", "ras", "shvebi"));
-        assertTrue(userDao.addFriend(new User("baro", "brat", "ras", "shvebi"),
-                new User("bar", "brat", "ras", "shvebi")));
-        assertTrue(userDao.removeFriend(new User("baro", "brat", "ras", "shvebi"),
-                new User("bar", "brat", "ras", "shvebi")));
+    public void testAddAndRemoveFriend() throws NoSuchAlgorithmException {
+        User user1 = new User("giogela", "rss", "gio", "gelashvili");
+        User user2 = new User("ikakand", "ree", "ika", "kandelaki");
+        assertFalse(userDao.addFriend(user1, user2));
+        userDao.registerUser(user1);
+        assertFalse(userDao.addFriend(user1, user2));
+        userDao.registerUser(user2);
+        assertTrue(userDao.addFriend(user1, user2));
+        assertTrue(userDao.removeFriend(user1, user2));
+        userDao.deleteUser(user2.getLoginName());
+        assertFalse(userDao.removeFriend(user1, user2));
+        userDao.deleteUser(user1.getLoginName());
+        assertFalse(userDao.removeFriend(user1, user2));
     }
 
 }
