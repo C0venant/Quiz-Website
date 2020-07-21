@@ -2,6 +2,7 @@ create database if not exists quiz_db;
 
 USE quiz_db;
 
+DROP TABLE IF EXISTS requests;
 DROP TABLE IF EXISTS friends;
 DROP TABLE IF EXISTS quizQuestions;
 DROP TABLE IF EXISTS probableAnswers;
@@ -62,4 +63,14 @@ CREATE TABLE quizAnswers (
     questionId int references questions(questionId),
     answer varchar(500),
     grade int default(0)
+);
+
+CREATE TABLE requests (
+	requestId INT AUTO_INCREMENT PRIMARY KEY,
+	fromUser CHAR(50) not null,
+    toUser CHAR(50) not null,
+    requestType VARCHAR(500) NOT NULL,
+	body VARCHAR(500) NOT NULL,
+    foreign key(fromUser) references users(loginName),
+    foreign key(toUser) references users(loginName)
 );
