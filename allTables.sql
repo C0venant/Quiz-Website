@@ -5,6 +5,7 @@ USE quiz_db;
 DROP TABLE IF EXISTS friends;
 DROP TABLE IF EXISTS quizQuestions;
 DROP TABLE IF EXISTS probableAnswers;
+DROP TABLE IF EXISTS quizAnswers;
 DROP TABLE IF EXISTS questions;
 DROP TABLE IF EXISTS quiz;
 DROP TABLE IF EXISTS users;
@@ -53,4 +54,12 @@ CREATE TABLE friends (
     user2 CHAR(50),
     foreign key(user1) references users(loginName),
     foreign key(user2) references users(loginName)
+);
+
+CREATE TABLE quizAnswers (
+	quizName char(200) references quiz(quizName),
+    userName char(50) references users(loginName),
+    questionId int references questions(questionId),
+    answer varchar(500),
+    grade int default(0)
 );
