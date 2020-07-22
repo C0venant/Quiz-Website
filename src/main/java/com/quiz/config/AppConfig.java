@@ -1,5 +1,8 @@
 package com.quiz.config;
 
+import com.quiz.database.QuestionDaoImplementation;
+import com.quiz.database.QuizDaoImplementation;
+import com.quiz.database.RequestDaoImplementation;
 import com.quiz.database.UserDaoImplementation;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -42,5 +45,20 @@ public class AppConfig {
     @Bean
     public UserDaoImplementation getUserDao() {
         return new UserDaoImplementation(getDataSource());
+    }
+
+    @Bean
+    public QuestionDaoImplementation getQuestionDao() {
+        return new QuestionDaoImplementation(getDataSource());
+    }
+
+    @Bean
+    public QuizDaoImplementation getQuizDao(){
+        return new QuizDaoImplementation(getDataSource());
+    }
+
+    @Bean
+    public RequestDaoImplementation getRequestDao(){
+        return new RequestDaoImplementation(getDataSource());
     }
 }

@@ -1,19 +1,20 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<%@ page contentType="text/html;charset=UTF-8" isELIgnored="false" %>
 <html>
 <head>
     <title>Welcome</title>
 </head>
+
 <body>
-<h2>Welcome to test homepage</h2><br>
-<form action="test" method="post">
-    <h4>please log in</h4><br>
-    <label for ="un"> username:</label>
-    <input type ="text" name="username" id="un" required><br>
+<h1>Welcome to quiz website</h1>
+<p>Please log in or create new account</p>
 
-    <label for="pw"> password:</label>
-    <input type="text" name="password" id="pw" required><br>
-
+<form action="login" method="post">
+    <label for ="uName"> User Name: </label>
+    <input type ="text" name="username" id="uName" required><br><br>
+    <label for="password"> Password:</label>
+    <input type="password" name="password" id="password" required>
     <button type="submit">Submit</button><br>
+    <p><a href="createAccount">Create New Account</a></p>
 </form>
 </body>
 </html>
