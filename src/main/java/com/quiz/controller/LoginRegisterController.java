@@ -1,8 +1,6 @@
 package com.quiz.controller;
 
 import com.quiz.controller.service.interfaces.LoginRegisterService;
-import com.quiz.database.interfaces.UserDao;
-import com.quiz.model.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

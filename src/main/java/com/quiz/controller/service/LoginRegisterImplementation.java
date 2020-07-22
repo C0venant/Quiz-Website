@@ -4,7 +4,6 @@ import com.quiz.controller.service.interfaces.LoginRegisterService;
 import com.quiz.database.interfaces.UserDao;
 import com.quiz.model.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.NoSuchAlgorithmException;
@@ -18,10 +17,10 @@ public class LoginRegisterImplementation implements LoginRegisterService {
         ModelAndView mv = new ModelAndView();
         boolean log = userDao.loginUser(userName, password);
         if(log){
-            mv.setViewName("correctLoginOrRegistration");
+            mv.setViewName("loginAndRegister/correctLoginOrRegistration");
             mv.addObject("username", userName);
         } else {
-            mv.setViewName("incorrectLogin");
+            mv.setViewName("loginAndRegister/incorrectLogin");
         }
         return mv;
     }
@@ -29,7 +28,7 @@ public class LoginRegisterImplementation implements LoginRegisterService {
     @Override
     public ModelAndView createAccountService() {
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("createAccount");
+        mv.setViewName("loginAndRegister/createAccount");
         return mv;
     }
 
@@ -39,9 +38,9 @@ public class LoginRegisterImplementation implements LoginRegisterService {
         User newUser = new User(userName, password, firstName, lastName);
         boolean reg = userDao.registerUser(newUser);
         if(reg){
-            mv.setViewName("correctLoginOrRegistration");
+            mv.setViewName("loginAndRegister/correctLoginOrRegistration");
         } else {
-            mv.setViewName("nameInUse");
+            mv.setViewName("loginAndRegister/nameInUse");
         }
         mv.addObject("username", userName);
         return mv;
