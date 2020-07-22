@@ -86,4 +86,18 @@ public class UserDaoImplementationTest {
         assertFalse(userDao.removeFriend(user1, user2));
     }
 
+    @Test
+    public void testAdmin() throws NoSuchAlgorithmException {
+        User user = new User("adminGela", "123", "admineqsa", "admineqsa");
+        assertTrue(userDao.registerUser(user));
+        assertTrue(userDao.addAdmin(user.getLoginName()));
+        assertTrue(userDao.isAdmin(user.getLoginName()));
+        assertTrue(userDao.removeAdmin(user.getLoginName()));
+        assertFalse(userDao.isAdmin(user.getLoginName()));
+        assertTrue(userDao.deleteUser(user.getLoginName()));
+        assertFalse(userDao.isAdmin(user.getLoginName()));
+        assertFalse(userDao.addAdmin(user.getLoginName()));
+        assertFalse(userDao.removeAdmin(user.getLoginName()));
+    }
+
 }
