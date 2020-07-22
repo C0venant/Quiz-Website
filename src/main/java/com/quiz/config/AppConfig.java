@@ -1,5 +1,6 @@
 package com.quiz.config;
 
+import com.quiz.controller.service.LoginRegisterImplementation;
 import com.quiz.database.QuestionDaoImplementation;
 import com.quiz.database.QuizDaoImplementation;
 import com.quiz.database.RequestDaoImplementation;
@@ -60,5 +61,10 @@ public class AppConfig {
     @Bean
     public RequestDaoImplementation getRequestDao(){
         return new RequestDaoImplementation(getDataSource());
+    }
+
+    @Bean
+    public LoginRegisterImplementation getLoginRegister(){
+        return new LoginRegisterImplementation();
     }
 }

@@ -1,5 +1,6 @@
 package com.quiz.controller;
 
+import com.quiz.controller.service.interfaces.LoginRegisterService;
 import com.quiz.database.interfaces.UserDao;
 import com.quiz.model.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,27 +14,17 @@ import java.security.NoSuchAlgorithmException;
 @Controller
 public class LoginRegisterController {
     @Autowired
-    UserDao userDao;
+    LoginRegisterService loginRegisterService;
 
     @RequestMapping("/login")
     public ModelAndView loginControl(@RequestParam("username") String userName,
                                      @RequestParam("password") String password) throws NoSuchAlgorithmException {
-        ModelAndView mv = new ModelAndView();
-        boolean log = userDao.loginUser(userName, password);
-        if(log){
-            mv.setViewName("correctLoginOrRegistration");
-            mv.addObject("username", userName);
-        } else {
-            mv.setViewName("incorrectLogin");
-        }
-        return mv;
+        return loginRegisterService.loginService(userName, password);
     }
 
     @RequestMapping("/createAccount")
     public ModelAndView createAccountControl(){
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("createAccount");
-        return mv;
+        return loginRegisterService.createAccountService();
     }
 
     @RequestMapping("/proceedAccountCreation")
@@ -41,15 +32,6 @@ public class LoginRegisterController {
                                                       @RequestParam("password") String password,
                                                       @RequestParam("firstname") String firstName,
                                                       @RequestParam("lastname") String lastName) throws NoSuchAlgorithmException {
-        ModelAndView mv = new ModelAndView();
-        User newUser = new User(userName, password, firstName, lastName);
-        boolean reg = userDao.registerUser(newUser);
-        if(reg){
-            mv.setViewName("correctLoginOrRegistration");
-        } else {
-            mv.setViewName("nameInUse");
-        }
-        mv.addObject("username", userName);
-        return mv;
+        return loginRegisterService.proceedAccountCreationControl(userName, password, firstName, lastName);
     }
 }
