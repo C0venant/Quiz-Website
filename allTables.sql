@@ -15,7 +15,8 @@ CREATE TABLE users (
 	loginName CHAR(50) PRIMARY KEY,
     hashedPassword CHAR(50) NOT NULL,
     firstName CHAR(50),
-    lastName CHAR(50)
+    lastName CHAR(50),
+    isAdmin BOOLEAN DEFAULT false
 );
 
 create table quiz(
