@@ -5,7 +5,7 @@
   Time: 6:22 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" isELIgnored="false" %>
 <html>
 <head>
     <title>Welcome <%= request.getParameter("username")%>
@@ -22,5 +22,10 @@
     <form action="logout" method="post">
         <input type="submit" value="Logout">
     </form>
+    <form action="createQuestion_basic" method="post">
+        <input type="hidden" id="user" name="username" value=<%= request.getParameter("username")%>>
+        <input type="submit" value="create Question">
+    </form>
+
 </body>
 </html>
