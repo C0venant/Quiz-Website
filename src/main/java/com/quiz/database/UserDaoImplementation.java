@@ -114,20 +114,20 @@ public class UserDaoImplementation implements UserDao {
 
     @Override
     public boolean addAdmin(String loginName) {
-        if(getUser(loginName) != null){
+        if(getUser(loginName) != null && !isAdmin(loginName)){
             String delete = "UPDATE users SET isAdmin = TRUE WHERE loginName =?";
             jdbcTemplate.update(delete, loginName);
-            return  true;
+            return true;
         }
         return false;
     }
 
     @Override
     public boolean removeAdmin(String loginName) {
-        if(getUser(loginName) != null){
+        if(getUser(loginName) != null && isAdmin(loginName)){
             String delete = "UPDATE users SET isAdmin = FALSE WHERE loginName =?";
             jdbcTemplate.update(delete, loginName);
-            return  true;
+            return true;
         }
         return false;
     }
@@ -139,15 +139,10 @@ public class UserDaoImplementation implements UserDao {
             @Override
             public Boolean extractData(ResultSet resultSet) throws SQLException, DataAccessException {
                 if(resultSet.next()){
-                    if(resultSet.getBoolean(5)){
-                        return true;
-                    }
-                    return false;
+                    return resultSet.getBoolean(5);
                 }
                 return false;
             }
         });
     }
-
-
 }

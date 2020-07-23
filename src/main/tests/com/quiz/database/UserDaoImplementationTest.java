@@ -90,7 +90,9 @@ public class UserDaoImplementationTest {
     public void testAdmin() throws NoSuchAlgorithmException {
         User user = new User("adminGela", "123", "admineqsa", "admineqsa");
         assertTrue(userDao.registerUser(user));
+        assertFalse(userDao.removeAdmin(user.getLoginName()));
         assertTrue(userDao.addAdmin(user.getLoginName()));
+        assertFalse(userDao.addAdmin(user.getLoginName()));
         assertTrue(userDao.isAdmin(user.getLoginName()));
         assertTrue(userDao.removeAdmin(user.getLoginName()));
         assertFalse(userDao.isAdmin(user.getLoginName()));
@@ -99,5 +101,4 @@ public class UserDaoImplementationTest {
         assertFalse(userDao.addAdmin(user.getLoginName()));
         assertFalse(userDao.removeAdmin(user.getLoginName()));
     }
-
 }
