@@ -20,6 +20,11 @@ public class LoginRegisterController {
         return loginRegisterService.loginService(userName, password);
     }
 
+    @RequestMapping("/logout")
+    public ModelAndView logoutControl(){
+        return loginRegisterService.logoutService();
+    }
+
     @RequestMapping("/createAccount")
     public ModelAndView createAccountControl(){
         return loginRegisterService.createAccountService();

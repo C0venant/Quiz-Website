@@ -45,4 +45,11 @@ public class LoginRegisterImplementation implements LoginRegisterService {
         mv.addObject("username", userName);
         return mv;
     }
+
+    @Override
+    public ModelAndView logoutService() {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("loginAndRegister/homepage");
+        return mv;
+    }
 }

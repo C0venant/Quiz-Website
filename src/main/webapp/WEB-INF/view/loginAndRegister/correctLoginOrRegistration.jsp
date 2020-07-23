@@ -12,6 +12,15 @@
     </title>
 </head>
 <body>
-<h1>Welcome <%= request.getParameter("username")%></h1>
+    <h1>Welcome <%= request.getParameter("username")%></h1>
+    <form action="addFriend" method="post">
+        <input type="hidden" name="fromuser" value= <%= request.getParameter("username")%>>
+        <label for="touser"> Enter friend's user name: </label>
+        <input type="search" name="touser" id="touser">
+        <input type="submit" value="Add friend">
+    </form>
+    <form action="logout" method="post">
+        <input type="submit" value="Logout">
+    </form>
 </body>
 </html>
