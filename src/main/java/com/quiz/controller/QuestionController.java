@@ -3,7 +3,6 @@ package com.quiz.controller;
 import com.quiz.controller.service.interfaces.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -37,6 +36,29 @@ public class QuestionController {
                                               @RequestParam(value = "correctAnswer",required=false) String correctAnswer,
                                               @RequestParam(value = "answers",required=false) String answers){
         return questionService.registerQuestion(username, body, type, maxGrade, imageFile, correctAnswer, answers);
+    }
+
+    @RequestMapping("/editQuestion")
+    public ModelAndView editQuestion(@RequestParam String username,
+                                             @RequestParam int id,
+                                             @RequestParam(value = "body") String body,
+                                             @RequestParam(value = "maxGrade") int maxGrade,
+                                             @RequestParam(value = "type") String type,
+                                             @RequestParam(value = "imageFile",required=false) String imageFile,
+                                             @RequestParam(value = "correctAnswer",required=false) String correctAnswer,
+                                             @RequestParam(value = "answers",required=false) String answers){
+        questionService.deleteQuestion(username, id);
+        return questionService.registerQuestion(username, body, type ,maxGrade, imageFile, correctAnswer, answers);
+    }
+
+    @RequestMapping("/editOrDeleteQuestion")
+    public ModelAndView editOrDeleteQuestion(@RequestParam String username,@RequestParam int id){
+        return questionService.editOrDeleteQuestion(username, id);
+    }
+
+    @RequestMapping("/deleteQuestion")
+    public ModelAndView deleteQuestion(@RequestParam String username,@RequestParam int id){
+        return questionService.deleteQuestion(username, id);
     }
 
 

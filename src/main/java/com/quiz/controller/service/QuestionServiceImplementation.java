@@ -40,6 +40,25 @@ public class QuestionServiceImplementation implements QuestionService {
     }
 
     @Override
+    public ModelAndView editOrDeleteQuestion(String author, int questionId) {
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("username", author);
+        mv.addObject("id", questionId);
+        mv.addObject("question", questionDao.getQuestion(questionId));
+        mv.setViewName("question/editOrDeleteQuestion");
+        return mv;
+    }
+
+    @Override
+    public ModelAndView deleteQuestion(String author, int questionId) {
+        questionDao.deleteQuestion(questionId);
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("loginAndRegister/correctLoginOrRegistration");
+        mv.addObject("questions", questionDao.getAuthorQuestions(author));
+        return mv;
+    }
+
+    @Override
     public ModelAndView registerQuestion(String author, String body, String typeFull, int maxGrade, String imageFile, String correctAnswer, String answers) {
         QuestionBasic question;
         String[] t = typeFull.split("\\?");
@@ -55,6 +74,7 @@ public class QuestionServiceImplementation implements QuestionService {
         questionDao.addQuestion(author, question);
         ModelAndView mv = new ModelAndView();
         mv.setViewName("loginAndRegister/correctLoginOrRegistration");
+        mv.addObject("questions", questionDao.getAuthorQuestions(author));
         return mv;
     }
 

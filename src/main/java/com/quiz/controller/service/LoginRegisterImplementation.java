@@ -1,6 +1,7 @@
 package com.quiz.controller.service;
 
 import com.quiz.controller.service.interfaces.LoginRegisterService;
+import com.quiz.database.interfaces.QuestionDao;
 import com.quiz.database.interfaces.UserDao;
 import com.quiz.model.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +10,12 @@ import org.springframework.web.servlet.ModelAndView;
 import java.security.NoSuchAlgorithmException;
 
 public class LoginRegisterImplementation implements LoginRegisterService {
+
     @Autowired
     UserDao userDao;
+
+    @Autowired
+    QuestionDao questionDao;
 
     @Override
     public ModelAndView loginService(String userName, String password) throws NoSuchAlgorithmException {
@@ -19,6 +24,7 @@ public class LoginRegisterImplementation implements LoginRegisterService {
         if(log){
             mv.setViewName("loginAndRegister/correctLoginOrRegistration");
             mv.addObject("username", userName);
+            mv.addObject("questions", questionDao.getAuthorQuestions(userName));
         } else {
             mv.setViewName("loginAndRegister/incorrectLogin");
         }

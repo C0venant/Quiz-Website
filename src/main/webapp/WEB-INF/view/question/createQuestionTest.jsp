@@ -18,7 +18,7 @@
     select type:
     <select id="questionType" name="type" onchange="location.href = 'http://localhost:8080/quiz-trial/createQuestion_'+this.value;">
         <option value="basic?username=${username}" selected>Basic</option>
-        <option value="fillBlank?username=${username}">Fill in blank</option>
+        <option value="blank?username=${username}">Fill in blank</option>
         <option value="test?username=${username}" selected>Test</option>
     </select><br><br>
 
