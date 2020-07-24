@@ -12,14 +12,13 @@
 </head>
 <body>
 <form action="registerQuestion" method="post">
-    <input type="hidden" id="user" name="username" value=<%= request.getParameter("username")%>>
     <h4>Create your question: </h4><br>
 
     select type:
     <select id="questionType" name="type" onchange="location.href = 'http://localhost:8080/quiz-trial/createQuestion_'+this.value;">
-        <option value="basic" selected>Basic</option>
-        <option value="fillBlank">Fill in blank</option>
-        <option value="test" selected>Test</option>
+        <option value="basic?username=${username}" selected>Basic</option>
+        <option value="fillBlank?username=${username}">Fill in blank</option>
+        <option value="test?username=${username}" selected>Test</option>
     </select><br><br>
 
     <textarea id="questionBody" name="body" rows="5" cols="50" placeholder="Fill in" required></textarea><br><br>
