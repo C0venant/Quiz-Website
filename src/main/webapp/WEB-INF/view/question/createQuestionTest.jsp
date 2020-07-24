@@ -12,6 +12,7 @@
 </head>
 <body>
 <form action="registerQuestion" method="post">
+    <input type="hidden" id="user" name="username" value=<%= request.getParameter("username")%>>
     <h4>Create your question: </h4><br>
 
     select type:
@@ -29,8 +30,12 @@
     <label for="image">Image File:</label>
     <input type="text" id="image" name="imageFile" placeholder="optional"><br><br>
 
-    <label for="answer">Probable Answers:</label><br>
-    <textarea id="answer" name="correctAnswer" rows="1" cols="50" placeholder="enter probable answers" required></textarea><br><br>
+    <label for="answer">Correct Answer:</label>
+    <input type="text" id="answer" name="correctAnswer"><br><br>
+
+    <label for="answers">Probable Answers:</label><br>
+    <h4>please use ',' between answers</h4>
+    <textarea id="answers" name="answers" rows="1" cols="50" placeholder="enter probable answers" required></textarea><br><br>
 
 
     <input type="submit" value="create">

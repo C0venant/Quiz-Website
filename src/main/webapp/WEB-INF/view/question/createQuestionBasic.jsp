@@ -12,6 +12,8 @@
 </head>
 <body>
 <form action="registerQuestion" method="post">
+    <input type="hidden" id="user" name="username" value=<%= request.getParameter("username")%>>
+
     <h4>Create your question: </h4><br><br>
 
     select type:

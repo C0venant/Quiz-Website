@@ -6,6 +6,7 @@ import com.quiz.model.quiz.question.QuestionBasic;
 import com.quiz.model.quiz.question.QuestionFillBlank;
 import com.quiz.model.quiz.question.QuestionTest;
 import com.quiz.model.quiz.question.utils.QuestionType;
+import com.quiz.utilities.TextFieldUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -39,12 +40,15 @@ public class QuestionServiceImplementation implements QuestionService {
     }
 
     @Override
-    public ModelAndView registerQuestion(String author, String body, String type, int maxGrade, String imageFile, String correctAnswer, String answers) {
+    public ModelAndView registerQuestion(String author, String body, String typeFull, int maxGrade, String imageFile, String correctAnswer, String answers) {
         QuestionBasic question;
+        String[] t = typeFull.split("\\?");
+        String type = t[0];
         if(type.equals(QuestionType.BLANK)){
             question = new QuestionFillBlank(body, maxGrade, imageFile, correctAnswer, -1);
         }else if(type.equals(QuestionType.TEST)){
-            question = new QuestionTest(body, maxGrade, imageFile, correctAnswer, -1, null);
+            System.out.println(TextFieldUtils.parseProbableAnswers(answers));
+            question = new QuestionTest(body, maxGrade, imageFile, correctAnswer, -1, TextFieldUtils.parseProbableAnswers(answers));
         }else{
             question = new QuestionBasic(body, maxGrade, imageFile, correctAnswer, -1);
         }
