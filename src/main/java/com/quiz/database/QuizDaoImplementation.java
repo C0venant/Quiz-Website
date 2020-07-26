@@ -2,6 +2,7 @@ package com.quiz.database;
 
 import com.quiz.database.interfaces.QuizDao;
 import com.quiz.model.quiz.Quiz;
+import com.quiz.model.quiz.question.QuestionBasic;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
@@ -29,6 +30,9 @@ public class QuizDaoImplementation implements QuizDao {
             String addStr = "INSERT INTO quiz (quizName, author)"
                     + " VALUES(?, ?)";
             jdbcTemplate.update(addStr, quizName, author);
+            for(QuestionBasic q : quiz.getQuestions()){
+                addQuestionToQuiz(quizName, q.getId());
+            }
             return true;
         }
     }

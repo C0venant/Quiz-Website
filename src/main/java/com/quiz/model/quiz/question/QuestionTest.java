@@ -32,7 +32,7 @@ public class QuestionTest extends QuestionBasic {
     public String toString(){
         StringBuilder ret = new StringBuilder(super.getBody()+"\n");
         for(int i = 0 ; i < answers.size(); i++){
-            ret.append(i).append(") ").append(answers.get(i)).append("\n");
+            ret.append(i+1).append(") ").append(answers.get(i)).append("\n");
         }
         return ret.toString();
     }
