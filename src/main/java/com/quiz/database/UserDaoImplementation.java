@@ -3,14 +3,10 @@ package com.quiz.database;
 import com.quiz.database.interfaces.UserDao;
 import com.quiz.model.user.User;
 import com.quiz.utilities.HashUtils;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.ResultSetExtractor;
-
 import javax.sql.DataSource;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class UserDaoImplementation implements UserDao {
     private final JdbcTemplate jdbcTemplate;
@@ -40,18 +36,14 @@ public class UserDaoImplementation implements UserDao {
     @Override
     public User getUser(final String loginName) {
         String getStr = "SELECT * FROM users WHERE loginName = " + "'" + loginName + "'";
-        return jdbcTemplate.query(getStr, new ResultSetExtractor<User>() {
-
-            @Override
-            public User extractData(ResultSet resultSet) throws SQLException, DataAccessException {
-                if(resultSet.next()){
-                    String hashedPassword = resultSet.getString(2);
-                    String firstName = resultSet.getString(3);
-                    String lastName = resultSet.getString(4);
-                    return new User(loginName, hashedPassword, firstName, lastName);
-                }
-                return null;
+        return jdbcTemplate.query(getStr, resultSet -> {
+            if(resultSet.next()){
+                String hashedPassword = resultSet.getString(2);
+                String firstName = resultSet.getString(3);
+                String lastName = resultSet.getString(4);
+                return new User(loginName, hashedPassword, firstName, lastName);
             }
+            return null;
         });
     }
 
@@ -82,7 +74,7 @@ public class UserDaoImplementation implements UserDao {
 
     @Override
     public boolean addFriend(User user, User friend) {
-        if(getUser(user.getLoginName())==null || getUser(friend.getLoginName()) == null){
+        if(areFriends(user, friend)){
             return false;
         } else {
             String username = user.getLoginName();
@@ -99,7 +91,7 @@ public class UserDaoImplementation implements UserDao {
 
     @Override
     public boolean removeFriend(User user, User friend) {
-        if(getUser(user.getLoginName())==null || getUser(friend.getLoginName()) == null){
+        if(!areFriends(user, friend)){
             return false;
         } else {
             String username = user.getLoginName();
@@ -109,6 +101,22 @@ public class UserDaoImplementation implements UserDao {
             String regStr2 = "DELETE FROM friends WHERE user1 =? and user2 =?";
             jdbcTemplate.update(regStr2, addFriend,username);
             return true;
+        }
+    }
+
+    @Override
+    public boolean areFriends(User user, User friend) {
+        if(getUser(user.getLoginName())==null || getUser(friend.getLoginName()) == null) {
+            return false;
+        } else {
+            String userName = user.getLoginName();
+            String friendName = friend.getLoginName();
+            String getStr = "SELECT * FROM friends WHERE user1 ="
+                            + "'" + userName + "'" + " AND user2 ="
+                            + "'" + friendName + "'";
+            Boolean query = jdbcTemplate.query(getStr, ResultSet::next);
+            assert query != null;
+            return query;
         }
     }
 
@@ -135,14 +143,11 @@ public class UserDaoImplementation implements UserDao {
     @Override
     public Boolean isAdmin(String loginName) {
         String getStr = "SELECT * FROM users WHERE loginName = " + "'" + loginName + "'";
-        return jdbcTemplate.query(getStr, new ResultSetExtractor<Boolean>() {
-            @Override
-            public Boolean extractData(ResultSet resultSet) throws SQLException, DataAccessException {
-                if(resultSet.next()){
-                    return resultSet.getBoolean(5);
-                }
-                return false;
+        return jdbcTemplate.query(getStr, resultSet -> {
+            if(resultSet.next()){
+                return resultSet.getBoolean(5);
             }
+            return false;
         });
     }
 }

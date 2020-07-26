@@ -1,7 +1,13 @@
 package com.quiz.controller.service.interfaces;
 
+import com.quiz.database.interfaces.QuestionDao;
+import com.quiz.model.quiz.question.QuestionBasic;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 public interface UserService {
-    public ModelAndView addFriendService();
+    public ModelAndView sendRequest(String fromUser);
+    public ModelAndView addFriendService(String fromUser, String toUser);
+    public ModelAndView homepageService(String userName);
 }

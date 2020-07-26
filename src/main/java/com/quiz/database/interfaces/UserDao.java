@@ -14,4 +14,5 @@ public interface UserDao {
     public boolean addAdmin(String loginName);
     public boolean removeAdmin(String loginName);
     public Boolean isAdmin(String loginName);
+    public boolean areFriends(User user, User friend);
 }
