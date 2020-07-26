@@ -21,12 +21,19 @@
         <input type="search" name="touser" id="touser">
         <input type="submit" value="Add friend">
     </form>
+
     <form action="logout" method="post">
         <input type="submit" value="Logout">
     </form>
+
     <form action="createQuestion_basic" method="post">
         <input type="hidden" id="user" name="username" value=<%= request.getParameter("username")%>>
         <input type="submit" value="create Question">
+    </form>
+
+    <form action="displayQuestions" method="post">
+        <input type="hidden" id="user2" name="username" value=<%= request.getParameter("username")%>>
+        <input type="submit" value="create Quiz">
     </form>
 
     <h4>Your questions:</h4><br>
