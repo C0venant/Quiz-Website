@@ -2,6 +2,7 @@ package com.quiz.config;
 
 import com.quiz.controller.service.LoginRegisterImplementation;
 import com.quiz.controller.service.QuestionServiceImplementation;
+import com.quiz.controller.service.QuizServiceImplementation;
 import com.quiz.controller.service.UserServiceImplementation;
 import com.quiz.controller.service.interfaces.QuestionService;
 import com.quiz.database.QuestionDaoImplementation;
@@ -79,5 +80,10 @@ public class AppConfig {
     @Bean
     public QuestionServiceImplementation getQuestionService() {
         return new QuestionServiceImplementation();
+    }
+
+    @Bean
+    public QuizServiceImplementation getQuizService() {
+        return new QuizServiceImplementation();
     }
 }

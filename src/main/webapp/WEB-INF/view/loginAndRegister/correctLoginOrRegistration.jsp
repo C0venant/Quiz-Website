@@ -30,7 +30,7 @@
         <input type="submit" value="create Question">
     </form>
 
-    <form action="displayQuestions" method="post">
+    <form action="chooseQuestions" method="post">
         <input type="hidden" id="user2" name="username" value=<%= request.getParameter("username")%>>
         <input type="submit" value="create Quiz">
     </form>
