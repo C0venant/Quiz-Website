@@ -72,4 +72,23 @@ public class QuizServiceImplementation implements QuizService {
         mv.setViewName("loginAndRegister/correctLoginOrRegistration");
         return mv;
     }
+
+    @Override
+    public ModelAndView enrollQuiz(String username, String quizName) {
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("username", username);
+        mv.addObject("quiz", quizDao.getQuizByName(quizName));
+        mv.setViewName("quiz/enrollQuiz");
+        return mv;
+    }
+
+    @Override
+    public ModelAndView startQuiz(String username, String quizName) {
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("username", username);
+        mv.addObject("quiz", quizDao.getQuizByName(quizName));
+        mv.addObject("questionIndex", 0);
+        mv.setViewName("quiz/quizQuestion");
+        return mv;
+    }
 }

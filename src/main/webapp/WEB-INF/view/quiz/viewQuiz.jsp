@@ -42,11 +42,21 @@
 
             out.print("<h4>" + "-----------------------------------------------------------------" + "</h4>");
         }
-        out.print("<input type=\"hidden\" id=\"user\" name=\"username\" value=\""+quiz.getQuizName()+"\">");
+        out.print("<input type=\"hidden\" id=\"quiz\" name=\"quizName\" value=\""+quiz.getQuizName()+"\">");
 
     %>
-    <input type="hidden" id="quizN" name="quizName" value=<%= request.getParameter("quizName")%>>
+    <input type="hidden" id="user" name="username" value=<%= request.getParameter("username")%>>
     <input type="submit" value="delete">
 </form>
+
+<form action="enrollQuiz" method="post">
+    <%
+        Quiz quiz1 = (Quiz)request.getAttribute("quiz");
+        out.print("<input type=\"hidden\" id=\"quiz2\" name=\"quizName\" value=\""+quiz1.getQuizName()+"\">");
+    %>
+    <input type="hidden" id="user2" name="username" value=<%= request.getParameter("username")%>>
+    <input type="submit" value="enroll">
+</form>
+
 </body>
 </html>

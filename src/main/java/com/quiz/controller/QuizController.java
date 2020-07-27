@@ -1,6 +1,7 @@
 package com.quiz.controller;
 
 import com.quiz.controller.service.interfaces.QuizService;
+import com.quiz.model.quiz.Quiz;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +34,18 @@ public class QuizController {
 
     @RequestMapping("/deleteQuiz")
     public ModelAndView deleteQuiz(@RequestParam String username, @RequestParam String quizName){
+        System.out.println(quizName);
         return quizService.deleteQuiz(username, quizName);
+    }
+
+    @RequestMapping("/enrollQuiz")
+    public ModelAndView enrollQuiz(@RequestParam String username, @RequestParam String quizName){
+        return quizService.enrollQuiz(username, quizName);
+    }
+
+    @RequestMapping("/startQuiz")
+    public ModelAndView startQuiz(@RequestParam String username, @RequestParam String quizName){
+        return quizService.startQuiz(username, quizName);
     }
 
 }
