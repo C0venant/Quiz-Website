@@ -28,4 +28,16 @@ public class UserController {
         return userService.homepageService(userName);
     }
 
+    @RequestMapping("acceptOrReject")
+    public ModelAndView acceptOrRejectControl(@RequestParam String fromUser, @RequestParam String toUser, @RequestParam Integer id){
+        return  userService.acceptOrRejectService(fromUser, toUser, id);
+    }
+
+    @RequestMapping("proceedAcceptOrReject")
+    public ModelAndView proceedAcceptOrRejectControl(@RequestParam("accept") String accept,
+                                                     @RequestParam("fromuser") String fromUser,
+                                                     @RequestParam("username") String userName,
+                                                     @RequestParam("id") Integer id){
+        return userService.proceedAcceptOrRejectService(accept, fromUser, userName, id);
+    }
 }

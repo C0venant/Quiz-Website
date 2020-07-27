@@ -55,6 +55,8 @@ public class UserServiceImplementation implements UserService {
             }
             mv.addObject("quizzes", quizDao.getQuizzesByAuthor(fromUser));
             mv.addObject("questions", questionDao.getAuthorQuestions(fromUser));
+            mv.addObject("friendRequests", requestDao.getFriendRequests(fromUser));
+            mv.addObject("userDao", userDao);
             mv.setViewName("loginAndRegister/correctLoginOrRegistration");
         } else {
             if(areFriends){
@@ -70,7 +72,33 @@ public class UserServiceImplementation implements UserService {
     public ModelAndView homepageService(String userName){
         ModelAndView mv = new ModelAndView();
         mv.addObject("questions", questionDao.getAuthorQuestions(userName));
+        mv.addObject("quizzes", quizDao.getQuizzesByAuthor(userName));
+        mv.addObject("friendRequests", requestDao.getFriendRequests(userName));
+        mv.addObject("userDao", userDao);
         mv.setViewName("loginAndRegister/correctLoginOrRegistration");
         return mv;
     }
+
+    @Override
+    public ModelAndView acceptOrRejectService(String fromUser, String toUser, Integer id) {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("request/acceptOrRejectFriendReq");
+        mv.addObject("fromUser", fromUser);
+        mv.addObject("toUser", toUser);
+        mv.addObject("id", id);
+        return mv;
+    }
+
+    @Override
+    public ModelAndView proceedAcceptOrRejectService(String accept, String fromUser, String userName, Integer id) {
+        ModelAndView mv;
+        if(accept.equals("yes")){
+            userDao.addFriend(new User(fromUser, "", "", ""), new User(userName, "", "", ""));
+        }
+        requestDao.deleteRequest(id);
+        mv = homepageService(userName);
+        return mv;
+    }
+
+
 }

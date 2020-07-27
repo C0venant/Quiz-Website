@@ -11,5 +11,6 @@ public interface RequestDao {
     public Request getRequest(int requestId);
     public List<Request> getSentRequests(String userFrom);
     public List<Request> getReceivedRequests(String userTo);
+    public List<Request> getFriendRequests(String userTo);
 
 }
