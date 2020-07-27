@@ -74,7 +74,7 @@ public class UserDaoImplementation implements UserDao {
 
     @Override
     public boolean addFriend(User user, User friend) {
-        if(areFriends(user, friend)){
+        if(getUser(user.getLoginName())==null || getUser(friend.getLoginName()) == null || areFriends(user, friend)){
             return false;
         } else {
             String username = user.getLoginName();
@@ -114,9 +114,7 @@ public class UserDaoImplementation implements UserDao {
             String getStr = "SELECT * FROM friends WHERE user1 ="
                             + "'" + userName + "'" + " AND user2 ="
                             + "'" + friendName + "'";
-            Boolean query = jdbcTemplate.query(getStr, ResultSet::next);
-            assert query != null;
-            return query;
+            return jdbcTemplate.query(getStr, ResultSet::next);
         }
     }
 
