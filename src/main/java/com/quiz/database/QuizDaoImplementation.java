@@ -1,8 +1,10 @@
 package com.quiz.database;
 
+import com.quiz.database.interfaces.QuestionDao;
 import com.quiz.database.interfaces.QuizDao;
 import com.quiz.model.quiz.Quiz;
 import com.quiz.model.quiz.question.QuestionBasic;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
@@ -11,10 +13,14 @@ import org.springframework.jdbc.core.RowMapper;
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class QuizDaoImplementation implements QuizDao {
     private final JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    QuestionDao questionDao;
 
     public QuizDaoImplementation(DataSource dataSource){
         jdbcTemplate = new JdbcTemplate(dataSource);
@@ -37,11 +43,27 @@ public class QuizDaoImplementation implements QuizDao {
         }
     }
 
+
     @Override
-    public Quiz getQuizByName(final String quizName) {
+    public Quiz getQuizByName(String quizName) {
         String getStr = "SELECT * FROM quiz WHERE quizName = " + "'" + quizName + "'";
         return jdbcTemplate.query(getStr, new ResultSetExtractor<Quiz>() {
 
+            @Override
+            public Quiz extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+                if(resultSet.next()){
+                    String author = resultSet.getString(2);
+                    return new Quiz(quizName, author, getAllQuestionFromQuiz(getAllQuestionIdsFromQuiz(quizName)));
+                }
+                return null;
+            }
+        });
+    }
+
+    @Override
+    public Quiz isPresent(String quizName) {
+        String getStr = "SELECT * FROM quiz WHERE quizName = " + "'" + quizName + "'";
+        return jdbcTemplate.query(getStr, new ResultSetExtractor<Quiz>() {
             @Override
             public Quiz extractData(ResultSet resultSet) throws SQLException, DataAccessException {
                 if(resultSet.next()){
@@ -61,14 +83,14 @@ public class QuizDaoImplementation implements QuizDao {
             @Override
             public Quiz mapRow(ResultSet rs, int rowNum) throws SQLException {
                 String quizName = rs.getString("quizName");
-                return new Quiz(quizName, author);
+                return new Quiz(quizName, author, getAllQuestionFromQuiz(getAllQuestionIdsFromQuiz(quizName)));
             }
         });
     }
 
     @Override
     public boolean addQuestionToQuiz(String quizName, int questionId) {
-        if(getQuizByName(quizName) == null){
+        if(isPresent(quizName) == null){
             return false;
         } else {
             String addStr = "INSERT INTO quizQuestions VALUES(?, ?)";
@@ -79,7 +101,7 @@ public class QuizDaoImplementation implements QuizDao {
 
     @Override
     public boolean deleteQuestionFromQuiz(String quizName, int questionId) {
-        if(getQuizByName(quizName) == null){
+        if(isPresent(quizName) == null){
             return false;
         } else {
             String delStr = "DELETE FROM quizQuestions WHERE quizName =? AND questionId =?";
@@ -90,7 +112,7 @@ public class QuizDaoImplementation implements QuizDao {
 
     @Override
     public boolean deleteQuiz(String quizName) {
-        if(getQuizByName(quizName) == null){
+        if(isPresent(quizName) == null){
             return false;
         } else {
             String delStr = "DELETE FROM quiz WHERE quizName =?";
@@ -101,7 +123,7 @@ public class QuizDaoImplementation implements QuizDao {
 
     @Override
     public List<Integer> getAllQuestionIdsFromQuiz(String quizName) {
-        if(getQuizByName(quizName) == null){
+        if(isPresent(quizName) == null){
             return null;
         } else {
             String getStr = "SELECT * FROM quizQuestions WHERE quizName = " + "'" + quizName + "'";
@@ -113,6 +135,15 @@ public class QuizDaoImplementation implements QuizDao {
                 }
             });
         }
+    }
+
+    @Override
+    public List<QuestionBasic> getAllQuestionFromQuiz(List<Integer> questionId) {
+        List<QuestionBasic> questionList = new ArrayList<>();
+        for(int id : questionId){
+            questionList.add(questionDao.getQuestion(id));
+        }
+        return questionList;
     }
 
     @Override

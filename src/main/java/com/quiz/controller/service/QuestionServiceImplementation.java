@@ -2,6 +2,7 @@ package com.quiz.controller.service;
 
 import com.quiz.controller.service.interfaces.QuestionService;
 import com.quiz.database.interfaces.QuestionDao;
+import com.quiz.database.interfaces.QuizDao;
 import com.quiz.model.quiz.question.QuestionBasic;
 import com.quiz.model.quiz.question.QuestionFillBlank;
 import com.quiz.model.quiz.question.QuestionTest;
@@ -14,6 +15,9 @@ public class QuestionServiceImplementation implements QuestionService {
 
     @Autowired
     QuestionDao questionDao;
+
+    @Autowired
+    QuizDao quizDao;
 
     @Override
     public ModelAndView createBasicQuestion(String author) {
@@ -55,6 +59,7 @@ public class QuestionServiceImplementation implements QuestionService {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("loginAndRegister/correctLoginOrRegistration");
         mv.addObject("questions", questionDao.getAuthorQuestions(author));
+        mv.addObject("quizzes", quizDao.getQuizzesByAuthor(author));
         return mv;
     }
 
@@ -66,7 +71,6 @@ public class QuestionServiceImplementation implements QuestionService {
         if(type.equals(QuestionType.BLANK)){
             question = new QuestionFillBlank(body, maxGrade, imageFile, correctAnswer, -1);
         }else if(type.equals(QuestionType.TEST)){
-            System.out.println(TextFieldUtils.parseProbableAnswers(answers));
             question = new QuestionTest(body, maxGrade, imageFile, correctAnswer, -1, TextFieldUtils.parseProbableAnswers(answers));
         }else{
             question = new QuestionBasic(body, maxGrade, imageFile, correctAnswer, -1);
@@ -75,6 +79,7 @@ public class QuestionServiceImplementation implements QuestionService {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("loginAndRegister/correctLoginOrRegistration");
         mv.addObject("questions", questionDao.getAuthorQuestions(author));
+        mv.addObject("quizzes", quizDao.getQuizzesByAuthor(author));
         return mv;
     }
 

@@ -46,6 +46,9 @@ public class QuestionFillBlank extends QuestionBasic {
     public String toString(){
         List<String> list = splitOnDelimiter();
         String ret = "";
+        if(list.size() == 1){
+            return list.get(0)+"____";
+        }
         return list.get(0)+"____"+list.get(1);
     }
 

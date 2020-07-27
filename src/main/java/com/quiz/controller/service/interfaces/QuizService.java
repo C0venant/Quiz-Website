@@ -8,4 +8,5 @@ public interface QuizService {
 
     public ModelAndView displayQuestions(String author);
     public ModelAndView assembleQuestions(String author, String quizName, HttpServletRequest req);
+    public ModelAndView viewOrDeleteQuiz(String author, String quizName);
 }

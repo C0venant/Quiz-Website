@@ -2,6 +2,7 @@ package com.quiz.controller.service;
 
 import com.quiz.controller.service.interfaces.UserService;
 import com.quiz.database.interfaces.QuestionDao;
+import com.quiz.database.interfaces.QuizDao;
 import com.quiz.database.interfaces.RequestDao;
 import com.quiz.database.interfaces.UserDao;
 import com.quiz.model.request.Request;
@@ -21,6 +22,9 @@ public class UserServiceImplementation implements UserService {
 
     @Autowired
     RequestDao requestDao;
+
+    @Autowired
+    QuizDao quizDao;
 
     @Override
     public ModelAndView sendRequest(String fromUser) {
@@ -49,6 +53,7 @@ public class UserServiceImplementation implements UserService {
                 Request newReq = new Request(fromUser, toUser, RequestType.FRIEND, "");
                 requestDao.addRequest(newReq);
             }
+            mv.addObject("quizzes", quizDao.getQuizzesByAuthor(fromUser));
             mv.addObject("questions", questionDao.getAuthorQuestions(fromUser));
             mv.setViewName("loginAndRegister/correctLoginOrRegistration");
         } else {

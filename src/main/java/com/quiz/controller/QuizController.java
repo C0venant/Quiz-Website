@@ -26,4 +26,9 @@ public class QuizController {
         return quizService.assembleQuestions(username, quizName, req);
     }
 
+    @RequestMapping("/viewQuiz")
+    public ModelAndView assembleQuestions(@RequestParam String username, @RequestParam String quizName){
+        return quizService.viewOrDeleteQuiz(username, quizName);
+    }
+
 }

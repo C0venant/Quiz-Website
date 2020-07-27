@@ -1,6 +1,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.quiz.model.quiz.question.QuestionBasic" %>
-<%@ page import="java.util.ArrayList" %><%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.quiz.model.quiz.Quiz" %><%--
   Created by IntelliJ IDEA.
   User: Irakli
   Date: 7/22/2020
@@ -61,6 +62,24 @@
                 }
             }
         %>
+    </table>
+
+    <h4>Your Quizzes: </h4>
+    <table >
+        <tr>
+            <th>_____Quiz Name_____</th>
+            <th>_____Grade_____</th>
+        </tr>
+
+        <%
+            List <Quiz> quizList = (List <Quiz>)request.getAttribute("quizzes");
+            for(Quiz q : quizList){
+                out.print("<tr><th><span>&#9679;</span>"+"<a href=\"/quiz-trial/viewQuiz?quizName="+q.getQuizName()+
+                        "&username="+request.getParameter("username")+"\">"+q.getQuizName()+"</a></th>");
+                out.print("<th>"+q.getOverallGrade()+"</th></tr>");
+            }
+        %>
+
     </table>
 
 </body>
