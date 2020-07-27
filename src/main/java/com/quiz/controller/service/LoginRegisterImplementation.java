@@ -3,6 +3,7 @@ package com.quiz.controller.service;
 import com.quiz.controller.service.interfaces.LoginRegisterService;
 import com.quiz.database.interfaces.QuestionDao;
 import com.quiz.database.interfaces.QuizDao;
+import com.quiz.database.interfaces.RequestDao;
 import com.quiz.database.interfaces.UserDao;
 import com.quiz.model.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class LoginRegisterImplementation implements LoginRegisterService {
     @Autowired
     QuizDao quizDao;
 
+    @Autowired
+    RequestDao requestDao;
+
     @Override
     public ModelAndView loginService(String userName, String password) throws NoSuchAlgorithmException {
         ModelAndView mv = new ModelAndView();
@@ -30,6 +34,8 @@ public class LoginRegisterImplementation implements LoginRegisterService {
             mv.addObject("username", userName);
             mv.addObject("questions", questionDao.getAuthorQuestions(userName));
             mv.addObject("quizzes", quizDao.getQuizzesByAuthor(userName));
+            mv.addObject("friendRequests", requestDao.getFriendRequests(userName));
+            mv.addObject("userDao", userDao);
         } else {
             mv.setViewName("loginAndRegister/incorrectLogin");
         }
@@ -51,6 +57,8 @@ public class LoginRegisterImplementation implements LoginRegisterService {
         if(reg){
             mv.addObject("questions", questionDao.getAuthorQuestions(userName));
             mv.addObject("quizzes", quizDao.getQuizzesByAuthor(userName));
+            mv.addObject("friendRequests", requestDao.getFriendRequests(userName));
+            mv.addObject("userDao", userDao);
             mv.setViewName("loginAndRegister/correctLoginOrRegistration");
         } else {
             mv.setViewName("loginAndRegister/nameInUse");
