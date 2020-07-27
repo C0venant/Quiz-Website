@@ -62,4 +62,14 @@ public class QuizServiceImplementation implements QuizService {
         mv.addObject("quiz", quizDao.getQuizByName(quizName));
         return mv;
     }
+
+    @Override
+    public ModelAndView deleteQuiz(String author, String quizName) {
+        quizDao.deleteQuiz(quizName);
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("quizzes", quizDao.getQuizzesByAuthor(author));
+        mv.addObject("questions", questionDao.getAuthorQuestions(author));
+        mv.setViewName("loginAndRegister/correctLoginOrRegistration");
+        return mv;
+    }
 }

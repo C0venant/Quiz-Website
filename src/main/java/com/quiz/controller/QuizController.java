@@ -17,7 +17,7 @@ public class QuizController {
     QuizService quizService;
 
     @RequestMapping("/chooseQuestions")
-    public ModelAndView chooseQuesiton(@RequestParam String username){
+    public ModelAndView chooseQuestion(@RequestParam String username){
         return quizService.displayQuestions(username);
     }
 
@@ -29,6 +29,11 @@ public class QuizController {
     @RequestMapping("/viewQuiz")
     public ModelAndView assembleQuestions(@RequestParam String username, @RequestParam String quizName){
         return quizService.viewOrDeleteQuiz(username, quizName);
+    }
+
+    @RequestMapping("/deleteQuiz")
+    public ModelAndView deleteQuiz(@RequestParam String username, @RequestParam String quizName){
+        return quizService.deleteQuiz(username, quizName);
     }
 
 }

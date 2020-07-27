@@ -115,6 +115,11 @@ public class QuizDaoImplementation implements QuizDao {
         if(isPresent(quizName) == null){
             return false;
         } else {
+
+            List<QuestionBasic> list = getAllQuestionFromQuiz(getAllQuestionIdsFromQuiz(quizName));
+            for(QuestionBasic q : list){
+                deleteQuestionFromQuiz(quizName, q.getId());
+            }
             String delStr = "DELETE FROM quiz WHERE quizName =?";
             jdbcTemplate.update(delStr, quizName);
             return true;

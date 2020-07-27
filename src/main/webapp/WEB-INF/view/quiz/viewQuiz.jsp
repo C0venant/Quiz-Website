@@ -16,11 +16,12 @@
     <title>Quiz view</title>
 </head>
 <body>
-<form action="assembleQuestions" method="post">
+<form action="deleteQuiz" method="post">
     <%
         Quiz quiz = (Quiz)request.getAttribute("quiz");
         out.println("<h4>Quiz name:"+quiz.getQuizName()+"</h4>");
         out.println("<h4>Quiz grade:"+quiz.getOverallGrade()+"</h4>");
+        out.print("<h4>" + "-----------------------------------------------------------------" + "</h4>");
         List<QuestionBasic> list = quiz.getQuestions();
         for (QuestionBasic q : list) {
             if (q.getType().equals(QuestionType.TEST)) {
@@ -38,11 +39,14 @@
                 out.println("<h4> max grade: " + q.getMaxGrade() + "</h4>");
                 out.println("<h4>" + q.toString() + "</h4>");
             }
+
             out.print("<h4>" + "-----------------------------------------------------------------" + "</h4>");
         }
+        out.print("<input type=\"hidden\" id=\"user\" name=\"username\" value=\""+quiz.getQuizName()+"\">");
+
     %>
-    <input type="hidden" id="user" name="username" value=<%= request.getParameter("username")%>>
-    <input type="submit" value="create Quiz">
+    <input type="hidden" id="quizN" name="quizName" value=<%= request.getParameter("quizName")%>>
+    <input type="submit" value="delete">
 </form>
 </body>
 </html>
