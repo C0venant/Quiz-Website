@@ -130,15 +130,13 @@ public class QuizDaoImplementation implements QuizDao {
     }
 
     @Override
-    public boolean answerQuestion(String quizName, String userName, int questionId, String answer) {
+    public void answerQuestion(String quizName, String userName, int questionId, String answer) {
         if(getQuestionAnswer(quizName, userName, questionId) != null){
-            return false;
-        } else {
-            String ansStr = "INSERT INTO quizAnswers(quizName, userName, questionId, answer)"
+            unAnswerQuestion(quizName, userName, questionId);
+        }
+        String ansStr = "INSERT INTO quizAnswers(quizName, userName, questionId, answer)"
                     + " VALUES(?, ?, ?, ?)";
             jdbcTemplate.update(ansStr, quizName, userName, questionId, answer);
-            return true;
-        }
     }
 
     @Override

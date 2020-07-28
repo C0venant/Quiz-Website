@@ -6,6 +6,7 @@ import com.quiz.database.interfaces.QuizDao;
 import com.quiz.database.interfaces.RequestDao;
 import com.quiz.model.quiz.Quiz;
 import com.quiz.model.quiz.question.QuestionBasic;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -91,18 +92,42 @@ public class QuizServiceImplementation implements QuizService {
     @Override
     public ModelAndView startQuiz(String username, String quizName) {
         ModelAndView mv = new ModelAndView();
+        Quiz quiz = quizDao.getQuizByName(quizName);
+        String previousAnswer = quizDao.getQuestionAnswer(quizName, username, quiz.getQuestions().get(0).getId());
         mv.addObject("username", username);
-        mv.addObject("quiz", quizDao.getQuizByName(quizName));
+        mv.addObject("quiz", quiz);
         mv.addObject("questionIndex", 0);
+        mv.addObject("previousAnswer", previousAnswer);
         mv.setViewName("quiz/quizQuestion");
         return mv;
     }
 
     @Override
-    public ModelAndView fetchNextQuestion(String username, String quizName, String nextQuestion) {
-        System.out.println(username);
-        System.out.println(quizName);
-        System.out.println(nextQuestion);
-        return null;
+    public ModelAndView fetchNextQuestion(String username, String quizName, String nextQuestion, int index, String userAnswer) {
+        Quiz quiz = quizDao.getQuizByName(quizName);
+        List<QuestionBasic> list = quiz.getQuestions();
+        String previousAnswer;
+        if(userAnswer != null){
+            quizDao.answerQuestion(quizName, username, list.get(index).getId(), userAnswer);
+        }
+        ModelAndView mv = new ModelAndView();
+        if(nextQuestion.equals("finish")){
+            mv.addObject("quizzes", quizDao.getQuizzesByAuthor(username));
+            mv.addObject("questions", questionDao.getAuthorQuestions(username));
+            mv.addObject("friendRequests", requestDao.getFriendRequests(username));
+            mv.setViewName("loginAndRegister/correctLoginOrRegistration");
+            return mv;
+        }else if(nextQuestion.equals("next")){
+            mv.addObject("questionIndex", index+1);
+            previousAnswer = quizDao.getQuestionAnswer(quizName, username,list.get(index+1).getId());
+        }else{
+            mv.addObject("questionIndex", index-1);
+            previousAnswer = quizDao.getQuestionAnswer(quizName, username,list.get(index-1).getId());
+        }
+        mv.addObject("previousAnswer", previousAnswer);
+        mv.addObject("username", username);
+        mv.addObject("quiz", quizDao.getQuizByName(quizName));
+        mv.setViewName("quiz/quizQuestion");
+        return mv;
     }
 }
