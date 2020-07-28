@@ -2,8 +2,7 @@
 <%@ page import="com.quiz.model.quiz.question.QuestionBasic" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.quiz.model.request.Request" %>
-<%@ page import="com.quiz.database.UserDaoImplementation" %>
-<%@ page import="com.quiz.model.user.User" %>
+
 <%--
   Created by IntelliJ IDEA.
   User: Irakli
@@ -19,6 +18,45 @@
 </head>
 <body>
     <h1>Welcome <%= request.getParameter("username")%></h1>
+    <%
+        List<Request> friendReqs = (List<Request>)request.getAttribute("friendRequests");
+    %>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .notification {
+            background-color: #555;
+            color: white;
+            text-decoration: none;
+            padding: 13px 23px;
+            position: relative;
+            display: inline-block;
+            border-radius: 2px;
+        }
+
+        .notification:hover {
+            background: red;
+        }
+
+        .notification .badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            padding: 5px 10px;
+            border-radius: 50%;
+            background-color: red;
+            color: white;
+        }
+    </style>
+
+    <form name="myform" action="friendRequests" class="notification" method="post">
+        <span onclick="myform.submit()">Friend Requests</span>
+        <input type="hidden" name="username" value=<%=request.getParameter("username")%>>
+        <span class="badge"><%=friendReqs.size()%></span>
+    </form>
 
     <form action="logout" method="post">
         <input type="submit" value="Logout">
@@ -38,30 +76,6 @@
         <input type="hidden" id="user2" name="username" value=<%= request.getParameter("username")%>>
         <input type="submit" value="create Quiz">
     </form>
-
-    <h4>Your friend requests:</h4><br>
-    <table>
-        <tr>
-            <th>____Username____</th>
-            <th>____First Name____</th>
-            <th>____Last Name____</th>
-            <th>____Accept/Reject</th>
-        </tr>
-        <%
-            List<Request> friendReqs = (List<Request>)request.getAttribute("friendRequests");
-            UserDaoImplementation userDao = (UserDaoImplementation)request.getAttribute("userDao");
-            if(friendReqs != null){
-                for(Request req : friendReqs){
-                    User getUser = userDao.getUser(req.getFromUser());
-                    out.print("<tr><th>"+req.getFromUser()+"</th>");
-                    out.print("<th>"+getUser.getFirstName()+"</th>");
-                    out.print("<th>"+getUser.getLastName()+"</th>");
-                    out.print("<th><span>&#9679;</span>"+"<a href=\"/quiz-trial/acceptOrReject?fromUser="+req.getFromUser()+
-                            "&toUser="+req.getToUser()+"&id="+ req.getId()+"\">"+"Yes/No"+"</a><th><tr>");
-                }
-            }
-        %>
-    </table>
 
     <h4>Your questions:</h4><br>
     <table >
@@ -106,8 +120,6 @@
                 out.print("<th>"+q.getOverallGrade()+"</th></tr>");
             }
         %>
-
     </table>
-
 </body>
 </html>

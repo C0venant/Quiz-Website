@@ -12,4 +12,5 @@ public interface UserService {
     public ModelAndView homepageService(String userName);
     public ModelAndView acceptOrRejectService(String fromUser, String toUser, Integer id);
     public ModelAndView proceedAcceptOrRejectService(String accept, String fromUser, String userName, Integer id);
+    public ModelAndView friendRequestsService(String userName);
 }

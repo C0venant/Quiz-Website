@@ -11,6 +11,11 @@
     <title>Accept Or Reject</title>
 </head>
 <body>
+    <form action="homepage" method="post">
+        <input type="hidden" name="username" value=<%=request.getParameter("toUser")%>>
+        <input type="submit" value="Homepage">
+    </form>
+
     <h1>Are you sure you want to accept <%=request.getParameter("fromUser")%>'s friend request?</h1>
 
     <form action="proceedAcceptOrReject" method="post">
@@ -29,9 +34,5 @@
         <input type="submit" value="No">
     </form>
 
-    <form action="homepage" method="post">
-        <input type="hidden" name="username" value=<%=request.getParameter("toUser")%>>
-        <input type="submit" value="Homepage">
-    </form>
 </body>
 </html>

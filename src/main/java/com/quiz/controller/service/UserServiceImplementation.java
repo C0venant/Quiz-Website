@@ -56,7 +56,6 @@ public class UserServiceImplementation implements UserService {
             mv.addObject("quizzes", quizDao.getQuizzesByAuthor(fromUser));
             mv.addObject("questions", questionDao.getAuthorQuestions(fromUser));
             mv.addObject("friendRequests", requestDao.getFriendRequests(fromUser));
-            mv.addObject("userDao", userDao);
             mv.setViewName("loginAndRegister/correctLoginOrRegistration");
         } else {
             if(areFriends){
@@ -74,7 +73,6 @@ public class UserServiceImplementation implements UserService {
         mv.addObject("questions", questionDao.getAuthorQuestions(userName));
         mv.addObject("quizzes", quizDao.getQuizzesByAuthor(userName));
         mv.addObject("friendRequests", requestDao.getFriendRequests(userName));
-        mv.addObject("userDao", userDao);
         mv.setViewName("loginAndRegister/correctLoginOrRegistration");
         return mv;
     }
@@ -100,5 +98,14 @@ public class UserServiceImplementation implements UserService {
         return mv;
     }
 
+    @Override
+    public ModelAndView friendRequestsService(String userName){
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("friendRequests", requestDao.getFriendRequests(userName));
+        mv.addObject("userDao", userDao);
+        mv.addObject("username", userName);
+        mv.setViewName("request/friendRequests");
+        return mv;
+    }
 
 }

@@ -3,6 +3,7 @@ package com.quiz.controller.service;
 import com.quiz.controller.service.interfaces.QuestionService;
 import com.quiz.database.interfaces.QuestionDao;
 import com.quiz.database.interfaces.QuizDao;
+import com.quiz.database.interfaces.RequestDao;
 import com.quiz.model.quiz.question.QuestionBasic;
 import com.quiz.model.quiz.question.QuestionFillBlank;
 import com.quiz.model.quiz.question.QuestionTest;
@@ -18,6 +19,9 @@ public class QuestionServiceImplementation implements QuestionService {
 
     @Autowired
     QuizDao quizDao;
+
+    @Autowired
+    RequestDao requestDao;
 
     @Override
     public ModelAndView createBasicQuestion(String author) {
@@ -58,6 +62,7 @@ public class QuestionServiceImplementation implements QuestionService {
         questionDao.deleteQuestion(questionId);
         ModelAndView mv = new ModelAndView();
         mv.setViewName("loginAndRegister/correctLoginOrRegistration");
+        mv.addObject("friendRequests", requestDao.getFriendRequests(author));
         mv.addObject("questions", questionDao.getAuthorQuestions(author));
         mv.addObject("quizzes", quizDao.getQuizzesByAuthor(author));
         return mv;
@@ -78,6 +83,7 @@ public class QuestionServiceImplementation implements QuestionService {
         questionDao.addQuestion(author, question);
         ModelAndView mv = new ModelAndView();
         mv.setViewName("loginAndRegister/correctLoginOrRegistration");
+        mv.addObject("friendRequests", requestDao.getFriendRequests(author));
         mv.addObject("questions", questionDao.getAuthorQuestions(author));
         mv.addObject("quizzes", quizDao.getQuizzesByAuthor(author));
         return mv;

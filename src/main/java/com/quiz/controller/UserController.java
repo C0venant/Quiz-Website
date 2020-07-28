@@ -40,4 +40,9 @@ public class UserController {
                                                      @RequestParam("id") Integer id){
         return userService.proceedAcceptOrRejectService(accept, fromUser, userName, id);
     }
+
+    @RequestMapping("friendRequests")
+    public ModelAndView friendRequestsControl(@RequestParam("username") String userName){
+        return userService.friendRequestsService(userName);
+    }
 }

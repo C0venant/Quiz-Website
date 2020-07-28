@@ -3,6 +3,7 @@ package com.quiz.controller.service;
 import com.quiz.controller.service.interfaces.QuizService;
 import com.quiz.database.interfaces.QuestionDao;
 import com.quiz.database.interfaces.QuizDao;
+import com.quiz.database.interfaces.RequestDao;
 import com.quiz.model.quiz.Quiz;
 import com.quiz.model.quiz.question.QuestionBasic;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class QuizServiceImplementation implements QuizService {
 
     @Autowired
     QuizDao quizDao;
+
+    @Autowired
+    RequestDao requestDao;
 
     @Override
     public ModelAndView displayQuestions(String author) {
@@ -50,6 +54,7 @@ public class QuizServiceImplementation implements QuizService {
         ModelAndView mv = new ModelAndView();
         mv.addObject("quizzes", quizDao.getQuizzesByAuthor(author));
         mv.addObject("questions", questionDao.getAuthorQuestions(author));
+        mv.addObject("friendRequests", requestDao.getFriendRequests(author));
         mv.setViewName("loginAndRegister/correctLoginOrRegistration");
         return mv;
     }
@@ -69,6 +74,7 @@ public class QuizServiceImplementation implements QuizService {
         ModelAndView mv = new ModelAndView();
         mv.addObject("quizzes", quizDao.getQuizzesByAuthor(author));
         mv.addObject("questions", questionDao.getAuthorQuestions(author));
+        mv.addObject("friendRequests", requestDao.getFriendRequests(author));
         mv.setViewName("loginAndRegister/correctLoginOrRegistration");
         return mv;
     }

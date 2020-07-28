@@ -11,17 +11,17 @@
     <title>Send friend request</title>
 </head>
 <body>
-<form action="proceedSendFriendRequest" method="post">
-    <h1>User with user name <%=request.getParameter("touser")%> is already your friend. Enter Another: </h1>
-    <input type="hidden" id="user" name="username" value=<%= request.getParameter("username")%>>
-    <label for="touser"> Enter name here: </label>
-    <input type="text" name="touser" id="touser">
-    <input type="submit" value="Add friend">
-</form>
+    <form action="homepage" method="post">
+        <input type="hidden" name="username" value=<%=request.getParameter("username")%>>
+        <input type="submit" value="Homepage">
+    </form>
 
-<form action="homepage" method="post">
-    <input type="hidden" name="username" value=<%=request.getParameter("username")%>>
-    <input type="submit" value="Homepage">
-</form>
+    <form action="proceedSendFriendRequest" method="post">
+        <h1>User with user name <%=request.getParameter("touser")%> is already your friend. Enter Another: </h1>
+        <input type="hidden" id="user" name="username" value=<%= request.getParameter("username")%>>
+        <label for="touser"> Enter name here: </label>
+        <input type="text" name="touser" id="touser">
+        <input type="submit" value="Add friend">
+    </form>
 </body>
 </html>

@@ -35,7 +35,6 @@ public class LoginRegisterImplementation implements LoginRegisterService {
             mv.addObject("questions", questionDao.getAuthorQuestions(userName));
             mv.addObject("quizzes", quizDao.getQuizzesByAuthor(userName));
             mv.addObject("friendRequests", requestDao.getFriendRequests(userName));
-            mv.addObject("userDao", userDao);
         } else {
             mv.setViewName("loginAndRegister/incorrectLogin");
         }
@@ -58,7 +57,6 @@ public class LoginRegisterImplementation implements LoginRegisterService {
             mv.addObject("questions", questionDao.getAuthorQuestions(userName));
             mv.addObject("quizzes", quizDao.getQuizzesByAuthor(userName));
             mv.addObject("friendRequests", requestDao.getFriendRequests(userName));
-            mv.addObject("userDao", userDao);
             mv.setViewName("loginAndRegister/correctLoginOrRegistration");
         } else {
             mv.setViewName("loginAndRegister/nameInUse");
