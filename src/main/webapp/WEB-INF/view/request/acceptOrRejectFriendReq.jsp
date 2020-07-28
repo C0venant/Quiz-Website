@@ -20,18 +20,30 @@
 
     <form action="proceedAcceptOrReject" method="post">
         <input type="hidden" name="username" value=<%=request.getParameter("toUser")%>>
-        <input type="hidden" name="fromuser" value=<%=request.getParameter("fromUser")%>>
+        <input type="hidden" id = "fromuser" name="fromuser" value=<%=request.getParameter("fromUser")%>>
         <input type="hidden" name="id" value=<%=request.getParameter("id")%>>
         <input type="hidden" name="accept" value="yes">
-        <input type="submit" value="Yes">
+        <input type="submit" onclick="yesFunction()" value="Yes">
     </form>
+
+    <script>
+        function yesFunction(){
+            const fromUser = document.getElementById("fromuser").value;
+            alert("You and " + fromUser + " are friends now");
+        }
+
+        function noFunction() {
+            const fromUser = document.getElementById("fromuser").value;
+            alert("You rejected " + fromUser + "'s friend request");
+        }
+    </script>
 
     <form action="proceedAcceptOrReject" method="post">
         <input type="hidden" name="username" value=<%=request.getParameter("toUser")%>>
         <input type="hidden" name="fromuser" value=<%=request.getParameter("fromUser")%>>
         <input type="hidden" name="id" value=<%=request.getParameter("id")%>>
         <input type="hidden" name="accept" value="no">
-        <input type="submit" value="No">
+        <input type="submit" onclick="noFunction()" value="No">
     </form>
 
 </body>

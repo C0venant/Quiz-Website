@@ -40,7 +40,7 @@ public class UserServiceImplementation implements UserService {
         User user2 = new User(toUser, "r", "", "");
         boolean areFriends = userDao.areFriends(user1, user2);
         boolean userExists = userDao.getUser(toUser) != null;
-        if(userExists && !areFriends){
+        if(userExists && !areFriends && !toUser.equals(fromUser)){
             List<Request> sentReqs = requestDao.getSentRequests(fromUser);
             boolean alreadySent = false;
             for(Request req : sentReqs){
