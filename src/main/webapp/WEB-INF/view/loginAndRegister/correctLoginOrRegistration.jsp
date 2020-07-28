@@ -35,7 +35,7 @@
             padding: 13px 23px;
             position: relative;
             display: inline-block;
-            border-radius: 2px;
+            border-radius: 5px;
         }
 
         .notification:hover {
@@ -53,10 +53,18 @@
         }
     </style>
 
-    <form name="myform" action="friendRequests" class="notification" method="post">
-        <span onclick="myform.submit()">Friend Requests</span>
+    <form name="requestForm" action="friendRequests" class="notification" method="post">
+        <span onclick="requestForm.submit()">Friend Requests</span>
         <input type="hidden" name="username" value=<%=request.getParameter("username")%>>
         <span class="badge"><%=friendReqs.size()%></span>
+    </form>
+
+    &nbsp;
+
+    <form name="messengerForm" action="messenger" class="notification" method="post">
+        <span onclick="messengerForm.submit()">Messenger</span>
+        <input type="hidden" name="username" value=<%=request.getParameter("username")%>>
+        <span class="badge">1</span>
     </form>
 
     <form action="logout" method="post">
