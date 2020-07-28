@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import javax.sql.DataSource;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
+import java.util.List;
 
 public class UserDaoImplementation implements UserDao {
     private final JdbcTemplate jdbcTemplate;
@@ -116,6 +117,12 @@ public class UserDaoImplementation implements UserDao {
                             + "'" + friendName + "'";
             return jdbcTemplate.query(getStr, ResultSet::next);
         }
+    }
+
+    @Override
+    public List<User> getUsersFriends(String userName){
+        String getStr = "SELECT user2 FROM friends WHERE user1 =" + "'" + userName + "'";
+        return jdbcTemplate.query(getStr, (resultSet, rowNum) -> getUser(resultSet.getString("user2")));
     }
 
     @Override

@@ -13,4 +13,8 @@ public interface UserService {
     ModelAndView proceedAcceptOrRejectService(String accept, String fromUser, String userName, Integer id);
 
     ModelAndView friendRequestsService(String userName);
+
+    ModelAndView messengerService(String userName);
+
+    ModelAndView markAllAsReadService(String userName);
 }

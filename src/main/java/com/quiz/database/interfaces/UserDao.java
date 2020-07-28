@@ -3,6 +3,7 @@ package com.quiz.database.interfaces;
 import com.quiz.model.user.User;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 public interface UserDao {
     boolean registerUser(User user) throws NoSuchAlgorithmException;
@@ -24,4 +25,6 @@ public interface UserDao {
     Boolean isAdmin(String loginName);
 
     boolean areFriends(User user, User friend);
+
+    List<User> getUsersFriends(String userName);
 }

@@ -5,18 +5,28 @@ public class Request {
     private String toUser;
     private String type;
     private String body;
+    private boolean seen;
     private int id;
 
-    public Request(String fromUser, String toUser, String type, String body) {
+    public boolean isSeen() {
+        return seen;
+    }
+
+    public void setSeen(boolean seen) {
+        this.seen = seen;
+    }
+
+    public Request(String fromUser, String toUser, String type, String body, boolean seen) {
         this.fromUser = fromUser;
         this.toUser = toUser;
         this.type = type;
         this.body = body;
+        this.seen = seen;
         id = -1;
     }
 
-    public Request(String fromUser, String toUser, String type, String body, int id) {
-        this(fromUser, toUser, type, body);
+    public Request(String fromUser, String toUser, String type, String body, boolean seen, int id) {
+        this(fromUser, toUser, type, body, seen);
         this.id = id;
     }
 

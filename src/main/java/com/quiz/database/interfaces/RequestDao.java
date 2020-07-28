@@ -18,4 +18,13 @@ public interface RequestDao {
 
     List<Request> getFriendRequests(String userTo);
 
+    List<Request> getMessages(String toUser);
+
+    List<Request> getAllUnreadMessages(String toUser);
+
+    List<Request> getUnreadMessagesFromConcreteUser(String toUser, String fromUser);
+
+    public void markAsReadMessagesFromConcreteUser(String toUser, String fromUser);
+
+    void markAllMessagesAsRead(String toUser);
 }

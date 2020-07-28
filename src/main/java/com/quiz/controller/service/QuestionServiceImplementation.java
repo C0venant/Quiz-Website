@@ -69,6 +69,7 @@ public class QuestionServiceImplementation implements QuestionService {
         mv.addObject("friendRequests", requestDao.getFriendRequests(author));
         mv.addObject("questions", questionDao.getAuthorQuestions(author));
         mv.addObject("quizzes", quizDao.getQuizzesByAuthor(author));
+        mv.addObject("allUnreadMessages", requestDao.getAllUnreadMessages(author));
         return mv;
     }
 

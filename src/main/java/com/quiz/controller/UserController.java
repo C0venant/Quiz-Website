@@ -40,4 +40,14 @@ public class UserController {
     public ModelAndView friendRequestsControl(@RequestParam("username") String userName){
         return userService.friendRequestsService(userName);
     }
+
+    @RequestMapping("messenger")
+    public ModelAndView messengerControl(@RequestParam("username") String userName){
+        return userService.messengerService(userName);
+    }
+
+    @RequestMapping("markAllAsRead")
+    public ModelAndView markAllAsReadControl(@RequestParam("username") String userName){
+        return userService.markAllAsReadService(userName);
+    }
 }

@@ -49,7 +49,8 @@ public class RequestDaoImplementation implements RequestDao {
                 String toUser = resultSet.getString(3);
                 String requestType = resultSet.getString(4);
                 String body = resultSet.getString(5);
-                return new Request(fromUser, toUser, requestType, body, requestId1);
+                boolean isSeen = resultSet.getBoolean(6);
+                return new Request(fromUser, toUser, requestType, body, isSeen, requestId1);
             }
             return null;
         });
@@ -77,5 +78,49 @@ public class RequestDaoImplementation implements RequestDao {
             }
         }
         return friendReqs;
+    }
+
+    @Override
+    public List<Request> getMessages(String toUser){
+        List<Request> allReqs = getReceivedRequests(toUser);
+        List<Request> messageReqs = new ArrayList<>();
+        for(Request req : allReqs){
+            if(req.getType().equals(RequestType.NOTE)){
+                messageReqs.add(req);
+            }
+        }
+        return messageReqs;
+    }
+
+    @Override
+    public List<Request> getAllUnreadMessages(String toUser) {
+        List<Request> allReqs = getReceivedRequests(toUser);
+        List<Request> messageReqs = new ArrayList<>();
+        for (Request req : allReqs) {
+            if (req.getType().equals(RequestType.NOTE) && !req.isSeen()) {
+                messageReqs.add(req);
+            }
+        }
+        return messageReqs;
+    }
+
+    @Override
+    public List<Request> getUnreadMessagesFromConcreteUser(String toUser, String fromUser) {
+        String getStr = "SELECT * FROM requests WHERE requestType =" + "'" + RequestType.NOTE + "'"
+                        + " AND seen = FALSE AND fromUser =" + "'" + fromUser + "'"
+                        + " AND toUser =" + "'" + toUser + "'";
+        return jdbcTemplate.query(getStr, (resultSet, rowNum) -> getRequest(resultSet.getInt(1)));
+    }
+
+    @Override
+    public void markAllMessagesAsRead(String toUser){
+        String markAsReadStr = "UPDATE requests SET seen = TRUE WHERE toUser = ? AND requestType = ?";
+        jdbcTemplate.update(markAsReadStr, toUser, RequestType.NOTE);
+    }
+
+    @Override
+    public void markAsReadMessagesFromConcreteUser(String toUser, String fromUser){
+        String markAllAsReadStr = "UPDATE requests SET seen = TRUE WHERE requestType = ? AND fromUser=? AND toUser=?";
+        jdbcTemplate.update(markAllAsReadStr, RequestType.NOTE, fromUser, toUser);
     }
 }

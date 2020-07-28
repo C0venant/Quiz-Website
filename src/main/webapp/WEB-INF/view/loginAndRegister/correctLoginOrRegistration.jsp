@@ -21,6 +21,7 @@
     <h1>Welcome <%= request.getParameter("username")%></h1>
     <%
         List<Request> friendReqs = (List<Request>)request.getAttribute("friendRequests");
+        List<Request> allUnreadMessages = (List<Request>)request.getAttribute("allUnreadMessages");
     %>
 
     <style>
@@ -61,10 +62,10 @@
 
     &nbsp;
 
-    <form name="messengerForm" action="messenger" class="notification" method="post">
-        <span onclick="messengerForm.submit()">Messenger</span>
-        <input type="hidden" name="username" value=<%=request.getParameter("username")%>>
-        <span class="badge">1</span>
+    <form name="messengerForm" action=messenger class=notification method=post>
+        <span onclick=messengerForm.submit()>Messenger</span>
+        <input type=hidden name=username value=<%=request.getParameter("username")%>>
+        <span class=badge><%=allUnreadMessages.size()%></span>
     </form>
 
     <form action="logout" method="post">

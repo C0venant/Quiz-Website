@@ -43,12 +43,13 @@ public class UserServiceImplementation implements UserService {
                 }
             }
             if(!alreadySent){
-                Request newReq = new Request(fromUser, toUser, RequestType.FRIEND, "");
+                Request newReq = new Request(fromUser, toUser, RequestType.FRIEND, "", false);
                 requestDao.addRequest(newReq);
             }
             mv.addObject("quizzes", quizDao.getQuizzesByAuthor(fromUser));
             mv.addObject("questions", questionDao.getAuthorQuestions(fromUser));
             mv.addObject("friendRequests", requestDao.getFriendRequests(fromUser));
+            mv.addObject("allUnreadMessages", requestDao.getAllUnreadMessages(fromUser));
             mv.setViewName("loginAndRegister/correctLoginOrRegistration");
         } else {
             if(areFriends){
@@ -66,6 +67,7 @@ public class UserServiceImplementation implements UserService {
         mv.addObject("questions", questionDao.getAuthorQuestions(userName));
         mv.addObject("quizzes", quizDao.getQuizzesByAuthor(userName));
         mv.addObject("friendRequests", requestDao.getFriendRequests(userName));
+        mv.addObject("allUnreadMessages", requestDao.getAllUnreadMessages(userName));
         mv.setViewName("loginAndRegister/correctLoginOrRegistration");
         return mv;
     }
@@ -101,4 +103,19 @@ public class UserServiceImplementation implements UserService {
         return mv;
     }
 
+    @Override
+    public ModelAndView messengerService(String userName) {
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("username", userName);
+        mv.addObject("friends", userDao.getUsersFriends(userName));
+        mv.addObject("requestDao", requestDao);
+        mv.setViewName("messenger/messengerMain");
+        return mv;
+    }
+
+    @Override
+    public ModelAndView markAllAsReadService(String userName){
+        requestDao.markAllMessagesAsRead(userName);
+        return messengerService(userName);
+    }
 }
