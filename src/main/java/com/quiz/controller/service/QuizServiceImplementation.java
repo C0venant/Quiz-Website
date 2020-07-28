@@ -96,4 +96,12 @@ public class QuizServiceImplementation implements QuizService {
         mv.setViewName("quiz/quizQuestion");
         return mv;
     }
+
+    @Override
+    public ModelAndView fetchNextQuestion(String username, String quizName, String nextQuestion) {
+        System.out.println(username);
+        System.out.println(quizName);
+        System.out.println(nextQuestion);
+        return null;
+    }
 }

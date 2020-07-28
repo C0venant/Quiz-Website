@@ -45,8 +45,10 @@ public class QuestionFillBlank extends QuestionBasic {
     @Override
     public String toString(){
         List<String> list = splitOnDelimiter();
-        if(list.size() == 1){
+        if(list.size() == 1 && getBody().charAt(0)!='#'){
             return list.get(0)+"____";
+        }else if(list.size() == 1){
+            return "____"+list.get(0);
         }
         return list.get(0)+"____"+list.get(1);
     }

@@ -13,22 +13,37 @@
     <title>question</title>
 </head>
 <body>
-<%
-    Quiz quiz = (Quiz) request.getAttribute("quiz");
-    int index = (Integer) request.getAttribute("questionIndex");
-    QuestionBasic question = quiz.getQuestions().get(index);
-    int questionNum = index + 1;
-    out.println("<h4> question " + questionNum + "</h4>");
-    out.println("<h4> " + question.getBody() + "</h4>");
-    if(question.getType().equals(QuestionType.BLANK)){
+<form action="fetchNextQuestion" method="post">
+    <%
+        Quiz quiz = (Quiz) request.getAttribute("quiz");
+        int index = (Integer) request.getAttribute("questionIndex");
+        QuestionBasic question = quiz.getQuestions().get(index);
+        int nextNum = index + 1;
+        if(question.getType().equals(QuestionType.BLANK)){
 
-    }else if(question.getType().equals(QuestionType.TEST)){
+        }else if(question.getType().equals(QuestionType.TEST)){
+            out.println("<h4> question " + nextNum + "</h4>");
+            out.println("<h4> " + question.getBody() + "</h4>");
 
-    }else{
-        out.print("<textarea id=\"answerBody\" name=\"userAnswer\" rows=\"5\" " +
-                "cols=\"50\" placeholder=\"Fill in with your answer\"></textarea><br><br>");
-    }
-%>
+        }else{
+            out.println("<h4> question " + nextNum + "</h4>");
+            out.println("<h4> " + question.getBody() + "</h4>");
+            out.print("<textarea id=\"answerBody\" name=\"userAnswer\" rows=\"5\" " +
+                    "cols=\"50\" placeholder=\"Fill in with your answer\"></textarea><br><br>");
+        }
 
+        if(index > 0){
+            out.print("<input type=\"submit\" name=\"nextQuestion\" value=\""+"previous"+"\">");
+        }
+        if(index < quiz.getQuestions().size()-1){
+            out.print("<input type=\"submit\" name=\"nextQuestion\" value=\""+"next"+"\">");
+        }else{
+            out.print("<input type=\"submit\" name=\"nextQuestion\" value=\""+"finish"+"\">");
+        }
+        out.print("<input type=\"hidden\" id=\"quiz2\" name=\"quizName\" value=\""+quiz.getQuizName()+"\">");
+        out.print("<input type=\"hidden\" id=\"index\" name=\"index\" value=\""+index+"\">");
+    %>
+    <input type="hidden" id="user" name="username" value=<%= request.getParameter("username")%>>
+</form>
 </body>
 </html>

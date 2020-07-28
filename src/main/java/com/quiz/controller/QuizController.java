@@ -46,4 +46,9 @@ public class QuizController {
         return quizService.startQuiz(username, quizName);
     }
 
+    @RequestMapping("/fetchNextQuestion")
+    public ModelAndView fetchNextQuestion(@RequestParam String username, @RequestParam String quizName, @RequestParam String nextQuestion){
+        return quizService.fetchNextQuestion(username, quizName, nextQuestion);
+    }
+
 }

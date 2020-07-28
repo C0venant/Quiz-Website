@@ -17,4 +17,6 @@ public interface QuizService {
     ModelAndView enrollQuiz(String username, String quizName);
 
     ModelAndView startQuiz(String username, String quizName);
+
+    ModelAndView fetchNextQuestion(String username, String quizName, String nextQuestion);
 }

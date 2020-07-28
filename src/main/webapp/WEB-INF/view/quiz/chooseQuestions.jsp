@@ -28,7 +28,8 @@
                     out.println("<h4> max grade: "+qt.getMaxGrade()+"</h4>");
                     out.println("<h4>"+qt.getBody()+"</h4>");
                     for(int j = 0; j < qt.getAnswers().size();j++){
-                        out.println("<h4>"+j+") "+qt.getBody()+"</h4>");
+                        int index = j +1;
+                        out.println("<h4>"+index+") "+qt.getAnswers().get(j)+"</h4>");
                     }
                 }else if(q.getType().equals(QuestionType.BLANK)){
                     QuestionFillBlank qb = (QuestionFillBlank) q;
