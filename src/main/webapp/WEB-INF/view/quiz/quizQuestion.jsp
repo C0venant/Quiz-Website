@@ -1,6 +1,8 @@
 <%@ page import="com.quiz.model.quiz.Quiz" %>
 <%@ page import="com.quiz.model.quiz.question.QuestionBasic" %>
-<%@ page import="com.quiz.model.quiz.question.utils.QuestionType" %><%--
+<%@ page import="com.quiz.model.quiz.question.utils.QuestionType" %>
+<%@ page import="com.quiz.model.quiz.question.QuestionTest" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: HP
   Date: 7/28/2020
@@ -19,17 +21,45 @@
         int index = (Integer) request.getAttribute("questionIndex");
         QuestionBasic question = quiz.getQuestions().get(index);
         int nextNum = index + 1;
+        String previousAnswer = (String) request.getAttribute("previousAnswer");
         if(question.getType().equals(QuestionType.BLANK)){
-
+            out.println("<h4> question " + nextNum + "/" + quiz.getQuestions().size() + "</h4>");
+            out.println("<h4> " + question.toString() + "</h4>");
+            if(previousAnswer == null){
+                out.print("<input type =\"text\" name=\"userAnswer\" id=\"ua\" placeholder=\"fill in\"><br><br>");
+            }else{
+                out.print("<input type =\"text\" name=\"userAnswer\" id=\"ua\" value=\""+previousAnswer+"\"><br><br>");
+            }
         }else if(question.getType().equals(QuestionType.TEST)){
-            out.println("<h4> question " + nextNum + "</h4>");
+            out.println("<h4> question " + nextNum + "/" + quiz.getQuestions().size() + "</h4>");
             out.println("<h4> " + question.getBody() + "</h4>");
+            List<String> answers = ((QuestionTest) question).getAnswers();
+            if(previousAnswer == null){
+                for(int i = 0; i < answers.size(); i++){
+                    out.println("<input type=\"radio\" id=\"uar"+i+"\" name=\"userAnswer\" value=\""+answers.get(i)+"\">");
+                    out.print("<label for=\"uar"+i+"\">"+answers.get(i)+"</label><br>");
+                }
+            }else{
+                for(int i = 0; i < answers.size(); i++){
+                    if(answers.get(i).equals(previousAnswer)){
+                        out.println("<input type=\"radio\" id=\"uar"+i+"\" name=\"userAnswer\" value=\""+answers.get(i)+"\"checked>");
 
+                    }else{
+                        out.println("<input type=\"radio\" id=\"uar"+i+"\" name=\"userAnswer\" value=\""+answers.get(i)+"\">");
+                    }
+                    out.print("<label for=\"uar"+i+"\">"+answers.get(i)+"</label><br>");
+                }
+            }
         }else{
-            out.println("<h4> question " + nextNum + "</h4>");
+            out.println("<h4> question " + nextNum + "/" + quiz.getQuestions().size() + "</h4>");
             out.println("<h4> " + question.getBody() + "</h4>");
-            out.print("<textarea id=\"answerBody\" name=\"userAnswer\" rows=\"5\" " +
-                    "cols=\"50\" placeholder=\"Fill in with your answer\"></textarea><br><br>");
+            if(previousAnswer == null){
+                out.print("<textarea id=\"answerBody\" name=\"userAnswer\" rows=\"5\" " +
+                        "cols=\"50\" placeholder=\"Fill in with your answer\"></textarea><br><br>");
+            }else{
+                out.print("<textarea id=\"answerBody\" name=\"userAnswer\" rows=\"5\" " +
+                        "cols=\"50\">"+previousAnswer+"</textarea><br><br>");
+            }
         }
 
         if(index > 0){

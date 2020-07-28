@@ -18,5 +18,5 @@ public interface QuizService {
 
     ModelAndView startQuiz(String username, String quizName);
 
-    ModelAndView fetchNextQuestion(String username, String quizName, String nextQuestion);
+    ModelAndView fetchNextQuestion(String username, String quizName, String nextQuestion, int index, String userAnswer);
 }

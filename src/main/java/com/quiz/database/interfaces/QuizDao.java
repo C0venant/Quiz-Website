@@ -22,7 +22,7 @@ public interface QuizDao {
 
     List<Integer> getAllQuestionIdsFromQuiz(String quizName);
 
-    boolean answerQuestion(String quizName, String userName, int questionId, String answer);
+    void answerQuestion(String quizName, String userName, int questionId, String answer);
 
     boolean unAnswerQuestion(String quizName, String userName, int questionId);
 
