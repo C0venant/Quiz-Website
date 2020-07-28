@@ -27,13 +27,6 @@ public class UserServiceImplementation implements UserService {
     QuizDao quizDao;
 
     @Override
-    public ModelAndView sendRequest(String fromUser) {
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("request/sendFriendRequest");
-        return mv;
-    }
-
-    @Override
     public ModelAndView addFriendService(String fromUser, String toUser) {
         ModelAndView mv = new ModelAndView();
         User user1 = new User(fromUser, "r", "", "");

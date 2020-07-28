@@ -19,6 +19,14 @@
         <input type="submit" value="Homepage">
     </form>
 
+    <form action="proceedSendFriendRequest" method="post">
+        <h1>Enter friend's user name</h1>
+        <input type="hidden" id="user" name="username" value=<%= request.getParameter("username")%>>
+        <label for="touser"> Enter name here: </label>
+        <input type="text" name="touser" id="touser" required>
+        <input type="submit" value="Add friend">
+    </form>
+
     <h4>Your friend requests:</h4><br>
     <table>
         <tr>

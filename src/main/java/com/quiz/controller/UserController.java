@@ -12,11 +12,6 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @RequestMapping("sendFriendRequest")
-    public ModelAndView sendRequestControl(@RequestParam("username") String fromUser){
-        return userService.sendRequest(fromUser);
-    }
-
     @RequestMapping("proceedSendFriendRequest")
     public ModelAndView proceedSendFriendRequestControl(@RequestParam("username") String fromUser,
                                                         @RequestParam("touser") String toUser){

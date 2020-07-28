@@ -63,11 +63,6 @@
         <input type="submit" value="Logout">
     </form>
 
-    <form action="sendFriendRequest" method="post">
-        <input type="hidden" name="username" value=<%= request.getParameter("username")%>>
-        <input type="submit" value="Send Friend Request">
-    </form>
-
     <form action="createQuestion_basic" method="post">
         <input type="hidden" id="user" name="username" value=<%= request.getParameter("username")%>>
         <input type="submit" value="create Question">

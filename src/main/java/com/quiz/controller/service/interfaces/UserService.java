@@ -3,7 +3,6 @@ package com.quiz.controller.service.interfaces;
 import org.springframework.web.servlet.ModelAndView;
 
 public interface UserService {
-    ModelAndView sendRequest(String fromUser);
 
     ModelAndView addFriendService(String fromUser, String toUser);
 
