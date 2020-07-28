@@ -6,11 +6,16 @@ import java.util.List;
 
 public interface RequestDao {
 
-    public void addRequest(Request request);
-    public boolean deleteRequest(int requestId);
-    public Request getRequest(int requestId);
-    public List<Request> getSentRequests(String userFrom);
-    public List<Request> getReceivedRequests(String userTo);
-    public List<Request> getFriendRequests(String userTo);
+    void addRequest(Request request);
+
+    boolean deleteRequest(int requestId);
+
+    Request getRequest(int requestId);
+
+    List<Request> getSentRequests(String userFrom);
+
+    List<Request> getReceivedRequests(String userTo);
+
+    List<Request> getFriendRequests(String userTo);
 
 }

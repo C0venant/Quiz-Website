@@ -4,7 +4,6 @@ import com.quiz.controller.service.LoginRegisterImplementation;
 import com.quiz.controller.service.QuestionServiceImplementation;
 import com.quiz.controller.service.QuizServiceImplementation;
 import com.quiz.controller.service.UserServiceImplementation;
-import com.quiz.controller.service.interfaces.QuestionService;
 import com.quiz.database.QuestionDaoImplementation;
 import com.quiz.database.QuizDaoImplementation;
 import com.quiz.database.RequestDaoImplementation;
@@ -15,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
 import javax.sql.DataSource;
 
 @Configuration

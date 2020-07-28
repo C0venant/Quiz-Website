@@ -1,13 +1,17 @@
 package com.quiz.controller.service.interfaces;
 
-import com.quiz.model.quiz.question.QuestionBasic;
 import org.springframework.web.servlet.ModelAndView;
 
 public interface QuestionService {
-    public ModelAndView createBasicQuestion(String author);
-    public ModelAndView createTestQuestion(String author);
-    public ModelAndView createFillInBlankQuestion(String author);
-    public ModelAndView editOrDeleteQuestion(String author, int questionId);
-    public ModelAndView deleteQuestion(String author, int questionId);
-    public ModelAndView registerQuestion(String author, String body, String type, int maxGrade, String imageFile, String correctAnswer, String answers);
+    ModelAndView createBasicQuestion(String author);
+
+    ModelAndView createTestQuestion(String author);
+
+    ModelAndView createFillInBlankQuestion(String author);
+
+    ModelAndView editOrDeleteQuestion(String author, int questionId);
+
+    ModelAndView deleteQuestion(String author, int questionId);
+
+    ModelAndView registerQuestion(String author, String body, String type, int maxGrade, String imageFile, String correctAnswer, String answers);
 }

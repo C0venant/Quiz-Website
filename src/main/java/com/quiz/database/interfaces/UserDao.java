@@ -5,14 +5,23 @@ import com.quiz.model.user.User;
 import java.security.NoSuchAlgorithmException;
 
 public interface UserDao {
-    public boolean registerUser(User user) throws NoSuchAlgorithmException;
-    public User getUser(String loginName);
-    public boolean loginUser(String loginName, String password) throws NoSuchAlgorithmException;
-    public boolean deleteUser(String loginName);
-    public boolean addFriend(User user, User friend);
-    public boolean removeFriend(User user, User friend);
-    public boolean addAdmin(String loginName);
-    public boolean removeAdmin(String loginName);
-    public Boolean isAdmin(String loginName);
-    public boolean areFriends(User user, User friend);
+    boolean registerUser(User user) throws NoSuchAlgorithmException;
+
+    User getUser(String loginName);
+
+    boolean loginUser(String loginName, String password) throws NoSuchAlgorithmException;
+
+    boolean deleteUser(String loginName);
+
+    boolean addFriend(User user, User friend);
+
+    boolean removeFriend(User user, User friend);
+
+    boolean addAdmin(String loginName);
+
+    boolean removeAdmin(String loginName);
+
+    Boolean isAdmin(String loginName);
+
+    boolean areFriends(User user, User friend);
 }

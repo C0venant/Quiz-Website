@@ -60,6 +60,10 @@ public class QuestionServiceImplementation implements QuestionService {
     @Override
     public ModelAndView deleteQuestion(String author, int questionId) {
         questionDao.deleteQuestion(questionId);
+        return getDefaultPageModelAndView(author);
+    }
+
+    private ModelAndView getDefaultPageModelAndView(String author) {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("loginAndRegister/correctLoginOrRegistration");
         mv.addObject("friendRequests", requestDao.getFriendRequests(author));
@@ -81,12 +85,7 @@ public class QuestionServiceImplementation implements QuestionService {
             question = new QuestionBasic(body, maxGrade, imageFile, correctAnswer, -1);
         }
         questionDao.addQuestion(author, question);
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("loginAndRegister/correctLoginOrRegistration");
-        mv.addObject("friendRequests", requestDao.getFriendRequests(author));
-        mv.addObject("questions", questionDao.getAuthorQuestions(author));
-        mv.addObject("quizzes", quizDao.getQuizzesByAuthor(author));
-        return mv;
+        return getDefaultPageModelAndView(author);
     }
 
 }

@@ -23,12 +23,9 @@ public class QuestionDaoImplementation implements QuestionDao {
 
     private int generateId(){
         String getStr = "SELECT max(questionId) FROM questions" ;
-        Integer id = jdbcTemplate.query(getStr, new ResultSetExtractor<Integer>() {
-            @Override
-            public Integer extractData(ResultSet resultSet) throws SQLException, DataAccessException {
-                resultSet.next();
-                return resultSet.getInt(1);
-            }
+        Integer id = jdbcTemplate.query(getStr, resultSet -> {
+            resultSet.next();
+            return resultSet.getInt(1);
         });
         return id +1;
     }
@@ -50,12 +47,7 @@ public class QuestionDaoImplementation implements QuestionDao {
 
     private List<String> getProbableAnswers(int questionId){
         String getStr = "SELECT * FROM probableAnswers WHERE questionId = " + questionId;
-        return jdbcTemplate.query(getStr, new RowMapper<String>() {
-            @Override
-            public String mapRow(ResultSet resultSet, int rowNum) throws SQLException {
-                return  resultSet.getString(2);
-            }
-        });
+        return jdbcTemplate.query(getStr, (resultSet, rowNum) -> resultSet.getString(2));
     }
 
     @Override
@@ -98,38 +90,30 @@ public class QuestionDaoImplementation implements QuestionDao {
     @Override
     public QuestionBasic getQuestion(int questionId) {
         String getStr = "SELECT * FROM questions WHERE questionId = " + questionId;
-        return jdbcTemplate.query(getStr, new ResultSetExtractor<QuestionBasic>() {
-            @Override
-            public QuestionBasic extractData(ResultSet resultSet) throws SQLException, DataAccessException {
-                if(resultSet.next()){
-                    int questionId = resultSet.getInt(1);
-                    String questionType = resultSet.getString(2);
-                    String body = resultSet.getString(3);
-                    int maxGrade = resultSet.getInt(4);
-                    String imageFile = resultSet.getString(5);
-                    String correctAnswer = resultSet.getString(6);
+        return jdbcTemplate.query(getStr, resultSet -> {
+            if(resultSet.next()){
+                int questionId1 = resultSet.getInt(1);
+                String questionType = resultSet.getString(2);
+                String body = resultSet.getString(3);
+                int maxGrade = resultSet.getInt(4);
+                String imageFile = resultSet.getString(5);
+                String correctAnswer = resultSet.getString(6);
 
-                    if(questionType.equals(QuestionType.TEST)){
-                        return new QuestionTest(body, maxGrade, imageFile, correctAnswer, questionId, getProbableAnswers(questionId));
-                    }else if(questionType.equals(QuestionType.BLANK)){
-                        return new QuestionFillBlank(body, maxGrade, imageFile, correctAnswer, questionId);
-                    }else{
-                        return new QuestionBasic(body, maxGrade, imageFile, correctAnswer, questionId);
-                    }
+                if(questionType.equals(QuestionType.TEST)){
+                    return new QuestionTest(body, maxGrade, imageFile, correctAnswer, questionId1, getProbableAnswers(questionId1));
+                }else if(questionType.equals(QuestionType.BLANK)){
+                    return new QuestionFillBlank(body, maxGrade, imageFile, correctAnswer, questionId1);
+                }else{
+                    return new QuestionBasic(body, maxGrade, imageFile, correctAnswer, questionId1);
                 }
-                return null;
             }
+            return null;
         });
     }
 
     @Override
     public List<QuestionBasic> getAuthorQuestions(String author) {
         String getStr = "SELECT * FROM questions WHERE author = " + "'" + author + "'";
-        return jdbcTemplate.query(getStr, new RowMapper<QuestionBasic>() {
-            @Override
-            public QuestionBasic mapRow(ResultSet resultSet, int rowNum) throws SQLException {
-                return  getQuestion(resultSet.getInt(1));
-            }
-        });
+        return jdbcTemplate.query(getStr, (resultSet, rowNum) -> getQuestion(resultSet.getInt(1)));
     }
 }

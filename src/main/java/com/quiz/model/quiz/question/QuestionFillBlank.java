@@ -45,7 +45,6 @@ public class QuestionFillBlank extends QuestionBasic {
     @Override
     public String toString(){
         List<String> list = splitOnDelimiter();
-        String ret = "";
         if(list.size() == 1){
             return list.get(0)+"____";
         }

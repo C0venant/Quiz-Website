@@ -1,6 +1,5 @@
 package com.quiz.model.quiz.question;
 
-import com.quiz.database.interfaces.QuestionDao;
 import com.quiz.model.quiz.question.utils.QuestionType;
 
 public class QuestionBasic {

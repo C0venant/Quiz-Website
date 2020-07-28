@@ -25,10 +25,10 @@
             <th>____Username____</th>
             <th>____First Name____</th>
             <th>____Last Name____</th>
-            <th>____Accept/Reject</th>
+            <th>____Accept/Reject____</th>
         </tr>
         <%
-            List<Request> friendReqs = (List<Request>)request.getAttribute("friendRequests");
+            @SuppressWarnings("unchecked") List<Request> friendReqs = (List<Request>)request.getAttribute("friendRequests");
             UserDaoImplementation userDao = (UserDaoImplementation)request.getAttribute("userDao");
             if(friendReqs != null){
                 for(Request req : friendReqs){

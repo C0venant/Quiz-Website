@@ -51,6 +51,10 @@ public class QuizServiceImplementation implements QuizService {
             }
         }
         addQuiz(list, quizName, author);
+        return getDefaultPageModelAndView(author);
+    }
+
+    private ModelAndView getDefaultPageModelAndView(String author) {
         ModelAndView mv = new ModelAndView();
         mv.addObject("quizzes", quizDao.getQuizzesByAuthor(author));
         mv.addObject("questions", questionDao.getAuthorQuestions(author));
@@ -71,12 +75,7 @@ public class QuizServiceImplementation implements QuizService {
     @Override
     public ModelAndView deleteQuiz(String author, String quizName) {
         quizDao.deleteQuiz(quizName);
-        ModelAndView mv = new ModelAndView();
-        mv.addObject("quizzes", quizDao.getQuizzesByAuthor(author));
-        mv.addObject("questions", questionDao.getAuthorQuestions(author));
-        mv.addObject("friendRequests", requestDao.getFriendRequests(author));
-        mv.setViewName("loginAndRegister/correctLoginOrRegistration");
-        return mv;
+        return getDefaultPageModelAndView(author);
     }
 
     @Override

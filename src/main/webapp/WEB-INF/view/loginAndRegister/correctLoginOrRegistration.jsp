@@ -1,3 +1,4 @@
+<%--suppress unchecked --%>
 <%@ page import="com.quiz.model.quiz.Quiz" %>
 <%@ page import="com.quiz.model.quiz.question.QuestionBasic" %>
 <%@ page import="java.util.List" %>

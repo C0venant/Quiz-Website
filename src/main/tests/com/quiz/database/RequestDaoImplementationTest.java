@@ -1,6 +1,5 @@
 package com.quiz.database;
 
-import com.quiz.database.interfaces.UserDao;
 import com.quiz.model.request.Request;
 import com.quiz.model.request.RequestType;
 import com.quiz.model.user.User;

@@ -20,7 +20,7 @@
         <h1>Enter friend's user name</h1>
         <input type="hidden" id="user" name="username" value=<%= request.getParameter("username")%>>
         <label for="touser"> Enter name here: </label>
-        <input type="text" name="touser" id="touser">
+        <input type="text" name="touser" id="touser" required>
         <input type="submit" value="Add friend">
     </form>
 </body>

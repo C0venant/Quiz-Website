@@ -9,7 +9,7 @@
   Time: 20:39
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>Choose Question</title>
@@ -20,7 +20,7 @@
         <input type ="text" name="quizName" id="name" required><br><br>
         <h4>Please choose questions for quiz:</h4><br>
         <%
-            List<QuestionBasic> list = (List<QuestionBasic>)request.getAttribute("questions");
+            @SuppressWarnings("unchecked") List<QuestionBasic> list = (List<QuestionBasic>)request.getAttribute("questions");
             for (int i = 0; i < list.size(); i++){
                 QuestionBasic q = list.get(i);
                 if(q.getType().equals(QuestionType.TEST)){

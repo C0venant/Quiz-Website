@@ -5,14 +5,9 @@ import com.quiz.database.interfaces.QuizDao;
 import com.quiz.model.quiz.Quiz;
 import com.quiz.model.quiz.question.QuestionBasic;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.ResultSetExtractor;
-import org.springframework.jdbc.core.RowMapper;
 
 import javax.sql.DataSource;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,44 +42,33 @@ public class QuizDaoImplementation implements QuizDao {
     @Override
     public Quiz getQuizByName(String quizName) {
         String getStr = "SELECT * FROM quiz WHERE quizName = " + "'" + quizName + "'";
-        return jdbcTemplate.query(getStr, new ResultSetExtractor<Quiz>() {
-
-            @Override
-            public Quiz extractData(ResultSet resultSet) throws SQLException, DataAccessException {
-                if(resultSet.next()){
-                    String author = resultSet.getString(2);
-                    return new Quiz(quizName, author, getAllQuestionFromQuiz(getAllQuestionIdsFromQuiz(quizName)));
-                }
-                return null;
+        return jdbcTemplate.query(getStr, resultSet -> {
+            if(resultSet.next()){
+                String author = resultSet.getString(2);
+                return new Quiz(quizName, author, getAllQuestionFromQuiz(getAllQuestionIdsFromQuiz(quizName)));
             }
+            return null;
         });
     }
 
     @Override
     public Quiz isPresent(String quizName) {
         String getStr = "SELECT * FROM quiz WHERE quizName = " + "'" + quizName + "'";
-        return jdbcTemplate.query(getStr, new ResultSetExtractor<Quiz>() {
-            @Override
-            public Quiz extractData(ResultSet resultSet) throws SQLException, DataAccessException {
-                if(resultSet.next()){
-                    String author = resultSet.getString(2);
-                    return new Quiz(quizName, author);
-                }
-                return null;
+        return jdbcTemplate.query(getStr, resultSet -> {
+            if(resultSet.next()){
+                String author = resultSet.getString(2);
+                return new Quiz(quizName, author);
             }
+            return null;
         });
     }
 
     @Override
     public List<Quiz> getQuizzesByAuthor(final String author) {
         String getStr = "SELECT * FROM quiz WHERE author = " + "'" + author + "'";
-        return jdbcTemplate.query(getStr, new RowMapper<Quiz>(){
-
-            @Override
-            public Quiz mapRow(ResultSet rs, int rowNum) throws SQLException {
-                String quizName = rs.getString("quizName");
-                return new Quiz(quizName, author, getAllQuestionFromQuiz(getAllQuestionIdsFromQuiz(quizName)));
-            }
+        return jdbcTemplate.query(getStr, (rs, rowNum) -> {
+            String quizName = rs.getString("quizName");
+            return new Quiz(quizName, author, getAllQuestionFromQuiz(getAllQuestionIdsFromQuiz(quizName)));
         });
     }
 
@@ -132,13 +116,7 @@ public class QuizDaoImplementation implements QuizDao {
             return null;
         } else {
             String getStr = "SELECT * FROM quizQuestions WHERE quizName = " + "'" + quizName + "'";
-            return jdbcTemplate.query(getStr, new RowMapper<Integer>(){
-
-                @Override
-                public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
-                    return rs.getInt("questionId");
-                }
-            });
+            return jdbcTemplate.query(getStr, (rs, rowNum) -> rs.getInt("questionId"));
         }
     }
 
@@ -192,15 +170,11 @@ public class QuizDaoImplementation implements QuizDao {
                 + " quizName =" + "'" + quizName + "'"
                 + " AND userName =" + "'" + userName + "'"
                 + " AND questionId =" + questionId;
-        return jdbcTemplate.query(getStr, new ResultSetExtractor<String>() {
-
-            @Override
-            public String extractData(ResultSet resultSet) throws SQLException, DataAccessException {
-                if(resultSet.next()){
-                    return resultSet.getString("answer");
-                }
-                return null;
+        return jdbcTemplate.query(getStr, resultSet -> {
+            if(resultSet.next()){
+                return resultSet.getString("answer");
             }
+            return null;
         });
     }
 }

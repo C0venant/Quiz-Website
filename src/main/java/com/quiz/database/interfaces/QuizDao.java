@@ -6,17 +6,29 @@ import com.quiz.model.quiz.question.QuestionBasic;
 import java.util.List;
 
 public interface QuizDao {
-    public boolean addQuiz(Quiz quiz);
-    public Quiz isPresent(String quizName);
-    public Quiz getQuizByName(final String quizName);
-    public List<Quiz> getQuizzesByAuthor(final String author);
-    public boolean addQuestionToQuiz(String quizName, int questionId);
-    public boolean deleteQuestionFromQuiz(String quizName, int questionId);
-    public boolean deleteQuiz(String quizName);
-    public List<Integer> getAllQuestionIdsFromQuiz(String quizName);
-    public boolean answerQuestion(String quizName, String userName, int questionId, String answer);
-    public boolean unAnswerQuestion(String quizName, String userName, int questionId);
-    public boolean gradeAnsweredQuestion(String quizName, String userName, int questionId, int grade);
-    public String getQuestionAnswer(String quizName, String userName, int questionId);
-    public List<QuestionBasic> getAllQuestionFromQuiz(List<Integer> questionId);
+    boolean addQuiz(Quiz quiz);
+
+    Quiz isPresent(String quizName);
+
+    Quiz getQuizByName(final String quizName);
+
+    List<Quiz> getQuizzesByAuthor(final String author);
+
+    boolean addQuestionToQuiz(String quizName, int questionId);
+
+    boolean deleteQuestionFromQuiz(String quizName, int questionId);
+
+    boolean deleteQuiz(String quizName);
+
+    List<Integer> getAllQuestionIdsFromQuiz(String quizName);
+
+    boolean answerQuestion(String quizName, String userName, int questionId, String answer);
+
+    boolean unAnswerQuestion(String quizName, String userName, int questionId);
+
+    boolean gradeAnsweredQuestion(String quizName, String userName, int questionId, int grade);
+
+    String getQuestionAnswer(String quizName, String userName, int questionId);
+
+    List<QuestionBasic> getAllQuestionFromQuiz(List<Integer> questionId);
 }
