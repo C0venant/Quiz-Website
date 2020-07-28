@@ -115,6 +115,7 @@ public class QuizServiceImplementation implements QuizService {
             mv.addObject("quizzes", quizDao.getQuizzesByAuthor(username));
             mv.addObject("questions", questionDao.getAuthorQuestions(username));
             mv.addObject("friendRequests", requestDao.getFriendRequests(username));
+            mv.addObject("allUnreadMessages", requestDao.getAllUnreadMessages(username));
             mv.setViewName("loginAndRegister/correctLoginOrRegistration");
             return mv;
         }else if(nextQuestion.equals("next")){
