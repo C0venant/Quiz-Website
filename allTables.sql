@@ -71,7 +71,8 @@ CREATE TABLE requests (
 	fromUser CHAR(50) not null,
     toUser CHAR(50) not null,
     requestType VARCHAR(500) NOT NULL,
-	body VARCHAR(500) NOT NULL,
+	body VARCHAR(5000) NOT NULL,
+    seen BOOLEAN DEFAULT false,
     foreign key(fromUser) references users(loginName),
     foreign key(toUser) references users(loginName)
 );
