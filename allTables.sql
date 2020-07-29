@@ -2,6 +2,7 @@ create database if not exists quiz_db;
 
 USE quiz_db;
 
+DROP TABLE IF EXISTS quizCkeck;
 DROP TABLE IF EXISTS requests;
 DROP TABLE IF EXISTS friends;
 DROP TABLE IF EXISTS quizQuestions;
@@ -65,6 +66,15 @@ CREATE TABLE quizAnswers (
     answer varchar(500),
     grade int default(0)
 );
+
+CREATE TABLE quizCheck (
+	quizName char(200) references quiz(quizName),
+    userName char(50) references users(loginName),
+    author char(50) references users(loginName),
+    isChecked BOOLEAN DEFAULT false
+);
+
+
 
 CREATE TABLE requests (
 	requestId INT AUTO_INCREMENT PRIMARY KEY,
