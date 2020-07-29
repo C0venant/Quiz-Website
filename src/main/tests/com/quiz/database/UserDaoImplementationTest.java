@@ -79,6 +79,7 @@ public class UserDaoImplementationTest {
         assertFalse(userDao.addFriend(user1, user2));
         userDao.registerUser(user2);
         assertTrue(userDao.addFriend(user1, user2));
+        assertEquals(userDao.getUsersFriends(user1.getLoginName()).get(0).getLoginName(), user2.getLoginName());
         assertTrue(userDao.removeFriend(user1, user2));
         userDao.addFriend(user1, user2);
         assertFalse(userDao.addFriend(user1, user2));
