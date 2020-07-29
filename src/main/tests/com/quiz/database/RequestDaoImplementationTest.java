@@ -48,7 +48,7 @@ public class RequestDaoImplementationTest {
 
     @Test
     public void testAddRequest1(){
-        Request original = new Request(user1.getLoginName(), user2.getLoginName(), RequestType.NOTE, "hello");
+        Request original = new Request(user1.getLoginName(), user2.getLoginName(), RequestType.NOTE, "hello", false);
         requestDao.addRequest(original);
         List<Request> list = requestDao.getSentRequests(user1.getLoginName());
         assertEquals(1, list.size());
@@ -63,7 +63,7 @@ public class RequestDaoImplementationTest {
 
     @Test
     public void testAddRequest2(){
-        Request original = new Request(user1.getLoginName(), user2.getLoginName(), RequestType.NOTE, "hello");
+        Request original = new Request(user1.getLoginName(), user2.getLoginName(), RequestType.NOTE, "hello", false);
         requestDao.addRequest(original);
         List<Request> list = requestDao.getReceivedRequests(user2.getLoginName());
         assertEquals(1, list.size());
@@ -78,8 +78,8 @@ public class RequestDaoImplementationTest {
 
     @Test
     public void testAddRequest3(){
-        Request original1 = new Request(user1.getLoginName(), user2.getLoginName(), RequestType.NOTE, "hello");
-        Request original2 = new Request(user1.getLoginName(), user2.getLoginName(), RequestType.CHALLENGE, "hello");
+        Request original1 = new Request(user1.getLoginName(), user2.getLoginName(), RequestType.NOTE, "hello", false);
+        Request original2 = new Request(user1.getLoginName(), user2.getLoginName(), RequestType.CHALLENGE, "hello", false);
         requestDao.addRequest(original1);
         requestDao.addRequest(original2);
         List<Request> list = requestDao.getReceivedRequests(user2.getLoginName());

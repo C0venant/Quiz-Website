@@ -8,7 +8,7 @@ public class RequestTest {
 
     @Test
     public void testConstructor(){
-        Request request = new Request("from","to",RequestType.NOTE, "body", -1);
+        Request request = new Request("from","to",RequestType.NOTE, "body", false);
         assertEquals("from", request.getFromUser());
         assertEquals("to", request.getToUser());
         assertEquals("body", request.getBody());

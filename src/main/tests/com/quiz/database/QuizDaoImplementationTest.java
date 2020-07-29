@@ -107,9 +107,9 @@ public class QuizDaoImplementationTest {
 
     private void testAnswerQuestionAndGetQuestionAnswer() {
         assertNull(quizDao.getQuestionAnswer(quizOne.getQuizName(), userOne.getLoginName(), 1));
-        assertTrue(quizDao.answerQuestion(quizOne.getQuizName(), userOne.getLoginName(), 1, "answer1"));
+        quizDao.answerQuestion(quizOne.getQuizName(), userOne.getLoginName(), 1, "answer1");
         assertNotNull(quizDao.getQuestionAnswer(quizOne.getQuizName(), userOne.getLoginName(), 1));
-        assertFalse(quizDao.answerQuestion(quizOne.getQuizName(), userOne.getLoginName(), 1, "answer2"));
+       quizDao.answerQuestion(quizOne.getQuizName(), userOne.getLoginName(), 1, "answer2");
     }
 
     private void testGradeAnsweredQuestion() {
@@ -121,6 +121,7 @@ public class QuizDaoImplementationTest {
         assertTrue(quizDao.unAnswerQuestion(quizOne.getQuizName(), userOne.getLoginName(), 1));
         assertFalse(quizDao.unAnswerQuestion(quizOne.getQuizName(), userOne.getLoginName(), 1));
     }
+
 
     @After
     public void finish(){

@@ -31,4 +31,6 @@ public interface QuizDao {
     String getQuestionAnswer(String quizName, String userName, int questionId);
 
     List<QuestionBasic> getAllQuestionFromQuiz(List<Integer> questionId);
+
+    Integer getQuizScore(String quizName, String userName);
 }

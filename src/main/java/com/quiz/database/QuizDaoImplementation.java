@@ -4,6 +4,9 @@ import com.quiz.database.interfaces.QuestionDao;
 import com.quiz.database.interfaces.QuizDao;
 import com.quiz.model.quiz.Quiz;
 import com.quiz.model.quiz.question.QuestionBasic;
+import com.quiz.model.quiz.question.QuestionFillBlank;
+import com.quiz.model.quiz.question.QuestionTest;
+import com.quiz.model.quiz.question.utils.QuestionType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -131,6 +134,17 @@ public class QuizDaoImplementation implements QuizDao {
     }
 
     @Override
+    public Integer getQuizScore(String quizName, String userName) {
+        String getStr = "SELECT sum(grade) FROM quizAnswers WHERE quizName = " + "'" + quizName + "'" + "And userName ="+ "'" +userName+ "'";
+        return jdbcTemplate.query(getStr, resultSet -> {
+            if(resultSet.next()){
+                return resultSet.getInt(1);
+            }
+            return 0;
+        });
+    }
+
+    @Override
     public void answerQuestion(String quizName, String userName, int questionId, String answer) {
         if(getQuestionAnswer(quizName, userName, questionId) != null){
             unAnswerQuestion(quizName, userName, questionId);
@@ -176,4 +190,6 @@ public class QuizDaoImplementation implements QuizDao {
             return null;
         });
     }
+
+
 }
