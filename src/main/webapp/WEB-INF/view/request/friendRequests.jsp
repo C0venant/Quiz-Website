@@ -40,12 +40,12 @@
             UserDaoImplementation userDao = (UserDaoImplementation)request.getAttribute("userDao");
             if(friendReqs != null){
                 for(Request req : friendReqs){
-                    User getUser = userDao.getUser(req.getFromUser());
-                    out.print("<tr><th>"+req.getFromUser()+"</th>");
-                    out.print("<th>"+getUser.getFirstName()+"</th>");
-                    out.print("<th>"+getUser.getLastName()+"</th>");
-                    out.print("<th><span>&#9679;</span>"+"<a href=\"/quiz-trial/acceptOrReject?fromUser="+req.getFromUser()+
-                            "&toUser="+req.getToUser()+"&id="+ req.getId()+"\">"+"Yes/No"+"</a><th><tr>");
+                        User getUser = userDao.getUser(req.getFromUser());
+                        out.print("<tr><th>"+req.getFromUser()+"</th>");
+                        out.print("<th>"+getUser.getFirstName()+"</th>");
+                        out.print("<th>"+getUser.getLastName()+"</th>");
+                        out.print("<th><span>&#9679;</span>"+"<a href=\"/quiz-trial/acceptOrReject?fromUser="+req.getFromUser()+
+                                "&toUser="+req.getToUser()+"&id="+ req.getId()+"\">"+"Yes/No"+"</a><th><tr>");
                 }
             }
         %>

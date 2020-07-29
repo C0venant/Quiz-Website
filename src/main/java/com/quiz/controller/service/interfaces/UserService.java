@@ -17,4 +17,6 @@ public interface UserService {
     ModelAndView messengerService(String userName);
 
     ModelAndView markAllAsReadService(String userName);
+
+    ModelAndView messageToUserService(String userName, String fromUser);
 }

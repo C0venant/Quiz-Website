@@ -50,4 +50,10 @@ public class UserController {
     public ModelAndView markAllAsReadControl(@RequestParam("username") String userName){
         return userService.markAllAsReadService(userName);
     }
+
+    @RequestMapping("messageToUser")
+    public ModelAndView messageToUserControl(@RequestParam("username") String userName,
+                                      @RequestParam("fromuser") String fromUser){
+        return userService.messageToUserService(userName, fromUser);
+    }
 }

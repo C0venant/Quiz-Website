@@ -88,7 +88,16 @@ public class UserServiceImplementation implements UserService {
         if(accept.equals("yes")){
             userDao.addFriend(new User(fromUser, "", "", ""), new User(userName, "", "", ""));
         }
-        requestDao.deleteRequest(id);
+        for(Request request : requestDao.getReceivedRequests(userName)){
+            if(request.getFromUser().equals(fromUser) && request.getType().equals(RequestType.FRIEND)){
+                requestDao.deleteRequest(request.getId());
+            }
+        }
+        for(Request request : requestDao.getReceivedRequests(fromUser)){
+            if(request.getFromUser().equals(userName) && request.getType().equals(RequestType.FRIEND)){
+                requestDao.deleteRequest(request.getId());
+            }
+        }
         mv = homepageService(userName);
         return mv;
     }
@@ -117,5 +126,15 @@ public class UserServiceImplementation implements UserService {
     public ModelAndView markAllAsReadService(String userName){
         requestDao.markAllMessagesAsRead(userName);
         return messengerService(userName);
+    }
+
+    @Override
+    public ModelAndView messageToUserService(String userName, String fromUser){
+        requestDao.markAsReadMessagesFromConcreteUser(userName, fromUser);
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("username", userName);
+        mv.addObject("fromuser", userDao.getUser(fromUser));
+        mv.setViewName("messenger/userMessages");
+        return mv;
     }
 }

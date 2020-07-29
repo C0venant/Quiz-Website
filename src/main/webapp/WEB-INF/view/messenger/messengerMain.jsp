@@ -64,8 +64,9 @@
         for(User usr : friendsLst){
             int n = requestDao.getUnreadMessagesFromConcreteUser(userName, usr.getLoginName()).size();
             String val =  usr.getLoginName() + "(" + usr.getFirstName() + " " + usr.getLastName() + ")";
-            out.print("<form name=\"requestForm" + id + "\"action=\"homepage\" class=\"notification\" method=\"post\">");
+            out.print("<form name=\"requestForm" + id + "\"action=\"messageToUser\" class=\"notification\" method=\"post\">");
             out.print("<input type=\"hidden\" name=\"username\" value=" + userName + ">");
+            out.print("<input type=\"hidden\" name=\"fromuser\" value=" + usr.getLoginName() + ">");
             out.print("<span onclick=\"requestForm" + id + ".submit()\">" + val + "</span>");
             out.print("<span class=\"badge\">" + n + "</span></form><br>");
             id++;
