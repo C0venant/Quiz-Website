@@ -196,20 +196,20 @@ public class QuizDaoImplementation implements QuizDao {
 
     @Override
     public void addQuizForCheck(String quizName, String userName, String author) {
-        String regStr = "INSERT INTO quizCkeck (quizName, userName, author)"
+        String regStr = "INSERT INTO quizCheck (quizName, userName, author)"
                 + " VALUES (?, ?, ?)";
         jdbcTemplate.update(regStr, quizName, userName, author);
     }
 
     @Override
     public void deleteQuizForCheck(String quizName, String userName) {
-        String delete = "DELETE FROM quizCkeck WHERE quizName ="+"'"+quizName+"'"+"AND userName="+"'"+userName+"'";
+        String delete = "DELETE FROM quizCheck WHERE quizName ="+"'"+quizName+"'"+"AND userName="+"'"+userName+"'";
         jdbcTemplate.update(delete);
     }
 
     @Override
     public List<UserCheck> needsCheck(String author) {
-        String query = "SELECT * FROM quizCkeck WHERE isChecked=FALSE AND author="+"'"+author+"'";
+        String query = "SELECT * FROM quizCheck WHERE isChecked=FALSE AND author="+"'"+author+"'";
         return jdbcTemplate.query(
                 query, (rs, rowNum) ->
                         new UserCheck(
@@ -221,7 +221,7 @@ public class QuizDaoImplementation implements QuizDao {
 
     @Override
     public List<String> checkedQuizUser(String username) {
-        String query = "SELECT quizName FROM quizCkeck WHERE isChecked=TRUE AND userName="+"'"+username+"'";
+        String query = "SELECT quizName FROM quizCheck WHERE isChecked=TRUE AND userName="+"'"+username+"'";
         return jdbcTemplate.query(
                 query, (rs, rowNum) ->
                         new String(
@@ -232,14 +232,14 @@ public class QuizDaoImplementation implements QuizDao {
 
     @Override
     public void checkQuiz(String quizName, String username) {
-        String update = "UPDATE quizCkeck SET isChecked = " +
+        String update = "UPDATE quizCheck SET isChecked = " +
                 "TRUE WHERE quizName =" +"'"+quizName+"'"+"AND username ="+"'"+username+"'";
         jdbcTemplate.update(update);
     }
 
     @Override
     public void uncheckQuiz(String quizName, String username) {
-        String update = "UPDATE quizCkeck SET isChecked = " +
+        String update = "UPDATE quizCheck SET isChecked = " +
                 "FALSE WHERE quizName =" +"'"+quizName+"'"+"AND username ="+"'"+username+"'";
         jdbcTemplate.update(update);
     }
