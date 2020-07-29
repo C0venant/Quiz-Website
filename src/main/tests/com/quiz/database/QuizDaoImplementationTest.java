@@ -3,6 +3,7 @@ package com.quiz.database;
 import com.quiz.model.quiz.Quiz;
 import com.quiz.model.quiz.question.QuestionBasic;
 import com.quiz.model.user.User;
+import com.quiz.model.user.UserCheck;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,6 +11,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Collections;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -120,6 +122,20 @@ public class QuizDaoImplementationTest {
     private void testUnAnswerQuestion() {
         assertTrue(quizDao.unAnswerQuestion(quizOne.getQuizName(), userOne.getLoginName(), 1));
         assertFalse(quizDao.unAnswerQuestion(quizOne.getQuizName(), userOne.getLoginName(), 1));
+    }
+
+    @Test
+    public void testCheck(){
+        quizDao.addQuizForCheck(quizOne.getQuizName(), userOne.getLoginName(), userTwo.getLoginName());
+        List<UserCheck> list1 = quizDao.needsCheck(userTwo.getLoginName());
+        assertEquals(1, list1.size());
+        assertEquals(quizOne.getQuizName(), list1.get(0).getQuizName());
+        assertEquals(userOne.getLoginName(), list1.get(0).getUsername());
+        quizDao.checkQuiz(quizOne.getQuizName(), userOne.getLoginName());
+        List<String> list2 = quizDao.checkedQuizUser(userOne.getLoginName());
+        assertEquals(1, list2.size());
+        assertEquals(quizOne.getQuizName(), list2.get(0));
+        quizDao.uncheckQuiz(quizOne.getQuizName(), userOne.getLoginName());
     }
 
 

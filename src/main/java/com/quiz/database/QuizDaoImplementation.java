@@ -7,12 +7,14 @@ import com.quiz.model.quiz.question.QuestionBasic;
 import com.quiz.model.quiz.question.QuestionFillBlank;
 import com.quiz.model.quiz.question.QuestionTest;
 import com.quiz.model.quiz.question.utils.QuestionType;
+import com.quiz.model.user.UserCheck;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @SuppressWarnings("SqlDialectInspection")
 public class QuizDaoImplementation implements QuizDao {
@@ -189,6 +191,57 @@ public class QuizDaoImplementation implements QuizDao {
             }
             return null;
         });
+    }
+
+
+    @Override
+    public void addQuizForCheck(String quizName, String userName, String author) {
+        String regStr = "INSERT INTO quizCkeck (quizName, userName, author)"
+                + " VALUES (?, ?, ?)";
+        jdbcTemplate.update(regStr, quizName, userName, author);
+    }
+
+    @Override
+    public void deleteQuizForCheck(String quizName, String userName) {
+        String delete = "DELETE FROM quizCkeck WHERE quizName ="+"'"+quizName+"'"+"AND userName="+"'"+userName+"'";
+        jdbcTemplate.update(delete);
+    }
+
+    @Override
+    public List<UserCheck> needsCheck(String author) {
+        String query = "SELECT * FROM quizCkeck WHERE isChecked=FALSE AND author="+"'"+author+"'";
+        return jdbcTemplate.query(
+                query, (rs, rowNum) ->
+                        new UserCheck(
+                                rs.getString("userName"),
+                                rs.getString("quizName")
+                        )
+        );
+    }
+
+    @Override
+    public List<String> checkedQuizUser(String username) {
+        String query = "SELECT quizName FROM quizCkeck WHERE isChecked=TRUE AND userName="+"'"+username+"'";
+        return jdbcTemplate.query(
+                query, (rs, rowNum) ->
+                        new String(
+                                rs.getString("quizName")
+                        )
+        );
+    }
+
+    @Override
+    public void checkQuiz(String quizName, String username) {
+        String update = "UPDATE quizCkeck SET isChecked = " +
+                "TRUE WHERE quizName =" +"'"+quizName+"'"+"AND username ="+"'"+username+"'";
+        jdbcTemplate.update(update);
+    }
+
+    @Override
+    public void uncheckQuiz(String quizName, String username) {
+        String update = "UPDATE quizCkeck SET isChecked = " +
+                "FALSE WHERE quizName =" +"'"+quizName+"'"+"AND username ="+"'"+username+"'";
+        jdbcTemplate.update(update);
     }
 
 

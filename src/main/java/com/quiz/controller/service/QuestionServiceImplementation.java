@@ -10,6 +10,7 @@ import com.quiz.model.quiz.question.QuestionTest;
 import com.quiz.model.quiz.question.utils.QuestionType;
 import com.quiz.utilities.TextFieldUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 public class QuestionServiceImplementation implements QuestionService {

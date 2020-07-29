@@ -128,8 +128,8 @@ public class UserDaoImplementation implements UserDao {
     @Override
     public boolean addAdmin(String loginName) {
         if(getUser(loginName) != null && !isAdmin(loginName)){
-            String delete = "UPDATE users SET isAdmin = TRUE WHERE loginName =?";
-            jdbcTemplate.update(delete, loginName);
+            String makeAdmin = "UPDATE users SET isAdmin = TRUE WHERE loginName =?";
+            jdbcTemplate.update(makeAdmin, loginName);
             return true;
         }
         return false;
