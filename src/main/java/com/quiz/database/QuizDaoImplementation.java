@@ -11,6 +11,7 @@ import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("SqlDialectInspection")
 public class QuizDaoImplementation implements QuizDao {
     private final JdbcTemplate jdbcTemplate;
 

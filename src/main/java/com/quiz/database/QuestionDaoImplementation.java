@@ -5,16 +5,12 @@ import com.quiz.model.quiz.question.QuestionBasic;
 import com.quiz.model.quiz.question.QuestionFillBlank;
 import com.quiz.model.quiz.question.QuestionTest;
 import com.quiz.model.quiz.question.utils.QuestionType;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.ResultSetExtractor;
-import org.springframework.jdbc.core.RowMapper;
 
 import javax.sql.DataSource;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
+@SuppressWarnings("SqlDialectInspection")
 public class QuestionDaoImplementation implements QuestionDao {
 
     private final JdbcTemplate jdbcTemplate;

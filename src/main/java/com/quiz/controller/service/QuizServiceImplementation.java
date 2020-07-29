@@ -6,7 +6,6 @@ import com.quiz.database.interfaces.QuizDao;
 import com.quiz.database.interfaces.RequestDao;
 import com.quiz.model.quiz.Quiz;
 import com.quiz.model.quiz.question.QuestionBasic;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -55,12 +54,12 @@ public class QuizServiceImplementation implements QuizService {
         return getDefaultPageModelAndView(author);
     }
 
-    private ModelAndView getDefaultPageModelAndView(String author) {
+    private ModelAndView getDefaultPageModelAndView(String userName) {
         ModelAndView mv = new ModelAndView();
-        mv.addObject("quizzes", quizDao.getQuizzesByAuthor(author));
-        mv.addObject("questions", questionDao.getAuthorQuestions(author));
-        mv.addObject("friendRequests", requestDao.getFriendRequests(author));
-        mv.addObject("allUnreadMessages", requestDao.getAllUnreadMessages(author));
+        mv.addObject("quizzes", quizDao.getQuizzesByAuthor(userName));
+        mv.addObject("questions", questionDao.getAuthorQuestions(userName));
+        mv.addObject("friendRequests", requestDao.getFriendRequests(userName));
+        mv.addObject("allUnreadMessages", requestDao.getAllUnreadMessages(userName));
         mv.setViewName("loginAndRegister/correctLoginOrRegistration");
         return mv;
     }
@@ -112,12 +111,7 @@ public class QuizServiceImplementation implements QuizService {
         }
         ModelAndView mv = new ModelAndView();
         if(nextQuestion.equals("finish")){
-            mv.addObject("quizzes", quizDao.getQuizzesByAuthor(username));
-            mv.addObject("questions", questionDao.getAuthorQuestions(username));
-            mv.addObject("friendRequests", requestDao.getFriendRequests(username));
-            mv.addObject("allUnreadMessages", requestDao.getAllUnreadMessages(username));
-            mv.setViewName("loginAndRegister/correctLoginOrRegistration");
-            return mv;
+            return getDefaultPageModelAndView(username);
         }else if(nextQuestion.equals("next")){
             mv.addObject("questionIndex", index+1);
             previousAnswer = quizDao.getQuestionAnswer(quizName, username,list.get(index+1).getId());
