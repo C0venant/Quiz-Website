@@ -3,6 +3,7 @@ package com.quiz.controller;
 import com.quiz.controller.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -55,5 +56,12 @@ public class UserController {
     public ModelAndView messageToUserControl(@RequestParam("username") String userName,
                                       @RequestParam("fromuser") String fromUser){
         return userService.messageToUserService(userName, fromUser);
+    }
+
+    @RequestMapping("sendMessage")
+    public ModelAndView sendMessageControl(@RequestParam("username") String fromUser,
+                                           @RequestParam("touser") String toUser,
+                                           @RequestParam("messageText") String messageText){
+        return userService.sendMessageService(fromUser, toUser, messageText);
     }
 }
