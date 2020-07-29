@@ -1,6 +1,6 @@
 package com.quiz.model.request;
 
-public class Request {
+public class Request implements Comparable<Request> {
     private String fromUser;
     private String toUser;
     private String type;
@@ -56,5 +56,10 @@ public class Request {
         s+="fromUser: "+fromUser+"\n"+"toUser: "
                 +toUser+"\n"+ "type: " + type + "\n"+"body: "+body+"\n"+"id: "+id;
         return s;
+    }
+
+    @Override
+    public int compareTo(Request o) {
+        return this.id - o.getId();
     }
 }

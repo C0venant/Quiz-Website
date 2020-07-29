@@ -134,6 +134,8 @@ public class UserServiceImplementation implements UserService {
         ModelAndView mv = new ModelAndView();
         mv.addObject("username", userName);
         mv.addObject("fromuser", userDao.getUser(fromUser));
+        mv.addObject("receivedMessages", requestDao.getMessagesFromConcreteUser(userName, fromUser));
+        mv.addObject("sentMessages", requestDao.getMessagesFromConcreteUser(fromUser, userName));
         mv.setViewName("messenger/userMessages");
         return mv;
     }

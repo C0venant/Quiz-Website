@@ -81,15 +81,11 @@ public class RequestDaoImplementation implements RequestDao {
     }
 
     @Override
-    public List<Request> getMessages(String toUser){
-        List<Request> allReqs = getReceivedRequests(toUser);
-        List<Request> messageReqs = new ArrayList<>();
-        for(Request req : allReqs){
-            if(req.getType().equals(RequestType.NOTE)){
-                messageReqs.add(req);
-            }
-        }
-        return messageReqs;
+    public List<Request> getMessagesFromConcreteUser(String toUser, String fromUser) {
+        String getStr = "SELECT * FROM requests WHERE requestType =" + "'" + RequestType.NOTE + "'"
+                + " AND fromUser =" + "'" + fromUser + "'"
+                + " AND toUser =" + "'" + toUser + "'";
+        return jdbcTemplate.query(getStr, (resultSet, rowNum) -> getRequest(resultSet.getInt(1)));
     }
 
     @Override
