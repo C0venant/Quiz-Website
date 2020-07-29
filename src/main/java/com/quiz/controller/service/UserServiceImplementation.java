@@ -139,4 +139,11 @@ public class UserServiceImplementation implements UserService {
         mv.setViewName("messenger/userMessages");
         return mv;
     }
+
+    @Override
+    public ModelAndView sendMessageService(String fromUser, String toUser, String messageText){
+        Request req = new Request(fromUser, toUser,RequestType.NOTE, messageText, false);
+        requestDao.addRequest(req);
+        return messageToUserService(fromUser, toUser);
+    }
 }

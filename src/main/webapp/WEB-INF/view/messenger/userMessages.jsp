@@ -51,8 +51,8 @@
             }
 
             .darker {
-                border-color: #ccc;
-                background-color: #ddd;
+                border-color: coral;
+                background-color: coral;
             }
 
             .container::after {
@@ -110,9 +110,16 @@
             }
 
         %>
-
         </div>
     </div>
+
+   &nbsp;&nbsp;&nbsp;&nbsp;
+    <form action="sendMessage" method="post">
+        <input type="hidden" name="touser" value=<%=fromUser.getLoginName()%>>
+        <input type="hidden" name="username" value=<%=userName%>>
+        <label for="messageText">Text: </label><textarea id ="messageText" name="messageText"></textarea>
+        <input type="submit" value="Send Messsage">
+    </form>
 
 
 </body>
