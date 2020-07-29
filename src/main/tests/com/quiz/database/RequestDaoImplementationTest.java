@@ -89,6 +89,51 @@ public class RequestDaoImplementationTest {
     }
 
     @Test
+    public void testGetFriendRequests(){
+        Request original = new Request(user1.getLoginName(), user2.getLoginName(), RequestType.FRIEND, "", false);
+        Request original1 = new Request(user1.getLoginName(), user2.getLoginName(), RequestType.NOTE, "hello", false);
+        requestDao.addRequest(original);
+        requestDao.addRequest(original1);
+        assertEquals(requestDao.getFriendRequests(user2.getLoginName()).get(0).getFromUser(), user1.getLoginName());
+        for(Request req : requestDao.getReceivedRequests(user2.getLoginName())){
+            requestDao.deleteRequest(req.getId());
+        }
+    }
+
+    @Test
+    public void testGetMessagesFromConcreteUser(){
+        Request original1 = new Request(user1.getLoginName(), user2.getLoginName(), RequestType.NOTE, "hello", false);
+        Request original2 = new Request(user1.getLoginName(), user2.getLoginName(), RequestType.CHALLENGE, "hello", false);
+        requestDao.addRequest(original1);
+        requestDao.addRequest(original2);
+        assertEquals("hello", requestDao.getMessagesFromConcreteUser(user2.getLoginName(), user1.getLoginName()).get(0).getBody());
+        for(Request req : requestDao.getReceivedRequests(user2.getLoginName())){
+            requestDao.deleteRequest(req.getId());
+        }
+    }
+
+    @Test
+    public void testGetUnreadMessages(){
+        Request original1 = new Request(user1.getLoginName(), user2.getLoginName(), RequestType.NOTE, "hello", false);
+        Request original2 = new Request(user1.getLoginName(), user2.getLoginName(), RequestType.NOTE, "hello1", true);
+        Request original3 = new Request(user1.getLoginName(), user2.getLoginName(), RequestType.FRIEND, "", true);
+        Request original4 = new Request(user1.getLoginName(), user2.getLoginName(), RequestType.FRIEND, "", false);
+        requestDao.addRequest(original1);
+        requestDao.addRequest(original2);
+        requestDao.addRequest(original3);
+        requestDao.addRequest(original4);
+        assertEquals("hello", requestDao.getAllUnreadMessages(user2.getLoginName()).get(0).getBody());
+        assertFalse(requestDao.getAllUnreadMessages(user2.getLoginName()).get(0).isSeen());
+        assertEquals("hello", requestDao.getUnreadMessagesFromConcreteUser(user2.getLoginName(), user1.getLoginName()).get(0).getBody());
+        requestDao.markAllMessagesAsRead(user2.getLoginName());
+        requestDao.markAsReadMessagesFromConcreteUser(user2.getLoginName(), user1.getLoginName());
+        assertTrue(requestDao.getAllUnreadMessages(user2.getLoginName()).isEmpty());
+        for(Request req : requestDao.getReceivedRequests(user2.getLoginName())) {
+            requestDao.deleteRequest(req.getId());
+        }
+    }
+
+    @Test
     public void testBadCase(){
         assertNull(requestDao.getRequest(-1));
         assertFalse(requestDao.deleteRequest(-1));
