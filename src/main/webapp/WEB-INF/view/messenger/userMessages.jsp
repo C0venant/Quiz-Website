@@ -1,10 +1,12 @@
 <%--suppress unchecked --%>
+<%@ page import="com.quiz.database.RequestDaoImplementation" %>
 <%@ page import="com.quiz.model.request.Request" %>
 <%@ page import="com.quiz.model.user.User" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
-<%@ page import="java.util.TreeMap" %><%--
+<%@ page import="java.util.TreeMap" %>
+<%--
   Created by IntelliJ IDEA.
   User: Quantori
   Date: 7/29/2020
@@ -13,98 +15,100 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
-    <%
-        User fromUser = (User)request.getAttribute("fromuser");
-        String userName = request.getParameter("username");
-        List<Request> receivedMessages = (List<Request>)request.getAttribute("receivedMessages");
-        List<Request> sentMessages = (List<Request>)request.getAttribute("sentMessages");
-    %>
+<%
+    User fromUser = (User) request.getAttribute("fromuser");
+    String userName = request.getParameter("username");
+    List<Request> receivedMessages = (List<Request>) request.getAttribute("receivedMessages");
+    List<Request> sentMessages = (List<Request>) request.getAttribute("sentMessages");
+%>
 <head>
-    <title>Messenger | <%=fromUser.getFirstName()%> <%=fromUser.getLastName()%></title>
+    <title>Messenger | <%=fromUser.getFirstName()%> <%=fromUser.getLastName()%>
+    </title>
 </head>
 <body>
-    <form action="homepage" method="post">
-        <input type="hidden" name="username" value=<%=userName%>>
-        <input type="submit" value="Homepage">
-    </form>
+<form action="homepage" method="post">
+    <input type="hidden" name="username" value=<%=userName%>>
+    <input type="submit" value="Homepage">
+</form>
 
-    <form action="messenger" method="post">
-        <input type="hidden" name="username" value=<%=userName%>>
-        <input type="submit" value="Messenger Main Page">
-    </form>
+<form action="messenger" method="post">
+    <input type="hidden" name="username" value=<%=userName%>>
+    <input type="submit" value="Messenger Main Page">
+</form>
 
-        <style>
-            .section{
-                max-height: 400px;
-                overflow-y: auto;
-                margin: 32px 64px;
-                display: flex;
-                flex-direction: column-reverse;
-            }
-            .sendMessage{
-                margin:8px 64px;
-            }
+<style>
+    .section {
+        max-height: 400px;
+        overflow-y: auto;
+        margin: 32px 64px;
+        display: flex;
+        flex-direction: column-reverse;
+    }
 
-            .container {
-                border: 2px solid #dedede;
-                background-color: #f1f1f1;
-                border-radius: 5px;
-                padding: 10px;
-                margin: 10px 0;
-            }
+    .sendMessage {
+        margin: 8px 64px;
+    }
 
-            .darker {
-                border-color: coral;
-                background-color: coral;
-            }
+    .container {
+        border: 2px solid #dedede;
+        background-color: #f1f1f1;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 10px 0;
+    }
 
-            .container::after {
-                content: "";
-                clear: both;
-                display: table;
-            }
+    .darker {
+        border-color: coral;
+        background-color: coral;
+    }
 
-            .container text {
-                float: left;
-                max-width: 60px;
-                width: 100%;
-                margin-right: 20px;
-                border-radius: 50%;
-            }
+    .container::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
 
-            .container text.right {
-                float: right;
-                margin-left: 20px;
-                margin-right:0;
-            }
-        </style>
+    .container text {
+        float: left;
+        max-width: 60px;
+        width: 100%;
+        margin-right: 20px;
+        border-radius: 50%;
+    }
 
-    <h2>Chat Messages</h2>
+    .container text.right {
+        float: right;
+        margin-left: 20px;
+        margin-right: 0;
+    }
+</style>
 
-    <div class="section">
-        <div class="messenger">
+<h2>Chat Messages</h2>
+
+<div class="section">
+    <div class="messenger">
 
         <%
             Map<Request, String> map = new HashMap<Request, String>();
 
-            for(Request req : receivedMessages){
+            for (Request req : receivedMessages) {
                 map.put(req, "received");
             }
-            for(Request req : sentMessages){
+            for (Request req : sentMessages) {
                 map.put(req, "sent");
             }
 
             TreeMap<Request, String> sorted = new TreeMap<Request, String>(map);
 
-            for(Request res : sorted.keySet()){
-                if(sorted.get(res).equals("received")){
+            for (Request res : sorted.keySet()) {
+                if (sorted.get(res).equals("received")) {
                     out.print("<div class=\"container\">\n" +
-                            "        <text style=\"width:100%;\"> "+ fromUser.getFirstName() + "</text>\n" +
+                            "        <text style=\"width:100%;\"> " + fromUser.getFirstName() + "</text>\n" +
                             "        <p>" + res.getBody() + "</p>\n" +
                             "    </div>");
 
                 }
-                if(sorted.get(res).equals("sent")){
+                if (sorted.get(res).equals("sent")) {
                     out.print("<div class=\"container darker\">\n" +
                             "        <text class=\"right\" style=\"width:100%;\">Me</text>\n" +
                             "        <p>" + res.getBody() + "</p>\n" +
@@ -113,18 +117,29 @@
             }
 
         %>
-        </div>
     </div>
+</div>
 
-   &nbsp;&nbsp;&nbsp;&nbsp;
-    <div class="sendMessage">
-        <form action="sendMessage" method="post">
-            <input type="hidden" name="touser" value=<%=fromUser.getLoginName()%>>
-            <input type="hidden" name="username" value=<%=userName%>>
-            <label for="messageText">Text: </label><textarea id ="messageText" name="messageText"></textarea>
-            <input type="submit" value="Send Messsage">
-        </form>
-    </div>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<div class="sendMessage">
+    <input type="hidden" id="touser" name="touser" value=<%=fromUser.getLoginName()%>>
+    <input type="hidden" id="username" name="username" value=<%=userName%>>
+    <label for="messageText">Text: </label><textarea id="messageText" name="messageText"></textarea>
+    <button onclick="sendFunction()">Send Messsage</button>
+</div>
+
+
+<script>
+    function sendFunction() {
+        const userName = document.getElementById("username").value;
+        const toUser = document.getElementById("touser").value;
+        const messageText = document.getElementById("messageText").value;
+        if(!messageText) return;
+        fetch("/quiz-trial/sendMessage?username=" + userName + "&touser=" + toUser + "&messageText=" + messageText)
+            .then((e) => console.log(e)).catch(e => console.error(e));
+        location.reload();
+    }
+</script>
 
 
 </body>
