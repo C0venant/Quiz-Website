@@ -3,6 +3,8 @@
 <%@ page import="com.quiz.model.quiz.question.QuestionBasic" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.quiz.model.request.Request" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="com.quiz.model.user.UserCheck" %>
 
 <%--
   Created by IntelliJ IDEA.
@@ -126,5 +128,39 @@
             }
         %>
     </table>
+
+    <h4>Returned with mark: </h4>
+    <table >
+        <tr>
+            <th>_____Quiz Name_____</th>
+            <th>_____mark_____</th>
+        </tr>
+        <%
+            Map<String, Integer> markedQuizzes = (Map<String, Integer>)request.getAttribute("isChecked");
+            for(String s : markedQuizzes.keySet()){
+                out.print("<tr><th>"+s+"</th><th>"+markedQuizzes.get(s)+"</th></tr>");
+            }
+        %>
+    </table>
+
+
+
+    <h4>Requires Checking: </h4>
+    <table >
+        <tr>
+            <th>_____Quiz Name_____</th>
+            <th>_____Username_____</th>
+        </tr>
+        <%
+            List<UserCheck> checkList = (List<UserCheck>)request.getAttribute("needsChecking");
+            for(UserCheck uc : checkList){
+                out.print("<tr><th><span>&#9679;</span>"+"<a href=\"/quiz-trial/gradeQuiz?quizName="+uc.getQuizName()+
+                        "&author="+request.getParameter("username")+"&username="+uc.getUsername()+"\">"+uc.getQuizName()+"</a></th>");
+                out.print("<th>"+uc.getUsername()+"</th></tr>");
+            }
+        %>
+    </table>
+
+
 </body>
 </html>

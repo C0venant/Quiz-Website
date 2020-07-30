@@ -55,4 +55,17 @@ public class QuizController {
         return quizService.fetchNextQuestion(username, quizName, nextQuestion, index, userAnswer);
     }
 
+    @RequestMapping("/gradeQuiz")
+    public ModelAndView gradeQuiz(@RequestParam String username, @RequestParam String quizName, @RequestParam String author){
+        return quizService.prepareQuizForCheck(username, quizName, author);
+    }
+
+    @RequestMapping("/returnMarked")
+    public ModelAndView returnMarked(@RequestParam String username,
+                                     @RequestParam String quizName,
+                                     @RequestParam String author,
+                                     HttpServletRequest req){
+        return quizService.submitQuizScore(username, quizName, author, req);
+    }
+
 }

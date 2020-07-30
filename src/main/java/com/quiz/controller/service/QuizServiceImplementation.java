@@ -106,6 +106,7 @@ public class QuizServiceImplementation implements QuizService {
         }
         ModelAndView mv = new ModelAndView();
         if(nextQuestion.equals("finish")){
+            quizDao.addQuizForCheck(quizName, username, quiz.getQuizAuthor());
             return getDefaultPageModelAndView(username);
         }else if(nextQuestion.equals("next")){
             mv.addObject("questionIndex", index+1);
@@ -119,5 +120,33 @@ public class QuizServiceImplementation implements QuizService {
         mv.addObject("quiz", quizDao.getQuizByName(quizName));
         mv.setViewName("quiz/quizQuestion");
         return mv;
+    }
+
+    @Override
+    public ModelAndView prepareQuizForCheck(String username, String quizName, String author) {
+        List<String> userAnswers = new ArrayList<>();
+        Quiz quiz = quizDao.getQuizByName(quizName);
+        for(QuestionBasic q : quiz.getQuestions()){
+            userAnswers.add(quizDao.getQuestionAnswer(quizName, username, q.getId()));
+        }
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("quiz/gradeQuiz");
+        mv.addObject("username", username);
+        mv.addObject("quiz", quiz);
+        mv.addObject("userAnswers", userAnswers);
+        mv.addObject("author", author);
+        return mv;
+    }
+
+    @Override
+    public ModelAndView submitQuizScore(String username, String quizName, String author, HttpServletRequest req) {
+        Quiz quiz = quizDao.getQuizByName(quizName);
+        List<QuestionBasic> qList = quiz.getQuestions();
+        for(int i = 0; i < qList.size(); i++){
+            int grade = Integer.parseInt(req.getParameter("grade"+i));
+            quizDao.gradeAnsweredQuestion(quizName, username, qList.get(i).getId(), grade);
+        }
+        quizDao.checkQuiz(quizName, username);
+        return HomePageUtils.setHomeParameters(author, questionDao, quizDao, requestDao);
     }
 }
