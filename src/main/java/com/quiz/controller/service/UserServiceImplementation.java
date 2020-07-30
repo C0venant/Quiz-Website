@@ -8,6 +8,7 @@ import com.quiz.database.interfaces.UserDao;
 import com.quiz.model.request.Request;
 import com.quiz.model.request.RequestType;
 import com.quiz.model.user.User;
+import com.quiz.utilities.HomePageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,6 +26,7 @@ public class UserServiceImplementation implements UserService {
 
     @Autowired
     QuizDao quizDao;
+
 
     @Override
     public ModelAndView addFriendService(String fromUser, String toUser) {
@@ -46,11 +48,7 @@ public class UserServiceImplementation implements UserService {
                 Request newReq = new Request(fromUser, toUser, RequestType.FRIEND, "", false);
                 requestDao.addRequest(newReq);
             }
-            mv.addObject("quizzes", quizDao.getQuizzesByAuthor(fromUser));
-            mv.addObject("questions", questionDao.getAuthorQuestions(fromUser));
-            mv.addObject("friendRequests", requestDao.getFriendRequests(fromUser));
-            mv.addObject("allUnreadMessages", requestDao.getAllUnreadMessages(fromUser));
-            mv.setViewName("loginAndRegister/correctLoginOrRegistration");
+            mv = HomePageUtils.setHomeParameters(fromUser, questionDao, quizDao, requestDao);
         } else {
             if(areFriends){
                 mv.setViewName("request/alreadyFriends");
@@ -63,13 +61,7 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     public ModelAndView homepageService(String userName){
-        ModelAndView mv = new ModelAndView();
-        mv.addObject("questions", questionDao.getAuthorQuestions(userName));
-        mv.addObject("quizzes", quizDao.getQuizzesByAuthor(userName));
-        mv.addObject("friendRequests", requestDao.getFriendRequests(userName));
-        mv.addObject("allUnreadMessages", requestDao.getAllUnreadMessages(userName));
-        mv.setViewName("loginAndRegister/correctLoginOrRegistration");
-        return mv;
+        return HomePageUtils.setHomeParameters(userName, questionDao, quizDao, requestDao);
     }
 
     @Override

@@ -8,6 +8,7 @@ import com.quiz.model.quiz.question.QuestionBasic;
 import com.quiz.model.quiz.question.QuestionFillBlank;
 import com.quiz.model.quiz.question.QuestionTest;
 import com.quiz.model.quiz.question.utils.QuestionType;
+import com.quiz.utilities.HomePageUtils;
 import com.quiz.utilities.TextFieldUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -65,13 +66,7 @@ public class QuestionServiceImplementation implements QuestionService {
     }
 
     private ModelAndView getDefaultPageModelAndView(String author) {
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("loginAndRegister/correctLoginOrRegistration");
-        mv.addObject("friendRequests", requestDao.getFriendRequests(author));
-        mv.addObject("questions", questionDao.getAuthorQuestions(author));
-        mv.addObject("quizzes", quizDao.getQuizzesByAuthor(author));
-        mv.addObject("allUnreadMessages", requestDao.getAllUnreadMessages(author));
-        return mv;
+        return HomePageUtils.setHomeParameters(author, questionDao, quizDao, requestDao);
     }
 
     @Override

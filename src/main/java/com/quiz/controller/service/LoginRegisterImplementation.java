@@ -6,6 +6,7 @@ import com.quiz.database.interfaces.QuizDao;
 import com.quiz.database.interfaces.RequestDao;
 import com.quiz.database.interfaces.UserDao;
 import com.quiz.model.user.User;
+import com.quiz.utilities.HomePageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,18 +26,17 @@ public class LoginRegisterImplementation implements LoginRegisterService {
     @Autowired
     RequestDao requestDao;
 
+
+
     @Override
     public ModelAndView loginService(String userName, String password) throws NoSuchAlgorithmException {
-        ModelAndView mv = new ModelAndView();
         boolean log = userDao.loginUser(userName, password);
+        ModelAndView mv;
         if(log){
-            mv.setViewName("loginAndRegister/correctLoginOrRegistration");
+            mv = HomePageUtils.setHomeParameters(userName, questionDao, quizDao, requestDao);
             mv.addObject("username", userName);
-            mv.addObject("questions", questionDao.getAuthorQuestions(userName));
-            mv.addObject("quizzes", quizDao.getQuizzesByAuthor(userName));
-            mv.addObject("friendRequests", requestDao.getFriendRequests(userName));
-            mv.addObject("allUnreadMessages", requestDao.getAllUnreadMessages(userName));
         } else {
+            mv = new ModelAndView();
             mv.setViewName("loginAndRegister/incorrectLogin");
         }
         return mv;
@@ -51,16 +51,13 @@ public class LoginRegisterImplementation implements LoginRegisterService {
 
     @Override
     public ModelAndView proceedAccountCreationControl(String userName, String password, String firstName, String lastName) throws NoSuchAlgorithmException {
-        ModelAndView mv = new ModelAndView();
+        ModelAndView mv;
         User newUser = new User(userName, password, firstName, lastName);
         boolean reg = userDao.registerUser(newUser);
         if(reg){
-            mv.addObject("questions", questionDao.getAuthorQuestions(userName));
-            mv.addObject("quizzes", quizDao.getQuizzesByAuthor(userName));
-            mv.addObject("friendRequests", requestDao.getFriendRequests(userName));
-            mv.addObject("allUnreadMessages", requestDao.getAllUnreadMessages(userName));
-            mv.setViewName("loginAndRegister/correctLoginOrRegistration");
+            mv = HomePageUtils.setHomeParameters(userName, questionDao, quizDao, requestDao);
         } else {
+            mv = new ModelAndView();
             mv.setViewName("loginAndRegister/nameInUse");
         }
         mv.addObject("username", userName);

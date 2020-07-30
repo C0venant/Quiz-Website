@@ -6,6 +6,7 @@ import com.quiz.database.interfaces.QuizDao;
 import com.quiz.database.interfaces.RequestDao;
 import com.quiz.model.quiz.Quiz;
 import com.quiz.model.quiz.question.QuestionBasic;
+import com.quiz.utilities.HomePageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -55,13 +56,7 @@ public class QuizServiceImplementation implements QuizService {
     }
 
     private ModelAndView getDefaultPageModelAndView(String userName) {
-        ModelAndView mv = new ModelAndView();
-        mv.addObject("quizzes", quizDao.getQuizzesByAuthor(userName));
-        mv.addObject("questions", questionDao.getAuthorQuestions(userName));
-        mv.addObject("friendRequests", requestDao.getFriendRequests(userName));
-        mv.addObject("allUnreadMessages", requestDao.getAllUnreadMessages(userName));
-        mv.setViewName("loginAndRegister/correctLoginOrRegistration");
-        return mv;
+       return HomePageUtils.setHomeParameters(userName, questionDao, quizDao, requestDao);
     }
 
     @Override
