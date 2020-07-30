@@ -3,6 +3,7 @@ package com.quiz.controller.service;
 import com.quiz.controller.service.interfaces.QuestionService;
 import com.quiz.database.interfaces.QuestionDao;
 import com.quiz.database.interfaces.QuizDao;
+import com.quiz.database.interfaces.RemoveDao;
 import com.quiz.database.interfaces.RequestDao;
 import com.quiz.model.quiz.question.QuestionBasic;
 import com.quiz.model.quiz.question.QuestionFillBlank;
@@ -24,6 +25,9 @@ public class QuestionServiceImplementation implements QuestionService {
 
     @Autowired
     RequestDao requestDao;
+
+    @Autowired
+    RemoveDao removeDao;
 
     @Override
     public ModelAndView createBasicQuestion(String author) {
@@ -61,7 +65,7 @@ public class QuestionServiceImplementation implements QuestionService {
 
     @Override
     public ModelAndView deleteQuestion(String author, int questionId) {
-        questionDao.deleteQuestion(questionId);
+        removeDao.removeQuestion(questionId);
         return getDefaultPageModelAndView(author);
     }
 
