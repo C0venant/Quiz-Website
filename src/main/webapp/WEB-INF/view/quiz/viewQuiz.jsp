@@ -24,6 +24,9 @@
         out.print("<h4>" + "-----------------------------------------------------------------" + "</h4>");
         List<QuestionBasic> list = quiz.getQuestions();
         for (QuestionBasic q : list) {
+            if(q.getImageFile()!=null && !q.getImageFile().equals("")){
+                out.print("<img src=\""+q.getImageFile()+"\" alt=\"image\" style=\"width:104px;height:142px;\">");
+            }
             if (q.getType().equals(QuestionType.TEST)) {
                 QuestionTest qt = (QuestionTest) q;
                 out.println("<h4> max grade: " + qt.getMaxGrade() + "</h4>");

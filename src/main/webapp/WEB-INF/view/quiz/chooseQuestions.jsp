@@ -9,7 +9,7 @@
   Time: 20:39
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" isELIgnored="false" %>
 <html>
 <head>
     <title>Choose Question</title>
@@ -23,6 +23,9 @@
             @SuppressWarnings("unchecked") List<QuestionBasic> list = (List<QuestionBasic>)request.getAttribute("questions");
             for (int i = 0; i < list.size(); i++){
                 QuestionBasic q = list.get(i);
+                if(q.getImageFile()!=null && !q.getImageFile().equals("")){
+                    out.print("<img src=\""+q.getImageFile()+"\" alt=\"image\" style=\"width:104px;height:142px;\">");
+                }
                 if(q.getType().equals(QuestionType.TEST)){
                     QuestionTest qt = (QuestionTest)q;
                     out.println("<h4> max grade: "+qt.getMaxGrade()+"</h4>");

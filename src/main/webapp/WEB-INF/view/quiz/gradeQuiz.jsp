@@ -27,6 +27,9 @@
         List<QuestionBasic> list = quiz.getQuestions();
         int counter = 0;
         for (QuestionBasic q : list) {
+            if(q.getImageFile()!=null && !q.getImageFile().equals("")){
+                out.print("<img src=\""+q.getImageFile()+"\" alt=\"image\" style=\"width:104px;height:142px;\">");
+            }
             String id = "gradeId"+counter;
             if (q.getType().equals(QuestionType.TEST)) {
                 QuestionTest qt = (QuestionTest) q;

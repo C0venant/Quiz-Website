@@ -22,6 +22,9 @@
         QuestionBasic question = quiz.getQuestions().get(index);
         int nextNum = index + 1;
         String previousAnswer = (String) request.getAttribute("previousAnswer");
+        if(question.getImageFile()!=null && !question.getImageFile().equals("")){
+            out.print("<img src=\""+question.getImageFile()+"\" alt=\"image\" style=\"width:104px;height:142px;\">");
+        }
         if(question.getType().equals(QuestionType.BLANK)){
             out.println("<h4> question " + nextNum + "/" + quiz.getQuestions().size() + "</h4>");
             out.println("<h4> " + question.toString() + "</h4>");
