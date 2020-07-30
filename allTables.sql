@@ -5,9 +5,9 @@ USE quiz_db;
 DROP TABLE IF EXISTS quizCheck;
 DROP TABLE IF EXISTS requests;
 DROP TABLE IF EXISTS friends;
-DROP TABLE IF EXISTS quizQuestions;
-DROP TABLE IF EXISTS probableAnswers;
 DROP TABLE IF EXISTS quizAnswers;
+DROP TABLE IF EXISTS probableAnswers;
+DROP TABLE IF EXISTS quizQuestions;
 DROP TABLE IF EXISTS questions;
 DROP TABLE IF EXISTS quiz;
 DROP TABLE IF EXISTS users;
@@ -62,7 +62,7 @@ CREATE TABLE friends (
 CREATE TABLE quizAnswers (
 	quizName char(200) references quiz(quizName),
     userName char(50) references users(loginName),
-    questionId int references questions(questionId),
+    questionId int references quizQuestions(questionId),
     answer varchar(500),
     grade int default(0)
 );
@@ -73,8 +73,6 @@ CREATE TABLE quizCheck (
     author char(50) references users(loginName),
     isChecked BOOLEAN DEFAULT false
 );
-
-
 
 CREATE TABLE requests (
 	requestId INT AUTO_INCREMENT PRIMARY KEY,
