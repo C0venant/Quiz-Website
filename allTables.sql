@@ -2,7 +2,7 @@ create database if not exists quiz_db;
 
 USE quiz_db;
 
-DROP TABLE IF EXISTS quizCkeck;
+DROP TABLE IF EXISTS quizCheck;
 DROP TABLE IF EXISTS requests;
 DROP TABLE IF EXISTS friends;
 DROP TABLE IF EXISTS quizQuestions;
