@@ -136,6 +136,7 @@ public class QuizDaoImplementationTest {
         assertEquals(1, list2.size());
         assertEquals(quizOne.getQuizName(), list2.get(0));
         quizDao.uncheckQuiz(quizOne.getQuizName(), userOne.getLoginName());
+        quizDao.deleteQuizForCheck(quizOne.getQuizName(), userOne.getLoginName());
     }
 
 
