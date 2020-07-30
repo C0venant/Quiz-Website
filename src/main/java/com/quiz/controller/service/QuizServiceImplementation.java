@@ -1,10 +1,7 @@
 package com.quiz.controller.service;
 
 import com.quiz.controller.service.interfaces.QuizService;
-import com.quiz.database.interfaces.QuestionDao;
-import com.quiz.database.interfaces.QuizDao;
-import com.quiz.database.interfaces.RemoveDao;
-import com.quiz.database.interfaces.RequestDao;
+import com.quiz.database.interfaces.*;
 import com.quiz.model.quiz.Quiz;
 import com.quiz.model.quiz.question.QuestionBasic;
 import com.quiz.utilities.HomePageUtils;
@@ -28,6 +25,9 @@ public class QuizServiceImplementation implements QuizService {
 
     @Autowired
     RemoveDao removeDao;
+
+    @Autowired
+    UserDao userDao;
 
     @Override
     public ModelAndView displayQuestions(String author) {
@@ -60,7 +60,7 @@ public class QuizServiceImplementation implements QuizService {
     }
 
     private ModelAndView getDefaultPageModelAndView(String userName) {
-       return HomePageUtils.setHomeParameters(userName, questionDao, quizDao, requestDao);
+       return HomePageUtils.setHomeParameters(userName, questionDao, quizDao, requestDao, userDao);
     }
 
     @Override
@@ -151,6 +151,6 @@ public class QuizServiceImplementation implements QuizService {
             quizDao.gradeAnsweredQuestion(quizName, username, qList.get(i).getId(), grade);
         }
         quizDao.checkQuiz(quizName, username);
-        return HomePageUtils.setHomeParameters(author, questionDao, quizDao, requestDao);
+        return HomePageUtils.setHomeParameters(author, questionDao, quizDao, requestDao, userDao);
     }
 }

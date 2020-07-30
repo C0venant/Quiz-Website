@@ -126,6 +126,15 @@ public class UserDaoImplementation implements UserDao {
     }
 
     @Override
+    public List<String> getGlobalUsers(String userName) {
+        String query = "SELECT loginName FROM users WHERE loginName!="+"'"+userName+"'";
+        return jdbcTemplate.query(
+                query, (rs, rowNum) ->
+                        rs.getString("loginName")
+        );
+    }
+
+    @Override
     public boolean addAdmin(String loginName) {
         if(getUser(loginName) != null && !isAdmin(loginName)){
             String makeAdmin = "UPDATE users SET isAdmin = TRUE WHERE loginName =?";

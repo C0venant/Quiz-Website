@@ -33,7 +33,7 @@ public class LoginRegisterImplementation implements LoginRegisterService {
         boolean log = userDao.loginUser(userName, password);
         ModelAndView mv;
         if(log){
-            mv = HomePageUtils.setHomeParameters(userName, questionDao, quizDao, requestDao);
+            mv = HomePageUtils.setHomeParameters(userName, questionDao, quizDao, requestDao, userDao);
             mv.addObject("username", userName);
         } else {
             mv = new ModelAndView();
@@ -55,7 +55,7 @@ public class LoginRegisterImplementation implements LoginRegisterService {
         User newUser = new User(userName, password, firstName, lastName);
         boolean reg = userDao.registerUser(newUser);
         if(reg){
-            mv = HomePageUtils.setHomeParameters(userName, questionDao, quizDao, requestDao);
+            mv = HomePageUtils.setHomeParameters(userName, questionDao, quizDao, requestDao, userDao);
         } else {
             mv = new ModelAndView();
             mv.setViewName("loginAndRegister/nameInUse");

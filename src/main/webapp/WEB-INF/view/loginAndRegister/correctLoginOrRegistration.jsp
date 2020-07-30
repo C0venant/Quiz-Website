@@ -74,6 +74,17 @@
         <input type="submit" value="Logout">
     </form>
 
+
+    <%
+        Boolean isAdmin = (Boolean)request.getAttribute("isAdmin");
+        if(isAdmin){
+            out.print("<form action=\"listQuizAndUsers\" method=\"post\">");
+            out.print("<input type=\"submit\" value=\"Admin options\">");
+            out.print("<input type=\"hidden\" name=\"username\" value=\""+request.getParameter("username")+"\">");
+            out.print("</form>");
+        }
+    %>
+
     <form action="createQuestion_basic" method="post">
         <input type="hidden" id="user" name="username" value=<%= request.getParameter("username")%>>
         <input type="submit" value="create Question">

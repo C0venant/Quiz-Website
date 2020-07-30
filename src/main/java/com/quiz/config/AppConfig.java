@@ -1,9 +1,6 @@
 package com.quiz.config;
 
-import com.quiz.controller.service.LoginRegisterImplementation;
-import com.quiz.controller.service.QuestionServiceImplementation;
-import com.quiz.controller.service.QuizServiceImplementation;
-import com.quiz.controller.service.UserServiceImplementation;
+import com.quiz.controller.service.*;
 import com.quiz.database.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -87,5 +84,9 @@ public class AppConfig {
         return new QuizServiceImplementation();
     }
 
+    @Bean
+    public AdminServiceImplementation getAdminService() {
+        return new AdminServiceImplementation();
+    }
 
 }

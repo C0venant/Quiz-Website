@@ -48,7 +48,7 @@ public class UserServiceImplementation implements UserService {
                 Request newReq = new Request(fromUser, toUser, RequestType.FRIEND, "", false);
                 requestDao.addRequest(newReq);
             }
-            mv = HomePageUtils.setHomeParameters(fromUser, questionDao, quizDao, requestDao);
+            mv = HomePageUtils.setHomeParameters(fromUser, questionDao, quizDao, requestDao, userDao);
         } else {
             if(areFriends){
                 mv.setViewName("request/alreadyFriends");
@@ -61,7 +61,7 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     public ModelAndView homepageService(String userName){
-        return HomePageUtils.setHomeParameters(userName, questionDao, quizDao, requestDao);
+        return HomePageUtils.setHomeParameters(userName, questionDao, quizDao, requestDao, userDao);
     }
 
     @Override

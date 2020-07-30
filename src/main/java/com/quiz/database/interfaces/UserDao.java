@@ -27,4 +27,6 @@ public interface UserDao {
     boolean areFriends(User user, User friend);
 
     List<User> getUsersFriends(String userName);
+
+    List<String> getGlobalUsers(String userName);
 }
