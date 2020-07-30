@@ -4,9 +4,6 @@ import com.quiz.database.interfaces.QuestionDao;
 import com.quiz.database.interfaces.QuizDao;
 import com.quiz.model.quiz.Quiz;
 import com.quiz.model.quiz.question.QuestionBasic;
-import com.quiz.model.quiz.question.QuestionFillBlank;
-import com.quiz.model.quiz.question.QuestionTest;
-import com.quiz.model.quiz.question.utils.QuestionType;
 import com.quiz.model.user.UserCheck;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -14,7 +11,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @SuppressWarnings("SqlDialectInspection")
 public class QuizDaoImplementation implements QuizDao {
@@ -224,9 +220,7 @@ public class QuizDaoImplementation implements QuizDao {
         String query = "SELECT quizName FROM quizCheck WHERE isChecked=TRUE AND userName="+"'"+username+"'";
         return jdbcTemplate.query(
                 query, (rs, rowNum) ->
-                        new String(
-                                rs.getString("quizName")
-                        )
+                        rs.getString("quizName")
         );
     }
 

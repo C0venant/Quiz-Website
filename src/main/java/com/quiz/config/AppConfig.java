@@ -4,10 +4,7 @@ import com.quiz.controller.service.LoginRegisterImplementation;
 import com.quiz.controller.service.QuestionServiceImplementation;
 import com.quiz.controller.service.QuizServiceImplementation;
 import com.quiz.controller.service.UserServiceImplementation;
-import com.quiz.database.QuestionDaoImplementation;
-import com.quiz.database.QuizDaoImplementation;
-import com.quiz.database.RequestDaoImplementation;
-import com.quiz.database.UserDaoImplementation;
+import com.quiz.database.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -68,6 +65,9 @@ public class AppConfig {
     }
 
     @Bean
+    public RemoveDaoImplementation getRemoveDao() { return new RemoveDaoImplementation(getDataSource()); }
+
+    @Bean
     public LoginRegisterImplementation getLoginRegister(){
         return new LoginRegisterImplementation();
     }
@@ -86,4 +86,6 @@ public class AppConfig {
     public QuizServiceImplementation getQuizService() {
         return new QuizServiceImplementation();
     }
+
+
 }
