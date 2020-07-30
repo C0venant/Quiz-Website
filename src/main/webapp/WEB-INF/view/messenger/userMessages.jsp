@@ -41,6 +41,9 @@
                 display: flex;
                 flex-direction: column-reverse;
             }
+            .sendMessage{
+                margin:8px 64px;
+            }
 
             .container {
                 border: 2px solid #dedede;
@@ -114,12 +117,14 @@
     </div>
 
    &nbsp;&nbsp;&nbsp;&nbsp;
-    <form action="sendMessage" method="post">
-        <input type="hidden" name="touser" value=<%=fromUser.getLoginName()%>>
-        <input type="hidden" name="username" value=<%=userName%>>
-        <label for="messageText">Text: </label><textarea id ="messageText" name="messageText"></textarea>
-        <input type="submit" value="Send Messsage">
-    </form>
+    <div class="sendMessage">
+        <form action="sendMessage" method="post">
+            <input type="hidden" name="touser" value=<%=fromUser.getLoginName()%>>
+            <input type="hidden" name="username" value=<%=userName%>>
+            <label for="messageText">Text: </label><textarea id ="messageText" name="messageText"></textarea>
+            <input type="submit" value="Send Messsage">
+        </form>
+    </div>
 
 
 </body>
