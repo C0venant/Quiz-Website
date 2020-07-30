@@ -139,6 +139,14 @@ public class QuizDaoImplementationTest {
         quizDao.deleteQuizForCheck(quizOne.getQuizName(), userOne.getLoginName());
     }
 
+    @Test
+    public void testGetGlobalQuizzes(){
+        quizDao.addQuiz(quizOne);
+        quizDao.addQuiz(quizTwo);
+        List<String>  list = quizDao.getGlobalQuizzes(userOne.getLoginName());
+        assertEquals(1, list.size());
+        assertEquals(quizTwo.getQuizName(), list.get(0));
+    }
 
     @After
     public void finish(){

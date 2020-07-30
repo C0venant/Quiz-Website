@@ -16,6 +16,7 @@ public class HomePageUtils {
         mv.addObject("friendRequests", requestDao.getFriendRequests(userName));
         mv.addObject("allUnreadMessages", requestDao.getAllUnreadMessages(userName));
         mv.addObject("needsChecking", quizDao.needsCheck(userName));
+        mv.addObject("globalQuizzes", quizDao.getGlobalQuizzes(userName));
         Map<String, Integer> gradeMap = new HashMap<>();
         for(String quiz : quizDao.checkedQuizUser(userName)){
             gradeMap.put(quiz, quizDao.getQuizScore(quiz, userName));

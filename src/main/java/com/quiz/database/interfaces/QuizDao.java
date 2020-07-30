@@ -47,4 +47,6 @@ public interface QuizDao {
     void checkQuiz(String quizName, String username);
 
     void uncheckQuiz(String quizName, String username);
+
+    List<String> getGlobalQuizzes(String username);
 }

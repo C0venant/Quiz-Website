@@ -161,6 +161,20 @@
         %>
     </table>
 
+    <h4>Global quizzes: </h4>
+    <table >
+        <tr>
+            <th>_____Quiz Name_____</th>
+        </tr>
+        <%
+            List<String> globalQuizzes = (List<String>)request.getAttribute("globalQuizzes");
+            for(String qn : globalQuizzes){
+                out.print("<tr><th><span>&#9679;</span>"+"<a href=\"/quiz-trial/enrollQuiz?quizName="+qn+
+                        "&username="+request.getParameter("username")+"\">"+qn+"</a></th></tr>");
+            }
+        %>
+    </table>
+
 
 </body>
 </html>

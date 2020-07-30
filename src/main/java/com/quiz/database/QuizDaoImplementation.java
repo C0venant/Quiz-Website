@@ -238,5 +238,12 @@ public class QuizDaoImplementation implements QuizDao {
         jdbcTemplate.update(update);
     }
 
-
+    @Override
+    public List<String> getGlobalQuizzes(String username) {
+        String query = "SELECT quizName FROM quiz WHERE author!="+"'"+username+"'";
+        return jdbcTemplate.query(
+                query, (rs, rowNum) ->
+                        rs.getString("quizName")
+        );
+    }
 }
