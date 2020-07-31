@@ -47,19 +47,22 @@ public class LoginRegisterImplementation implements LoginRegisterService {
     @Override
     public ModelAndView createAccountService() {
         ModelAndView mv = new ModelAndView();
+        String created = "false";
+        mv.addObject("created", created);
         mv.setViewName("loginAndRegister/createAccount");
         return mv;
     }
 
     @Override
     public ModelAndView proceedAccountCreationControl(String userName, String password, String firstName, String lastName) throws NoSuchAlgorithmException {
-        ModelAndView mv;
+        ModelAndView mv = new ModelAndView();
         User newUser = new User(userName, password, firstName, lastName);
         boolean reg = userDao.registerUser(newUser);
         if(reg){
-            mv = HomePageUtils.setHomeParameters(userName, questionDao, quizDao, requestDao, userDao);
+            String created = "true";
+            mv.addObject("created", created);
+            mv.setViewName("loginAndRegister/createAccount");
         } else {
-            mv = new ModelAndView();
             mv.setViewName("loginAndRegister/nameInUse");
         }
         mv.addObject("username", userName);

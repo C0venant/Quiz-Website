@@ -11,6 +11,14 @@
     <title>Create Account</title>
 </head>
 <body>
+    <script>
+        function loginPage() {
+            window.location.href = "/quiz-trial";
+        }
+    </script>
+
+    <button onclick="loginPage()">Login page</button>
+
     <h1>The user name <%= request.getParameter("username") %> is Already In Use</h1>
     <p>Please enter another user name.</p>
     <p>Also enter first and last names if you want.</p>
