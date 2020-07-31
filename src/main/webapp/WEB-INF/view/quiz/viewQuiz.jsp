@@ -68,7 +68,6 @@
     %>
     </tbody>
 </table>
-<form action="deleteQuiz" method="post">
     <table class="content-table">
         <thead>
         <tr>
@@ -100,15 +99,21 @@
                 out.println("<h4> max grade: " + q.getMaxGrade() + "</h4>");
                 out.println("<h4>" + q.toString() + "</h4>");
             }
-            out.print("</th></th>");
+            out.print("</th></tr>");
         }
-        out.print("<input type=\"hidden\" id=\"quiz\" name=\"quizName\" value=\""+quiz.getQuizName()+"\">");
 
     %>
-        </tbody>
-    </table>
+
+
+    <tr><th>
+<form action="deleteQuiz" method="post">
+    <%
+        Quiz quiz3 = (Quiz)request.getAttribute("quiz");
+        out.print("<input type=\"hidden\" id=\"quiz\" name=\"quizName\" value=\""+quiz3.getQuizName()+"\">");
+    %>
     <input type="hidden" id="user" name="username" value=<%= request.getParameter("username")%>>
     <input type="submit" value="delete">
+
 </form>
 
 <form action="enrollQuiz" method="post">
@@ -119,6 +124,8 @@
     <input type="hidden" id="user2" name="username" value=<%= request.getParameter("username")%>>
     <input type="submit" value="enroll">
 </form>
-
+    </th></tr>
+        </tbody>
+    </table>
 </body>
 </html>

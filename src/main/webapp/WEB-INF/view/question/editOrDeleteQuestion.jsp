@@ -11,8 +11,54 @@
 <html>
 <head>
     <title>edit question</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .content-table {
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            min-width: 400px;
+            border-radius: 5px 5px 0 0;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .content-table thead tr {
+            background-color: #009879;
+            color: #ffffff;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .content-table th,
+        .content-table td {
+            padding: 12px 15px;
+        }
+
+        .content-table tbody tr {
+            border-bottom: 1px solid #dddddd;
+        }
+
+        .content-table tbody tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
+
+        .content-table tbody tr:last-of-type {
+            border-bottom: 2px solid #009879;
+        }
+    </style>
 </head>
 <body>
+<table class="content-table">
+    <thead>
+    <tr>
+        <th>Test Question</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr><th>
     <form action="editQuestion" method="post">
         <input type="hidden" id="user" name="username" value=<%= request.getParameter("username")%>>
         <input type="hidden" id="id" name="id" value=<%= request.getParameter("id")%>>
@@ -48,5 +94,6 @@
         <input type="hidden" id="id1" name="id" value=<%= request.getParameter("id")%>>
         <input type="submit" value="delete">
     </form>
+    </th></tr></tbody></table>
 </body>
 </html>
