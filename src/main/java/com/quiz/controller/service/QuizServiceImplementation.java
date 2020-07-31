@@ -6,12 +6,14 @@ import com.quiz.model.quiz.Quiz;
 import com.quiz.model.quiz.question.QuestionBasic;
 import com.quiz.utilities.HomePageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class QuizServiceImplementation implements QuizService {
 
     @Autowired

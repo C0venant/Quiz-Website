@@ -7,10 +7,12 @@ import com.quiz.model.request.Request;
 import com.quiz.model.user.User;
 import com.quiz.utilities.HomePageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
+@Service
 public class AdminServiceImplementation implements AdminService {
 
     @Autowired

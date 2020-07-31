@@ -117,7 +117,12 @@
                             "&username="+request.getParameter("username")+"\">"+shortView+"</a></th>");
                     out.print("<th>"+q.getType()+"</th>");
                     out.print("<th>"+q.getMaxGrade()+"</th>");
-                    out.print("<th>"+q.getCorrectAnswer()+"</th></tr>");
+                    if(q.getCorrectAnswer()!=null){
+                        out.print("<th>"+q.getCorrectAnswer()+"</th></tr>");
+                    }else {
+                        out.print("<th></th></tr>");
+                    }
+
                 }
             }
         %>

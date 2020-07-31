@@ -64,29 +64,5 @@ public class AppConfig {
     @Bean
     public RemoveDaoImplementation getRemoveDao() { return new RemoveDaoImplementation(getDataSource()); }
 
-    @Bean
-    public LoginRegisterImplementation getLoginRegister(){
-        return new LoginRegisterImplementation();
-    }
-
-    @Bean
-    public UserServiceImplementation getUserService() {
-        return new UserServiceImplementation();
-    }
-
-    @Bean
-    public QuestionServiceImplementation getQuestionService() {
-        return new QuestionServiceImplementation();
-    }
-
-    @Bean
-    public QuizServiceImplementation getQuizService() {
-        return new QuizServiceImplementation();
-    }
-
-    @Bean
-    public AdminServiceImplementation getAdminService() {
-        return new AdminServiceImplementation();
-    }
 
 }

@@ -8,10 +8,12 @@ import com.quiz.database.interfaces.UserDao;
 import com.quiz.model.user.User;
 import com.quiz.utilities.HomePageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.NoSuchAlgorithmException;
 
+@Service
 public class LoginRegisterImplementation implements LoginRegisterService {
 
     @Autowired
