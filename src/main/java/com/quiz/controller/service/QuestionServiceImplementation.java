@@ -67,11 +67,11 @@ public class QuestionServiceImplementation implements QuestionService {
     @Override
     public ModelAndView deleteQuestion(String author, int questionId) {
         removeDao.removeQuestion(questionId);
-        return getDefaultPageModelAndView(author, "false");
+        return getDefaultPageModelAndView(author);
     }
 
-    private ModelAndView getDefaultPageModelAndView(String author, String questionCreated) {
-        return HomePageUtils.setHomeParameters(author, questionCreated, questionDao, quizDao, requestDao, userDao);
+    private ModelAndView getDefaultPageModelAndView(String author) {
+        return HomePageUtils.setHomeParameters(author, "true", questionDao, quizDao, requestDao, userDao);
     }
 
     @Override
@@ -87,7 +87,7 @@ public class QuestionServiceImplementation implements QuestionService {
             question = new QuestionBasic(body, maxGrade, imageFile, correctAnswer, -1);
         }
         questionDao.addQuestion(author, question);
-        return getDefaultPageModelAndView(author, "true");
+        return getDefaultPageModelAndView(author);
     }
 
 }

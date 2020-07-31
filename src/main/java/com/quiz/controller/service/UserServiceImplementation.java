@@ -50,7 +50,7 @@ public class UserServiceImplementation implements UserService {
                 Request newReq = new Request(fromUser, toUser, RequestType.FRIEND, "", false);
                 requestDao.addRequest(newReq);
             }
-            mv = HomePageUtils.setHomeParameters(fromUser, "false", questionDao, quizDao, requestDao, userDao);
+            mv = HomePageUtils.setHomeParameters(fromUser, "true", questionDao, quizDao, requestDao, userDao);
         } else {
             if(areFriends){
                 mv.setViewName("request/alreadyFriends");
@@ -78,7 +78,6 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     public ModelAndView proceedAcceptOrRejectService(String accept, String fromUser, String userName, Integer id) {
-        ModelAndView mv;
         if(accept.equals("yes")){
             userDao.addFriend(new User(fromUser, "", "", ""), new User(userName, "", "", ""));
         }
@@ -92,8 +91,7 @@ public class UserServiceImplementation implements UserService {
                 requestDao.deleteRequest(request.getId());
             }
         }
-        mv = homepageService(userName);
-        return mv;
+        return HomePageUtils.setHomeParameters(userName, "true", questionDao, quizDao, requestDao, userDao);
     }
 
     @Override

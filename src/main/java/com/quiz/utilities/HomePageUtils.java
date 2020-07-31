@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class HomePageUtils {
-    public static ModelAndView setHomeParameters(String userName, String questionCreated, QuestionDao questionDao, QuizDao quizDao, RequestDao requestDao, UserDao userdao){
+    public static ModelAndView setHomeParameters(String userName, String somethingChanged, QuestionDao questionDao, QuizDao quizDao, RequestDao requestDao, UserDao userdao){
         ModelAndView mv = new ModelAndView();
         mv.addObject("questions", questionDao.getAuthorQuestions(userName));
         mv.addObject("quizzes", quizDao.getQuizzesByAuthor(userName));
@@ -24,7 +24,7 @@ public class HomePageUtils {
             gradeMap.put(quiz, quizDao.getQuizScore(quiz, userName));
         }
         mv.addObject("isChecked", gradeMap);
-        mv.addObject("questionCreated", questionCreated);
+        mv.addObject("somethingChanged", somethingChanged);
         mv.setViewName("loginAndRegister/correctLoginOrRegistration");
         return mv;
     }

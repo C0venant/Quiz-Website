@@ -21,17 +21,16 @@
 </head>
 <body onload="determineIfQuestionCreated()">
     <%
-        String questionCreated = (String)request.getAttribute("questionCreated");
+        String somethingChanged = (String)request.getAttribute("somethingChanged");
     %>
-    <input type="hidden" id="questionCreated" name="questionCreated" value=<%=questionCreated%>>
+    <input type="hidden" id="somethingChanged" name="somethingChanged" value=<%=somethingChanged%>>
     <input type="hidden" id="username" name="username" value=<%=request.getParameter("username")%>>
 
     <script>
         function determineIfQuestionCreated(){
-            const questionCreated = document.getElementById("questionCreated").value;
+            const questionCreated = document.getElementById("somethingChanged").value;
             const userName = document.getElementById("username").value;
             if(questionCreated === "true"){
-                alert("Question Created!!!");
                 window.location.href = "/quiz-trial/homepage?username=" + userName;
             }
         }
