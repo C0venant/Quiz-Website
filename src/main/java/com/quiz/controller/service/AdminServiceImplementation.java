@@ -85,8 +85,4 @@ public class AdminServiceImplementation implements AdminService {
         return adminHome(username);
     }
 
-    @Override
-    public ModelAndView backToHome(String username) {
-        return HomePageUtils.setHomeParameters(username, "false", questionDao, quizDao, requestDao, userDao);
-    }
 }

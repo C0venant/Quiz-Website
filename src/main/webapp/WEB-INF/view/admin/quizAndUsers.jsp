@@ -9,10 +9,25 @@
 <html>
 <head>
     <title>info list</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
 
         body {
             font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .btn {
+            background-color: DodgerBlue;
+            border: none;
+            color: white;
+            padding: 12px 16px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        /* Darker background on mouse-over */
+        .btn:hover {
+            background-color: RoyalBlue;
         }
 
         .content-table {
@@ -52,10 +67,10 @@
 </head>
 <body>
 
-<form action="returnHome" method="post">
-    <input type=hidden name=username value=<%=request.getParameter("username")%>>
-    <input type="submit" value="Home">
-</form>
+    <form name="homepageForm" action="homepage" method="post">
+        <button class="btn" onclick="homepageForm.submit()"><i class="fa fa-home"></i> Homepage</button>
+        <input type="hidden" name="username" value=<%=request.getParameter("username")%>>
+    </form>
 
 <table class="content-table">
     <thead>

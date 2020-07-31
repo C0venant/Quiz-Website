@@ -9,5 +9,4 @@ public interface AdminService {
     public ModelAndView deleteQuiz(String username, String quizName);
     public ModelAndView deleteUser(String username, String globalUser);
     public ModelAndView AdminUser(String username, String globalUser);
-    public ModelAndView backToHome(String username);
 }

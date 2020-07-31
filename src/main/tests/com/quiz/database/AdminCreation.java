@@ -25,7 +25,7 @@ public class AdminCreation {
 
     @Test
     public void makeAdmin(){
-        String userName = "gio";
+        String userName = "ikakandelaki";
         userDao.addAdmin(userName);
         assertTrue(userDao.isAdmin(userName));
     }

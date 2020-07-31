@@ -42,9 +42,4 @@ public class AdminController {
     public ModelAndView grantAdmin(@RequestParam String username, @RequestParam String globalUser){
         return adminService.AdminUser(username, globalUser);
     }
-
-    @RequestMapping("/returnHome")
-    public ModelAndView returnHome(@RequestParam String username){
-        return adminService.backToHome(username);
-    }
 }
