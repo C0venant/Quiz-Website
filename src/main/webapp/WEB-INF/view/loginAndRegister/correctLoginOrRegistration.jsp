@@ -16,29 +16,25 @@
 <%@ page contentType="text/html;charset=UTF-8" isELIgnored="false" %>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Welcome <%= request.getParameter("username")%>
     </title>
-</head>
-<body onload="determineIfQuestionCreated()">
-    <%
-        String somethingChanged = (String)request.getAttribute("somethingChanged");
-    %>
-    <input type="hidden" id="somethingChanged" name="somethingChanged" value=<%=somethingChanged%>>
-    <input type="hidden" id="username" name="username" value=<%=request.getParameter("username")%>>
-
-    <script>
-        function determineIfQuestionCreated(){
-            const questionCreated = document.getElementById("somethingChanged").value;
-            const userName = document.getElementById("username").value;
-            if(questionCreated === "true"){
-                window.location.href = "/quiz-trial/homepage?username=" + userName;
-            }
-        }
-    </script>
-
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .row {
+            display: flex;
+        }
+
+        .column {
+            flex: 50%;
+            padding: 10px;
         }
 
         .notification {
@@ -98,7 +94,26 @@
             border-bottom: 2px solid #009879;
         }
     </style>
+</head>
+<body onload="determineIfQuestionCreated()">
+    <%
+        String somethingChanged = (String)request.getAttribute("somethingChanged");
+    %>
+    <input type="hidden" id="somethingChanged" name="somethingChanged" value=<%=somethingChanged%>>
+    <input type="hidden" id="username" name="username" value=<%=request.getParameter("username")%>>
 
+    <script>
+        function determineIfQuestionCreated(){
+            const questionCreated = document.getElementById("somethingChanged").value;
+            const userName = document.getElementById("username").value;
+            if(questionCreated === "true"){
+                window.location.href = "/quiz-trial/homepage?username=" + userName;
+            }
+        }
+    </script>
+
+    <div class="row">
+        <div class="column">
     <h1>Welcome <%= request.getParameter("username")%></h1>
     <%
         List<Request> friendReqs = (List<Request>)request.getAttribute("friendRequests");
@@ -144,7 +159,7 @@
         <input type="submit" value="create Quiz">
     </form>
 
-    <h4>Your questions:</h4><br>
+    <h4>Your questions:</h4>
     <table class="content-table">
         <thead>
         <tr>
@@ -180,7 +195,8 @@
         %>
         </tbody>
     </table>
-
+        </div>
+        <div class="column">
     <h4>Your Quizzes: </h4>
     <table class="content-table">
         <thead>
@@ -259,7 +275,7 @@
         %>
         </tbody>
     </table>
-
-
+        </div>
+    </div>
 </body>
 </html>
