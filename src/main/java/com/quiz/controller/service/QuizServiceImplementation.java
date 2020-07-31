@@ -62,7 +62,7 @@ public class QuizServiceImplementation implements QuizService {
     }
 
     private ModelAndView getDefaultPageModelAndView(String userName) {
-       return HomePageUtils.setHomeParameters(userName, questionDao, quizDao, requestDao, userDao);
+       return HomePageUtils.setHomeParameters(userName, "false", questionDao, quizDao, requestDao, userDao);
     }
 
     @Override
@@ -153,6 +153,6 @@ public class QuizServiceImplementation implements QuizService {
             quizDao.gradeAnsweredQuestion(quizName, username, qList.get(i).getId(), grade);
         }
         quizDao.checkQuiz(quizName, username);
-        return HomePageUtils.setHomeParameters(author, questionDao, quizDao, requestDao, userDao);
+        return HomePageUtils.setHomeParameters(author, "false", questionDao, quizDao, requestDao, userDao);
     }
 }

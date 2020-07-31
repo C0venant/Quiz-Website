@@ -35,7 +35,7 @@ public class LoginRegisterImplementation implements LoginRegisterService {
         boolean log = userDao.loginUser(userName, password);
         ModelAndView mv;
         if(log){
-            mv = HomePageUtils.setHomeParameters(userName, questionDao, quizDao, requestDao, userDao);
+            mv = HomePageUtils.setHomeParameters(userName, "false", questionDao, quizDao, requestDao, userDao);
             mv.addObject("username", userName);
         } else {
             mv = new ModelAndView();

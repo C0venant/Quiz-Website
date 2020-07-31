@@ -19,77 +19,92 @@
     <title>Welcome <%= request.getParameter("username")%>
     </title>
 </head>
-<body>
+<body onload="determineIfQuestionCreated()">
+    <%
+        String questionCreated = (String)request.getAttribute("questionCreated");
+    %>
+    <input type="hidden" id="questionCreated" name="questionCreated" value=<%=questionCreated%>>
+    <input type="hidden" id="username" name="username" value=<%=request.getParameter("username")%>>
 
-<style>
-    body {
-        font-family: Arial, Helvetica, sans-serif;
-    }
+    <script>
+        function determineIfQuestionCreated(){
+            const questionCreated = document.getElementById("questionCreated").value;
+            const userName = document.getElementById("username").value;
+            if(questionCreated === "true"){
+                alert("Question Created!!!");
+                window.location.href = "/quiz-trial/homepage?username=" + userName;
+            }
+        }
+    </script>
 
-    .notification {
-        background-color: #555;
-        color: white;
-        text-decoration: none;
-        padding: 13px 23px;
-        position: relative;
-        display: inline-block;
-        border-radius: 5px;
-    }
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
 
-    .notification:hover {
-        background: red;
-    }
+        .notification {
+            background-color: #555;
+            color: white;
+            text-decoration: none;
+            padding: 13px 23px;
+            position: relative;
+            display: inline-block;
+            border-radius: 5px;
+        }
 
-    .notification .badge {
-        position: absolute;
-        top: -10px;
-        right: -10px;
-        padding: 5px 10px;
-        border-radius: 50%;
-        background-color: red;
-        color: white;
-    }
-    .content-table {
-        border-collapse: collapse;
-        margin: 25px 0;
-        font-size: 0.9em;
-        min-width: 400px;
-        border-radius: 5px 5px 0 0;
-        overflow: hidden;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-    }
+        .notification:hover {
+            background: red;
+        }
 
-    .content-table thead tr {
-        background-color: #009879;
-        color: #ffffff;
-        text-align: left;
-        font-weight: bold;
-    }
+        .notification .badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            padding: 5px 10px;
+            border-radius: 50%;
+            background-color: red;
+            color: white;
+        }
+        .content-table {
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            min-width: 400px;
+            border-radius: 5px 5px 0 0;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
 
-    .content-table th,
-    .content-table td {
-        padding: 12px 15px;
-    }
+        .content-table thead tr {
+            background-color: #009879;
+            color: #ffffff;
+            text-align: left;
+            font-weight: bold;
+        }
 
-    .content-table tbody tr {
-        border-bottom: 1px solid #dddddd;
-    }
+        .content-table th,
+        .content-table td {
+            padding: 12px 15px;
+        }
 
-    .content-table tbody tr:nth-of-type(even) {
-        background-color: #f3f3f3;
-    }
+        .content-table tbody tr {
+            border-bottom: 1px solid #dddddd;
+        }
 
-    .content-table tbody tr:last-of-type {
-        border-bottom: 2px solid #009879;
-    }
-</style>
+        .content-table tbody tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
+
+        .content-table tbody tr:last-of-type {
+            border-bottom: 2px solid #009879;
+        }
+    </style>
+
     <h1>Welcome <%= request.getParameter("username")%></h1>
     <%
         List<Request> friendReqs = (List<Request>)request.getAttribute("friendRequests");
         List<Request> allUnreadMessages = (List<Request>)request.getAttribute("allUnreadMessages");
     %>
-
-
 
     <form name="requestForm" action="friendRequests" class="notification" method="post">
         <span onclick="requestForm.submit()">Friend Requests</span>
