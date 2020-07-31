@@ -20,41 +20,76 @@
     </title>
 </head>
 <body>
+
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .notification {
+        background-color: #555;
+        color: white;
+        text-decoration: none;
+        padding: 13px 23px;
+        position: relative;
+        display: inline-block;
+        border-radius: 5px;
+    }
+
+    .notification:hover {
+        background: red;
+    }
+
+    .notification .badge {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        padding: 5px 10px;
+        border-radius: 50%;
+        background-color: red;
+        color: white;
+    }
+    .content-table {
+        border-collapse: collapse;
+        margin: 25px 0;
+        font-size: 0.9em;
+        min-width: 400px;
+        border-radius: 5px 5px 0 0;
+        overflow: hidden;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .content-table thead tr {
+        background-color: #009879;
+        color: #ffffff;
+        text-align: left;
+        font-weight: bold;
+    }
+
+    .content-table th,
+    .content-table td {
+        padding: 12px 15px;
+    }
+
+    .content-table tbody tr {
+        border-bottom: 1px solid #dddddd;
+    }
+
+    .content-table tbody tr:nth-of-type(even) {
+        background-color: #f3f3f3;
+    }
+
+    .content-table tbody tr:last-of-type {
+        border-bottom: 2px solid #009879;
+    }
+</style>
     <h1>Welcome <%= request.getParameter("username")%></h1>
     <%
         List<Request> friendReqs = (List<Request>)request.getAttribute("friendRequests");
         List<Request> allUnreadMessages = (List<Request>)request.getAttribute("allUnreadMessages");
     %>
 
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-        }
 
-        .notification {
-            background-color: #555;
-            color: white;
-            text-decoration: none;
-            padding: 13px 23px;
-            position: relative;
-            display: inline-block;
-            border-radius: 5px;
-        }
-
-        .notification:hover {
-            background: red;
-        }
-
-        .notification .badge {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            padding: 5px 10px;
-            border-radius: 50%;
-            background-color: red;
-            color: white;
-        }
-    </style>
 
     <form name="requestForm" action="friendRequests" class="notification" method="post">
         <span onclick="requestForm.submit()">Friend Requests</span>
@@ -96,13 +131,16 @@
     </form>
 
     <h4>Your questions:</h4><br>
-    <table >
+    <table class="content-table">
+        <thead>
         <tr>
             <th>_____Body_____</th>
             <th>_____Type_____</th>
             <th>_____Max Grade_____</th>
             <th>_____Correct Answer_____</th>
         </tr>
+        </thead>
+        <tbody>
         <%
             List<QuestionBasic> list = (List<QuestionBasic>)request.getAttribute("questions");
             if(list != null){
@@ -126,14 +164,18 @@
                 }
             }
         %>
+        </tbody>
     </table>
 
     <h4>Your Quizzes: </h4>
-    <table >
+    <table class="content-table">
+        <thead>
         <tr>
             <th>_____Quiz Name_____</th>
             <th>_____Grade_____</th>
         </tr>
+        </thead>
+        <tbody>
 
         <%
             List <Quiz> quizList = (List <Quiz>)request.getAttribute("quizzes");
@@ -143,30 +185,38 @@
                 out.print("<th>"+q.getOverallGrade()+"</th></tr>");
             }
         %>
+        </tbody>
     </table>
 
     <h4>Returned with mark: </h4>
-    <table >
+    <table class="content-table">
+        <thead>
         <tr>
             <th>_____Quiz Name_____</th>
             <th>_____mark_____</th>
         </tr>
+        </thead>
+        <tbody>
         <%
             Map<String, Integer> markedQuizzes = (Map<String, Integer>)request.getAttribute("isChecked");
             for(String s : markedQuizzes.keySet()){
                 out.print("<tr><th>"+s+"</th><th>"+markedQuizzes.get(s)+"</th></tr>");
             }
         %>
+        </tbody>
     </table>
 
 
 
     <h4>Requires Checking: </h4>
-    <table >
+    <table class="content-table">
+        <thead>
         <tr>
             <th>_____Quiz Name_____</th>
             <th>_____Username_____</th>
         </tr>
+        </thead>
+        <tbody>
         <%
             List<UserCheck> checkList = (List<UserCheck>)request.getAttribute("needsChecking");
             for(UserCheck uc : checkList){
@@ -175,13 +225,17 @@
                 out.print("<th>"+uc.getUsername()+"</th></tr>");
             }
         %>
+        </tbody>
     </table>
 
     <h4>Global quizzes: </h4>
-    <table >
+    <table class="content-table">
+        <thead>
         <tr>
             <th>_____Quiz Name_____</th>
         </tr>
+        </thead>
+        <tbody>
         <%
             List<String> globalQuizzes = (List<String>)request.getAttribute("globalQuizzes");
             for(String qn : globalQuizzes){
@@ -189,6 +243,7 @@
                         "&username="+request.getParameter("username")+"\">"+qn+"</a></th></tr>");
             }
         %>
+        </tbody>
     </table>
 
 
