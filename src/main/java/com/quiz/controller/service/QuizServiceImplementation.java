@@ -129,30 +129,30 @@ public class QuizServiceImplementation implements QuizService {
     }
 
     @Override
-    public ModelAndView prepareQuizForCheck(String username, String quizName, String author) {
+    public ModelAndView prepareQuizForCheck(String username, String quizName, String checkReq) {
         List<String> userAnswers = new ArrayList<>();
         Quiz quiz = quizDao.getQuizByName(quizName);
         for(QuestionBasic q : quiz.getQuestions()){
-            userAnswers.add(quizDao.getQuestionAnswer(quizName, username, q.getId()));
+            userAnswers.add(quizDao.getQuestionAnswer(quizName, checkReq, q.getId()));
         }
         ModelAndView mv = new ModelAndView();
         mv.setViewName("quiz/gradeQuiz");
-        mv.addObject("username", username);
+        mv.addObject("checkReq", checkReq);
         mv.addObject("quiz", quiz);
         mv.addObject("userAnswers", userAnswers);
-        mv.addObject("author", author);
+        mv.addObject("author", username);
         return mv;
     }
 
     @Override
-    public ModelAndView submitQuizScore(String username, String quizName, String author, HttpServletRequest req) {
+    public ModelAndView submitQuizScore(String username, String quizName, String checkReq, HttpServletRequest req) {
         Quiz quiz = quizDao.getQuizByName(quizName);
         List<QuestionBasic> qList = quiz.getQuestions();
         for(int i = 0; i < qList.size(); i++){
             int grade = Integer.parseInt(req.getParameter("grade"+i));
-            quizDao.gradeAnsweredQuestion(quizName, username, qList.get(i).getId(), grade);
+            quizDao.gradeAnsweredQuestion(quizName, checkReq, qList.get(i).getId(), grade);
         }
-        quizDao.checkQuiz(quizName, username);
-        return HomePageUtils.setHomeParameters(author, "true", questionDao, quizDao, requestDao, userDao);
+        quizDao.checkQuiz(quizName, checkReq);
+        return HomePageUtils.setHomeParameters(username, "true", questionDao, quizDao, requestDao, userDao);
     }
 }

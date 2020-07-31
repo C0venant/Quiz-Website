@@ -20,7 +20,7 @@ public interface QuizService {
 
     ModelAndView fetchNextQuestion(String username, String quizName, String nextQuestion, int index, String userAnswer);
 
-    ModelAndView prepareQuizForCheck(String username, String quizName, String author);
+    ModelAndView prepareQuizForCheck(String username, String quizName, String checkReq);
 
-    ModelAndView submitQuizScore(String username, String quizName, String author, HttpServletRequest req);
+    ModelAndView submitQuizScore(String username, String quizName, String checkReq, HttpServletRequest req);
 }

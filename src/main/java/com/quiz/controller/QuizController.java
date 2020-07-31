@@ -56,16 +56,16 @@ public class QuizController {
     }
 
     @RequestMapping("/gradeQuiz")
-    public ModelAndView gradeQuiz(@RequestParam String username, @RequestParam String quizName, @RequestParam String author){
-        return quizService.prepareQuizForCheck(username, quizName, author);
+    public ModelAndView gradeQuiz(@RequestParam String username, @RequestParam String quizName, @RequestParam String checkReq){
+        return quizService.prepareQuizForCheck(username, quizName, checkReq);
     }
 
     @RequestMapping("/returnMarked")
     public ModelAndView returnMarked(@RequestParam String username,
                                      @RequestParam String quizName,
-                                     @RequestParam String author,
+                                     @RequestParam String checkReq,
                                      HttpServletRequest req){
-        return quizService.submitQuizScore(username, quizName, author, req);
+        return quizService.submitQuizScore(username, quizName, checkReq, req);
     }
 
 }

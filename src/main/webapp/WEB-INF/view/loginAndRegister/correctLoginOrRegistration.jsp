@@ -235,7 +235,7 @@
             List<UserCheck> checkList = (List<UserCheck>)request.getAttribute("needsChecking");
             for(UserCheck uc : checkList){
                 out.print("<tr><th><span>&#9679;</span>"+"<a href=\"/quiz-trial/gradeQuiz?quizName="+uc.getQuizName()+
-                        "&author="+request.getParameter("username")+"&username="+uc.getUsername()+"\">"+uc.getQuizName()+"</a></th>");
+                        "&username="+request.getParameter("username")+"&checkReq="+uc.getUsername()+"\">"+uc.getQuizName()+"</a></th>");
                 out.print("<th>"+uc.getUsername()+"</th></tr>");
             }
         %>
