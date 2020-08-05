@@ -1,6 +1,7 @@
+<%--suppress unchecked --%>
+<%@ page import="com.quiz.database.RequestDaoImplementation" %>
 <%@ page import="com.quiz.model.user.User" %>
-<%@ page import="java.util.List" %>
-<%@ page import="com.quiz.database.RequestDaoImplementation" %><%--
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: Quantori
   Date: 7/28/2020
@@ -11,26 +12,32 @@
 <html>
 <head>
     <title>Messenger</title>
-</head>
-<body>
-    <%
-        List<User> friendsLst = (List<User>)request.getAttribute("friends");
-        RequestDaoImplementation requestDao = (RequestDaoImplementation)request.getAttribute("requestDao");
-        String userName = request.getParameter("username");
-    %>
-    <form action="homepage" method="post">
-        <input type="hidden" name="username" value=<%=userName%>>
-        <input type="submit" value="Homepage">
-    </form>
 
-    <form action="markAllAsRead" method="post">
-        <input type="hidden" name="username" value=<%=userName%>>
-        <input type="submit" value="Mark all as read">
-    </form>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
+        .button {
+            border: none;
+            color: white;
+            padding: 12px 16px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .button1 {
+            background-color: DodgerBlue;
+        }
+
+        .button2 {
+            background-color: green;
+        }
+
+        /* Darker background on mouse-over */
+        .button1:hover {
+            background-color: RoyalBlue;
+        }
+
+        .button2:hover {
+            background-color: darkgreen;
         }
 
         .notification {
@@ -57,21 +64,39 @@
             color: white;
         }
     </style>
+</head>
+<body>
 
-    <h4>Your friends:</h4><br>
-    <%
-        int id = 0;
-        for(User usr : friendsLst){
-            int n = requestDao.getUnreadMessagesFromConcreteUser(userName, usr.getLoginName()).size();
-            String val =  usr.getLoginName() + "(" + usr.getFirstName() + " " + usr.getLastName() + ")";
-            out.print("<form name=\"requestForm" + id + "\"action=\"messageToUser\" class=\"notification\" method=\"post\">");
-            out.print("<input type=\"hidden\" name=\"username\" value=" + userName + ">");
-            out.print("<input type=\"hidden\" name=\"fromuser\" value=" + usr.getLoginName() + ">");
-            out.print("<span onclick=\"requestForm" + id + ".submit()\">" + val + "</span>");
-            out.print("<span class=\"badge\">" + n + "</span></form><br>");
-            id++;
-        }
-    %>
+<%
+    List<User> friendsLst = (List<User>) request.getAttribute("friends");
+    RequestDaoImplementation requestDao = (RequestDaoImplementation) request.getAttribute("requestDao");
+    String userName = request.getParameter("username");
+%>
+
+<form name="homepageForm" action="homepage" method="post">
+    <button class="button button1" onclick="homepageForm.submit()"><i class="fa fa-home"></i> Homepage</button>
+    <input type="hidden" name="username" value=<%=userName%>>
+</form>
+
+<form name="readForm" action="markAllAsRead" method="post">
+    <button class="button button2" onclick="readForm.submit()"><i class="fa fa-check"></i> Mark all as read</button>
+    <input type="hidden" name="username" value=<%=userName%>>
+</form>
+
+<h4>Your friends:</h4><br>
+<%
+    int id = 0;
+    for (User usr : friendsLst) {
+        int n = requestDao.getUnreadMessagesFromConcreteUser(userName, usr.getLoginName()).size();
+        String val = usr.getLoginName() + "(" + usr.getFirstName() + " " + usr.getLastName() + ")";
+        out.print("<form name=\"requestForm" + id + "\"action=\"messageToUser\" class=\"notification\" method=\"post\">");
+        out.print("<input type=\"hidden\" name=\"username\" value=" + userName + ">");
+        out.print("<input type=\"hidden\" name=\"fromuser\" value=" + usr.getLoginName() + ">");
+        out.print("<span onclick=\"requestForm" + id + ".submit()\">" + val + "</span>");
+        out.print("<span class=\"badge\">" + n + "</span></form><br>");
+        id++;
+    }
+%>
 </body>
 </html>
 
