@@ -15,7 +15,7 @@
             font-family: Arial, Helvetica, sans-serif;
         }
 
-        .btn {
+        .button {
             background-color: DodgerBlue;
             border: none;
             color: white;
@@ -25,7 +25,7 @@
         }
 
         /* Darker background on mouse-over */
-        .btn:hover {
+        .button:hover {
             background-color: RoyalBlue;
         }
 

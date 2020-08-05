@@ -14,8 +14,7 @@
     <title>Friend requests</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-        .btn {
-            background-color: DodgerBlue;
+        .button {
             border: none;
             color: white;
             padding: 12px 16px;
@@ -23,8 +22,12 @@
             cursor: pointer;
         }
 
+        .button1 {
+            background-color: DodgerBlue;
+        }
+
         /* Darker background on mouse-over */
-        .btn:hover {
+        .button:hover {
             background-color: RoyalBlue;
         }
 
@@ -89,7 +92,7 @@
 </head>
 <body>
 <form name="homepageForm" action="homepage" method="post">
-    <button class="btn" onclick="homepageForm.submit()"><i class="fa fa-home"></i> Homepage</button>
+    <button class="button button1" onclick="homepageForm.submit()"><i class="fa fa-home"></i> Homepage</button>
     <input type="hidden" name="username" value=<%=request.getParameter("username")%>>
 </form>
 
