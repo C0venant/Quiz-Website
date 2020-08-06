@@ -210,7 +210,7 @@
         </table>
     </div>
     <div class="column">
-        <h4>Your Quizzes: </h4>
+        <h4><var>Your Quizzes:</var></h4>
         <table class="content-table">
             <thead>
             <tr>
