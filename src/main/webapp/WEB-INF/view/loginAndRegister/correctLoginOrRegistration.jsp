@@ -231,7 +231,7 @@
             </tbody>
         </table>
 
-        <h4>Returned with mark: </h4>
+        <h4><var>Returned with mark:</var> </h4>
         <table class="content-table">
             <thead>
             <tr>
