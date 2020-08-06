@@ -99,7 +99,7 @@
         }
     </style>
 </head>
-<div class = "container"
+<div class = "container">
 <body onload="determineIfQuestionCreated()">
 <%
     String somethingChanged = (String) request.getAttribute("somethingChanged");
@@ -172,7 +172,7 @@
                 <i class="fa fa-sign-in" aria-hidden="true"></i>create Quiz</button>
         </form>
 
-        <h4>Your questions:</h4>
+        <h4><var>Your questions:</var></h4>
         <table class="content-table">
             <thead>
             <tr>
