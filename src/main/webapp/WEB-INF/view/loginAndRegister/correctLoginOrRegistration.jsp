@@ -141,7 +141,8 @@
         </form>
 
         <form name="logoutForm" action="logout" method="post">
-            <button class="btn btn-danger" onclick="logoutForm.submit()">Logout</button>
+            <button class="btn btn-danger" onclick="logoutForm.submit()">
+                <i class="fa fa-sign-in" aria-hidden="true"></i>Logout</button>
         </form>
 
 
@@ -156,13 +157,19 @@
         %>
 
         <form action="createQuestion_basic" method="post">
+            <button class="btn btn-primary" onclick="let createQuestion_basic;
+            createQuestion_basic.submit()">
+            <i class="fa fa-sign-in" aria-hidden="true"></i>create Question</button>
             <input type="hidden" id="user" name="username" value=<%= request.getParameter("username")%>>
-            <input type="submit" value="create Question">
         </form>
+
+
 
         <form action="chooseQuestions" method="post">
             <input type="hidden" id="user2" name="username" value=<%= request.getParameter("username")%>>
-            <input type="submit" value="create Quiz">
+            <button class="btn btn-info" onclick="let chooseQuestions;
+            chooseQuestions.submit()">
+                <i class="fa fa-sign-in" aria-hidden="true"></i>create Quiz</button>
         </form>
 
         <h4>Your questions:</h4>
