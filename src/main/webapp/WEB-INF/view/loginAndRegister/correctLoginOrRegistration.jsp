@@ -119,7 +119,7 @@
 
 <div class="row">
     <div class="column">
-        <h1>Welcome <%= request.getParameter("username")%>
+        <h1>Welcome <var> <%= request.getParameter("username")%> <var/>
         </h1>
         <%
             List<Request> friendReqs = (List<Request>) request.getAttribute("friendRequests");
@@ -248,9 +248,7 @@
             %>
             </tbody>
         </table>
-
-
-        <h4>Requires Checking: </h4>
+        <h4><var>Requires Checking:</var> </h4>
         <table class="content-table">
             <thead>
             <tr>
@@ -270,7 +268,7 @@
             </tbody>
         </table>
 
-        <h4>Global quizzes: </h4>
+        <h4><var>Global quizzes:</var> </h4>
         <table class="content-table">
             <thead>
             <tr>
