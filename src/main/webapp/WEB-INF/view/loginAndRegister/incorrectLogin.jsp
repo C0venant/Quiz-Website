@@ -1,4 +1,11 @@
-<%@ page contentType="text/html;charset=UTF-8" isELIgnored="false" %>
+<%--
+  Created by IntelliJ IDEA.
+  User: Irakli
+  Date: 7/22/2020
+  Time: 6:24 PM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>Welcome</title>
@@ -6,33 +13,10 @@
         body {
             font-family: Arial, Helvetica, sans-serif;
         }
-
-        .button {
-            border: none;
-            color: white;
-            padding: 8px 14px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-        }
-
-        .button1 {
-            background-color: blue; /* Green */
-            border-radius: 8px;
-        }
-
-        .button2 {
-            background-color: green; /* Green */
-            border-radius: 8px;
-        }
-
         .content-table {
             border-collapse: collapse;
-            margin-left: auto;
-            margin-right: auto;
+            margin-left:auto;
+            margin-right:auto;
             font-size: 0.9em;
             min-width: 400px;
             border-radius: 5px 5px 0 0;
@@ -70,22 +54,24 @@
 
 <body>
 
+
 <form action="login" method="post">
-    <table class="content-table">
+    <table class="content-table" >
         <thead>
         <tr>
-            <th>Welcome to quiz website</th>
+            <th>Information Incorrect</th>
         </tr>
         </thead>
         <tbody>
         <tr><th>
-            <h4>Please log in or create new account</h4>
+            <h4>Please Try Again</h4>
+            <p>Either your user name or password is incorrect.</p>
             <label for ="uName"> User Name: </label>
-            <input type ="text" name="username" id="uName" placeholder="Your user name..." required><br><br>
+            <input type ="text" name="username" id="uName" required><br><br>
             <label for="password"> Password:</label>
-            <input type="password" name="password" id="password" placeholder="Your password..."  required><br><br>
-            <button class="button button1" type="submit">Submit</button><br>
-            <p><a href="createAccount" class="button button2">Create New Account</a></p>
+            <input type="password" name="password" id="password" required><br><br>
+            <button type="submit">Submit</button><br>
+            <p><a href="createAccount">Create New Account</a></p>
         </th></tr>
         </tbody>
     </table>
