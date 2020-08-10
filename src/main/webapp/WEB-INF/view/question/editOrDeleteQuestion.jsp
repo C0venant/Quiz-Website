@@ -69,7 +69,7 @@
 <body>
 
 <form name="homepageForm" action="homepage" method="post">
-    <button class="btn" onclick="homepageForm.submit()"><i class="fa fa-home"></i> Homepage</button>
+    <button class="button" onclick="homepageForm.submit()"><i class="fa fa-home"></i> Homepage</button>
     <input type="hidden" name="username" value=<%=request.getParameter("username")%>>
 </form>
 

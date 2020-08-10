@@ -1,5 +1,8 @@
+<%--suppress ALL --%>
+<%--suppress Convert2Diamond --%>
 <%--suppress unchecked --%>
-<%@ page import="com.quiz.database.RequestDaoImplementation" %>
+<%--suppress Convert2Diamond --%>
+<%--suppress unchecked --%>
 <%@ page import="com.quiz.model.request.Request" %>
 <%@ page import="com.quiz.model.user.User" %>
 <%@ page import="java.util.HashMap" %>
@@ -24,64 +27,105 @@
 <head>
     <title>Messenger | <%=fromUser.getFirstName()%> <%=fromUser.getLastName()%>
     </title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .button {
+            border: none;
+            color: white;
+            padding: 12px 16px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .button1 {
+            background-color: DodgerBlue;
+        }
+
+        .button2 {
+            background-color: coral;
+        }
+
+        /* Darker background on mouse-over */
+        .button1:hover {
+            background-color: RoyalBlue;
+        }
+
+        .button2:hover {
+            background-color: lightcoral;
+        }
+
+        textarea {
+            width: 40%;
+            height: 50px;
+            padding: 12px 20px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            background-color: #f8f8f8;
+            font-size: 16px;
+            resize: none;
+        }
+
+        .section {
+            max-height: 400px;
+            overflow-y: auto;
+            margin: 32px 64px;
+            display: flex;
+            flex-direction: column-reverse;
+        }
+
+        .sendMessage {
+            margin: 8px 64px;
+        }
+
+        .container {
+            border: 2px solid #dedede;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        .darker {
+            border-color: coral;
+            background-color: coral;
+        }
+
+        .container::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        .container text {
+            float: left;
+            max-width: 60px;
+            width: 100%;
+            margin-right: 20px;
+            border-radius: 50%;
+        }
+
+        .container text.right {
+            float: right;
+            margin-left: 20px;
+            margin-right: 0;
+        }
+
+    </style>
 </head>
 <body>
-<form action="homepage" method="post">
+<form name="homepageForm" action="homepage" method="post">
+    <button class="button button1" onclick="homepageForm.submit()"><i class="fa fa-home"></i> Homepage</button>
     <input type="hidden" name="username" value=<%=userName%>>
-    <input type="submit" value="Homepage">
 </form>
 
-<form action="messenger" method="post">
+<form name="friendRequests" action="messenger" method="post">
     <input type="hidden" name="username" value=<%=userName%>>
-    <input type="submit" value="Messenger Main Page">
+    <button class="button button2" onclick="friendRequests.submit()"><i class="fa fa-home"></i> Messenger Main
+        Page
+    </button>
 </form>
-
-<style>
-    .section {
-        max-height: 400px;
-        overflow-y: auto;
-        margin: 32px 64px;
-        display: flex;
-        flex-direction: column-reverse;
-    }
-
-    .sendMessage {
-        margin: 8px 64px;
-    }
-
-    .container {
-        border: 2px solid #dedede;
-        background-color: #f1f1f1;
-        border-radius: 5px;
-        padding: 10px;
-        margin: 10px 0;
-    }
-
-    .darker {
-        border-color: coral;
-        background-color: coral;
-    }
-
-    .container::after {
-        content: "";
-        clear: both;
-        display: table;
-    }
-
-    .container text {
-        float: left;
-        max-width: 60px;
-        width: 100%;
-        margin-right: 20px;
-        border-radius: 50%;
-    }
-
-    .container text.right {
-        float: right;
-        margin-left: 20px;
-        margin-right: 0;
-    }
-</style>
 
 <h2>Chat Messages</h2>
 
@@ -125,7 +169,7 @@
     <input type="hidden" id="touser" name="touser" value=<%=fromUser.getLoginName()%>>
     <input type="hidden" id="username" name="username" value=<%=userName%>>
     <label for="messageText">Text: </label><textarea id="messageText" name="messageText"></textarea>
-    <button onclick="sendFunction()">Send Messsage</button>
+    <button class="button button1" onclick="sendFunction()"><i class="fa fa-paper-plane"></i> Send Messsage</button>
 </div>
 
 
@@ -134,7 +178,7 @@
         const userName = document.getElementById("username").value;
         const toUser = document.getElementById("touser").value;
         const messageText = document.getElementById("messageText").value;
-        if(!messageText) return;
+        if (!messageText) return;
         fetch("/quiz-trial/sendMessage?username=" + userName + "&touser=" + toUser + "&messageText=" + messageText)
             .then((e) => console.log(e)).catch(e => console.error(e));
         location.reload();
