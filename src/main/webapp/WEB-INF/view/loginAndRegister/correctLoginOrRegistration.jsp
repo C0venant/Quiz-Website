@@ -1,3 +1,4 @@
+<%--suppress ALL --%>
 <%--suppress unchecked --%>
 <%@ page import="com.quiz.model.quiz.Quiz" %>
 <%@ page import="com.quiz.model.quiz.question.QuestionBasic" %>
@@ -39,6 +40,7 @@
 
         .button2 {background-color: #008CBA;} /* Blue */
         .button3 {background-color: #f44336;} /* Red */
+        .button4 {background-color: yellow}
 
         * {
             box-sizing: border-box;
@@ -163,8 +165,8 @@
             <%
                 Boolean isAdmin = (Boolean) request.getAttribute("isAdmin");
                 if (isAdmin) {
-                    out.print("<form action=\"listQuizAndUsers\" method=\"post\">");
-                    out.print("<input type=\"submit\" value=\"Admin options\">");
+                    out.print("<form name=\"listForm\" action=\"listQuizAndUsers\" method=\"post\">");
+                    out.print("<button class=\"button button4\" onclick=\"listForm.submit()\">Admin options</button>");
                     out.print("<input type=\"hidden\" name=\"username\" value=\"" + request.getParameter("username") + "\">");
                     out.print("</form>");
                 }
