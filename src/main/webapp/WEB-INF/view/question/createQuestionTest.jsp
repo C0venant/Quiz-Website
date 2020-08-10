@@ -1,3 +1,4 @@
+<%--suppress ALL --%>
 <%--
   Created by IntelliJ IDEA.
   User: HP
@@ -24,9 +25,17 @@
             cursor: pointer;
         }
 
+        .button1 {
+            background-color: green;
+        }
+
         /* Darker background on mouse-over */
         .button:hover {
             background-color: RoyalBlue;
+        }
+
+        .button1:hover {
+            background-color: darkgreen;
         }
 
         .content-table {
@@ -80,7 +89,7 @@
     <tbody>
     <tr>
         <th>
-            <form action="registerQuestion" method="post">
+            <form name="regForm" action="registerQuestion" method="post">
                 <input type="hidden" id="user" name="username" value=<%= request.getParameter("username")%>>
                 <h4>Create your question: </h4><br>
 
@@ -109,8 +118,8 @@
                 <textarea id="answers" name="answers" rows="1" cols="50" placeholder="enter probable answers"
                           required></textarea><br><br>
 
-
-                <input type="submit" value="create">
+                <button class="button button1" onclick="regForm.submit()"><i class="fa fa-question-circle"></i> Create
+                </button>
             </form>
         </th>
     </tr>

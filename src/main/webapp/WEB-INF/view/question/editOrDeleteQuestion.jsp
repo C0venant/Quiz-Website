@@ -1,3 +1,4 @@
+<%--suppress ALL --%>
 <%@ page import="com.quiz.model.quiz.question.QuestionBasic" %>
 <%@ page import="com.quiz.model.quiz.question.QuestionTest" %>
 <%@ page import="com.quiz.model.quiz.question.utils.QuestionType" %><%--
@@ -26,9 +27,25 @@
             cursor: pointer;
         }
 
+        .button1 {
+            background-color: green;
+        }
+
+        .button2 {
+            background-color: red;
+        }
+
         /* Darker background on mouse-over */
         .button:hover {
             background-color: RoyalBlue;
+        }
+
+        .button1:hover {
+            background-color: darkgreen;
+        }
+
+        .button2:hover {
+            background-color: darkred;
         }
 
         .content-table {
@@ -82,7 +99,7 @@
     <tbody>
     <tr>
         <th>
-            <form action="editQuestion" method="post">
+            <form name="editForm" action="editQuestion" method="post">
                 <input type="hidden" id="user" name="username" value=<%= request.getParameter("username")%>>
                 <input type="hidden" id="id" name="id" value=<%= request.getParameter("id")%>>
                 <%
@@ -110,14 +127,13 @@
                         out.print("</textarea><br><br>");
                     }
                 %>
-
-                <input type="submit" value="edit">
+                <button class="button button1" onclick="editForm.submit()"><i class="fa fa-edit"></i> Edit</button>
             </form>
 
-            <form action="deleteQuestion" method="post">
+            <form name="delForm" action="deleteQuestion" method="post">
                 <input type="hidden" id="user2" name="username" value=<%= request.getParameter("username")%>>
                 <input type="hidden" id="id1" name="id" value=<%= request.getParameter("id")%>>
-                <input type="submit" value="delete">
+                <button class="button button2" onclick="delForm.submit()"><i class="fa fa-trash"></i> Delete</button>
             </form>
         </th>
     </tr>
