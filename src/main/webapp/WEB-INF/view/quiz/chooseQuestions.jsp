@@ -17,6 +17,20 @@
         body {
             font-family: Arial, Helvetica, sans-serif;
         }
+
+        .button {
+            border: none;
+            background-color: green;
+            color: white;
+            padding: 12px 16px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .button:hover{
+            background-color: darkgreen;
+        }
+
         .content-table {
             border-collapse: collapse;
             margin: 25px 0;
@@ -53,7 +67,7 @@
     </style>
 </head>
 <body>
-<form action="assembleQuestions" method="post">
+<form name="assembleForm" action="assembleQuestions" method="post">
 <table class="content-table">
     <thead>
     <tr>
@@ -96,7 +110,7 @@
     </tbody>
 </table>
 <input type="hidden" id="user" name="username" value=<%= request.getParameter("username")%>>
-<input type="submit" value="create Quiz">
+<button class="button" onclick="assembleForm.submit()"> Create quiz</button>
 </form>
 </body>
 </html>

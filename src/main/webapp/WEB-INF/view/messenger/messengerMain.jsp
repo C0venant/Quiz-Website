@@ -1,3 +1,4 @@
+<%--suppress ALL --%>
 <%--suppress unchecked --%>
 <%@ page import="com.quiz.database.RequestDaoImplementation" %>
 <%@ page import="com.quiz.model.user.User" %>

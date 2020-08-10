@@ -14,10 +14,42 @@
 <html>
 <head>
     <title>Quiz view</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
         }
+
+        .button {
+            background-color: DodgerBlue;
+            border: none;
+            color: white;
+            padding: 12px 16px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .button1 {
+            background-color: green;
+        }
+
+        .button2 {
+            background-color: red;
+        }
+
+        /* Darker background on mouse-over */
+        .button:hover {
+            background-color: RoyalBlue;
+        }
+
+        .button1:hover {
+            background-color: darkgreen;
+        }
+
+        .button2:hover {
+            background-color: darkred;
+        }
+
         .content-table {
             border-collapse: collapse;
             margin: 25px 0;
@@ -106,23 +138,22 @@
 
 
     <tr><th>
-<form action="deleteQuiz" method="post">
+<form name="delForm" action="deleteQuiz" method="post">
     <%
         Quiz quiz3 = (Quiz)request.getAttribute("quiz");
         out.print("<input type=\"hidden\" id=\"quiz\" name=\"quizName\" value=\""+quiz3.getQuizName()+"\">");
     %>
     <input type="hidden" id="user" name="username" value=<%= request.getParameter("username")%>>
-    <input type="submit" value="delete">
-
+    <button class="button button2" onclick="delForm.submit()"><i class="fa fa-trash"></i> Delete</button>
 </form>
 
-<form action="enrollQuiz" method="post">
+<form name="enrollForm" action="enrollQuiz" method="post">
     <%
         Quiz quiz2 = (Quiz)request.getAttribute("quiz");
         out.print("<input type=\"hidden\" id=\"quiz2\" name=\"quizName\" value=\""+quiz2.getQuizName()+"\">");
     %>
     <input type="hidden" id="user2" name="username" value=<%= request.getParameter("username")%>>
-    <input type="submit" value="enroll">
+    <button class="button button1" onclick="enrollForm.submit()"><i class="fa fa-pencil"></i> Enroll</button>
 </form>
     </th></tr>
         </tbody>

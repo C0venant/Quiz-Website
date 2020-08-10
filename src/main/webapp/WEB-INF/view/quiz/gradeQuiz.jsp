@@ -1,3 +1,4 @@
+<%--suppress ALL --%>
 <%@ page import="com.quiz.model.quiz.Quiz" %>
 <%@ page import="com.quiz.model.quiz.question.QuestionBasic" %>
 <%@ page import="com.quiz.model.quiz.question.utils.QuestionType" %>
@@ -14,10 +15,25 @@
 <html>
 <head>
     <title>Grade Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
         }
+
+        .button {
+            border: none;
+            background-color: green;
+            color: white;
+            padding: 12px 16px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .button:hover{
+            background-color: darkgreen;
+        }
+
         .content-table {
             border-collapse: collapse;
             margin: 25px 0;
@@ -54,7 +70,7 @@
     </style>
 </head>
 <body>
-<form action="returnMarked" method="post">
+<form name="returnForm" action="returnMarked" method="post">
 
     <table class="content-table">
         <thead>
@@ -135,7 +151,7 @@
 
     <input type="hidden" id="user1" name="checkReq" value=<%= request.getParameter("checkReq")%>>
     <input type="hidden" id="user2" name="username" value=<%= request.getParameter("username")%>>
-    <input type="submit" value="return marked">
+    <button class="button" onclick="returnForm.submit()"><i class="fa fa-thumb-tack"></i> Return marked</button>
 
 </form>
 
