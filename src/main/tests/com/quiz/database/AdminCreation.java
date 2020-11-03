@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import static org.junit.Assert.*;
+
 public class AdminCreation {
 
     private UserDaoImplementation userDao;
